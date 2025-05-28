@@ -1,0 +1,66 @@
+## Build Results
+bin/
+obj/
+
+## Visual Studio files
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Build Logs
+*.log
+
+## Temporary Files
+~$*
+*.tmp
+*.temp
+
+## OS Files
+.DS_Store
+Thumbs.db
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## Rider
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+
+## Others
+*.dbmdl
+*.bak
+*.cache
+*.pidb
+*.svclog
+
+## Publish
+*.publishsettings
+*.pubxml
+
+# Ignore test results
+TestResults/
+
+# Local history
+.localhistory/
+
+# Backup & report files
+*.orig
+*.report
+
+# User-specific files
+*.tss
