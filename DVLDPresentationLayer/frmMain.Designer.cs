@@ -28,39 +28,158 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAccountSettings = new System.Windows.Forms.Button();
+            this.btnUsers = new System.Windows.Forms.Button();
+            this.btnDrivers = new System.Windows.Forms.Button();
+            this.btnPeople = new System.Windows.Forms.Button();
+            this.btnApplications = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Sienna;
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnAccountSettings);
+            this.panel1.Controls.Add(this.btnUsers);
+            this.panel1.Controls.Add(this.btnDrivers);
+            this.panel1.Controls.Add(this.btnPeople);
+            this.panel1.Controls.Add(this.btnApplications);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(803, 61);
+            this.panel1.Size = new System.Drawing.Size(984, 65);
             this.panel1.TabIndex = 0;
+            // 
+            // btnAccountSettings
+            // 
+            this.btnAccountSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnAccountSettings.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAccountSettings.FlatAppearance.BorderSize = 0;
+            this.btnAccountSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAccountSettings.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAccountSettings.ForeColor = System.Drawing.Color.Black;
+            this.btnAccountSettings.Image = global::DVLDPresentationLayer.Properties.Resources.account_settings_64;
+            this.btnAccountSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAccountSettings.Location = new System.Drawing.Point(523, 0);
+            this.btnAccountSettings.Name = "btnAccountSettings";
+            this.btnAccountSettings.Size = new System.Drawing.Size(190, 65);
+            this.btnAccountSettings.TabIndex = 4;
+            this.btnAccountSettings.Text = "Account Settings";
+            this.btnAccountSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAccountSettings.UseVisualStyleBackColor = false;
+            // 
+            // btnUsers
+            // 
+            this.btnUsers.BackColor = System.Drawing.Color.Transparent;
+            this.btnUsers.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnUsers.FlatAppearance.BorderSize = 0;
+            this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsers.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold);
+            this.btnUsers.ForeColor = System.Drawing.Color.Black;
+            this.btnUsers.Image = global::DVLDPresentationLayer.Properties.Resources.Users_2_64;
+            this.btnUsers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUsers.Location = new System.Drawing.Point(406, 0);
+            this.btnUsers.Name = "btnUsers";
+            this.btnUsers.Size = new System.Drawing.Size(117, 65);
+            this.btnUsers.TabIndex = 3;
+            this.btnUsers.Text = "Users";
+            this.btnUsers.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnUsers.UseVisualStyleBackColor = false;
+            // 
+            // btnDrivers
+            // 
+            this.btnDrivers.BackColor = System.Drawing.Color.Transparent;
+            this.btnDrivers.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnDrivers.FlatAppearance.BorderSize = 0;
+            this.btnDrivers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDrivers.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold);
+            this.btnDrivers.ForeColor = System.Drawing.Color.Black;
+            this.btnDrivers.Image = global::DVLDPresentationLayer.Properties.Resources.Drivers_64;
+            this.btnDrivers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDrivers.Location = new System.Drawing.Point(282, 0);
+            this.btnDrivers.Name = "btnDrivers";
+            this.btnDrivers.Size = new System.Drawing.Size(124, 65);
+            this.btnDrivers.TabIndex = 2;
+            this.btnDrivers.Text = "Drivers";
+            this.btnDrivers.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDrivers.UseVisualStyleBackColor = false;
+            // 
+            // btnPeople
+            // 
+            this.btnPeople.BackColor = System.Drawing.Color.Transparent;
+            this.btnPeople.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPeople.FlatAppearance.BorderSize = 0;
+            this.btnPeople.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPeople.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPeople.ForeColor = System.Drawing.Color.Black;
+            this.btnPeople.Image = ((System.Drawing.Image)(resources.GetObject("btnPeople.Image")));
+            this.btnPeople.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPeople.Location = new System.Drawing.Point(156, 0);
+            this.btnPeople.Name = "btnPeople";
+            this.btnPeople.Size = new System.Drawing.Size(126, 65);
+            this.btnPeople.TabIndex = 1;
+            this.btnPeople.Text = "People";
+            this.btnPeople.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPeople.UseVisualStyleBackColor = false;
+            this.btnPeople.Click += new System.EventHandler(this.btnPeople_Click);
+            // 
+            // btnApplications
+            // 
+            this.btnApplications.BackColor = System.Drawing.Color.Transparent;
+            this.btnApplications.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnApplications.FlatAppearance.BorderSize = 0;
+            this.btnApplications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnApplications.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold);
+            this.btnApplications.ForeColor = System.Drawing.Color.Black;
+            this.btnApplications.Image = global::DVLDPresentationLayer.Properties.Resources.Applications_64;
+            this.btnApplications.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnApplications.Location = new System.Drawing.Point(0, 0);
+            this.btnApplications.Name = "btnApplications";
+            this.btnApplications.Size = new System.Drawing.Size(156, 65);
+            this.btnApplications.TabIndex = 0;
+            this.btnApplications.Text = "Applications";
+            this.btnApplications.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnApplications.UseVisualStyleBackColor = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 65);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(984, 497);
+            this.panel2.TabIndex = 1;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.PeachPuff;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 61);
+            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.DVLD_Logo;
+            this.pictureBox1.Location = new System.Drawing.Point(351, 111);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(803, 349);
-            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.Size = new System.Drawing.Size(282, 274);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 410);
-            this.Controls.Add(this.pictureBox1);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ClientSize = new System.Drawing.Size(984, 562);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Driving Licence Management";
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -69,6 +188,12 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnAccountSettings;
+        private System.Windows.Forms.Button btnUsers;
+        private System.Windows.Forms.Button btnDrivers;
+        private System.Windows.Forms.Button btnPeople;
+        private System.Windows.Forms.Button btnApplications;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

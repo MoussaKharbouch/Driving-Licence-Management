@@ -10,11 +10,23 @@ using System.Windows.Forms;
 
 namespace DVLDPresentationLayer
 {
+
     public partial class frmMain : Form
     {
+
         public frmMain()
         {
             InitializeComponent();
         }
+
+        private void btnPeople_Click(object sender, EventArgs e)
+        {
+
+            frmManagePeople ManagePeople = new frmManagePeople();
+            ManagePeople.ShowDialog();
+
+        }
+
     }
+
 }
