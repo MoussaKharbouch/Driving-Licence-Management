@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace DVLDPresentationLayer
 {
+
     static class Program
     {
         /// <summary>
@@ -14,9 +15,21 @@ namespace DVLDPresentationLayer
         [STAThread]
         static void Main()
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+
+            frmLogin Login = new frmLogin();
+
+            if (Login.ShowDialog() == DialogResult.OK)
+            {
+
+                Application.Run(new frmMain(Login.user));
+
+            }
+
         }
+
     }
+
 }

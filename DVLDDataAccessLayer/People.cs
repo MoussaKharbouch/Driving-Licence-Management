@@ -170,12 +170,12 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static bool AddPerson(string NationalNo, string FirstName, string SecondName,
+        public static bool AddPerson(ref int PersonID, string NationalNo, string FirstName, string SecondName,
                                      string ThirdName, string LastName, DateTime DateOfBirth, int Gender,
                                      string Address, string Phone, string Email, int NationalityCountryID, string ImagePath)
         {
 
-            int PersonID = -1;
+            PersonID = -1;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
@@ -228,7 +228,7 @@ namespace DVLDDataAccessLayer
                 connection.Open();
 
                 object result = command.ExecuteScalar();
-                PersonID = Convert.ToInt32(result);
+                int.TryParse(result.ToString(), out PersonID);
 
             }
             finally

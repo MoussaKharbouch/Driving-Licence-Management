@@ -120,7 +120,7 @@ namespace DVLDPresentationLayer
 
         }
 
-        private void LoadPeopleDate()
+        private void LoadPeopleData()
         {
 
             DataTable dtPeople = Person.GetPeopleMainInfo();
@@ -144,7 +144,7 @@ namespace DVLDPresentationLayer
         {
 
             LoadFilters();
-            LoadPeopleDate();
+            LoadPeopleData();
 
         }
 
@@ -194,7 +194,7 @@ namespace DVLDPresentationLayer
                 if (person.ImagePath != string.Empty)
                     DeleteImage(person.ImagePath);
 
-                LoadPeopleDate();
+                LoadPeopleData();
 
             }
             else
@@ -210,7 +210,7 @@ namespace DVLDPresentationLayer
         {
 
             frmShowDetails ShowDetails = new frmShowDetails(Convert.ToInt32(dgvPeople.CurrentRow.Cells["PersonID"].Value));
-            ShowDetails.OnSaveEventHandler += LoadPeopleDate;
+            ShowDetails.OnSaveEventHandler += LoadPeopleData;
 
             ShowDetails.ShowDialog();
 
@@ -225,7 +225,7 @@ namespace DVLDPresentationLayer
                 int PersonID = Convert.ToInt32(dgvPeople.SelectedRows[0].Cells["PersonID"].Value);
 
                 frmAddEditPerson EditPerson = new frmAddEditPerson(PersonID);
-                EditPerson.OnSaveEventHandler += LoadPeopleDate;
+                EditPerson.OnSaveEventHandler += LoadPeopleData;
 
                 EditPerson.ShowDialog();
 
@@ -243,7 +243,7 @@ namespace DVLDPresentationLayer
         {
 
             frmAddEditPerson AddPerson = new frmAddEditPerson();
-            AddPerson.OnSaveEventHandler += LoadPeopleDate;
+            AddPerson.OnSaveEventHandler += LoadPeopleData;
 
             AddPerson.ShowDialog();
 

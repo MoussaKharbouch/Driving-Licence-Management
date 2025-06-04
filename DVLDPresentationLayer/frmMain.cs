@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DVLDBusinessLayer;
+using DVLDPresentationLayer.Users;
 
 namespace DVLDPresentationLayer
 {
@@ -14,9 +16,21 @@ namespace DVLDPresentationLayer
     public partial class frmMain : Form
     {
 
-        public frmMain()
+        //Remember me
+
+        public frmMain(User user)
         {
+
             InitializeComponent();
+
+            if (user != null)
+            {
+
+                Global.user = user;
+                lblUsername.Text = Global.user.Username;
+
+            }
+
         }
 
         private void btnPeople_Click(object sender, EventArgs e)
@@ -24,6 +38,14 @@ namespace DVLDPresentationLayer
 
             frmManagePeople ManagePeople = new frmManagePeople();
             ManagePeople.ShowDialog();
+
+        }
+
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+
+            frmManageUsers ManageUsers = new frmManageUsers();
+            ManageUsers.Show();
 
         }
 

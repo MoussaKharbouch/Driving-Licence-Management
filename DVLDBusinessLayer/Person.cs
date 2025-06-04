@@ -91,9 +91,10 @@ namespace DVLDBusinessLayer
         public string FullName()
         {
 
-            return (FirstName + " " + SecondName + " " + ThirdName + " " + LastName);
+            return (FirstName + " " + SecondName + " " + ThirdName + " " + LastName).Trim();
 
         } 
+        
         public static Person FindPerson(int PersonID)
         {
 
@@ -157,8 +158,14 @@ namespace DVLDBusinessLayer
         private bool Add()
         {
 
-            return PeopleData.AddPerson(NationalNo, FirstName, SecondName, ThirdName, LastName,
+            int PersonID = this.PersonID;
+
+            bool succedded = PeopleData.AddPerson(ref PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
                                         DateOfBirth, (int)Gender, Address, Phone, Email, NationalityCountryID, ImagePath);
+
+            this.PersonID = PersonID;
+
+            return succedded;
 
         }
 
@@ -173,18 +180,18 @@ namespace DVLDBusinessLayer
         public bool Save()
         {
 
-            bool successed = false;
+            bool succedded = false;
 
             switch(Mode)
             {
 
                 case enMode.Add:
-                    successed = Add();
+                    succedded = Add();
                     Mode = enMode.Update;
                     break;
 
                 case enMode.Update:
-                    successed = Update();
+                    succedded = Update();
                     break;
 
                 default:
@@ -192,7 +199,7 @@ namespace DVLDBusinessLayer
 
             }
 
-            return successed;
+            return succedded;
 
         }
 

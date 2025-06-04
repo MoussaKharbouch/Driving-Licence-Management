@@ -36,6 +36,8 @@
             this.btnPeople = new System.Windows.Forms.Button();
             this.btnApplications = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -91,6 +93,7 @@
             this.btnUsers.Text = "Users";
             this.btnUsers.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUsers.UseVisualStyleBackColor = false;
+            this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
             // btnDrivers
             // 
@@ -149,12 +152,35 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lblUsername);
+            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 65);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(984, 497);
             this.panel2.TabIndex = 1;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.Font = new System.Drawing.Font("Rockwell", 10F, System.Drawing.FontStyle.Bold);
+            this.lblUsername.ForeColor = System.Drawing.Color.White;
+            this.lblUsername.Location = new System.Drawing.Point(169, 470);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(149, 17);
+            this.lblUsername.TabIndex = 4;
+            this.lblUsername.Text = "???";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Rockwell", 10F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(12, 470);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 18);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Logged in with user:";
             // 
             // pictureBox1
             // 
@@ -180,6 +206,7 @@
             this.Text = "Driving Licence Management";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -195,6 +222,8 @@
         private System.Windows.Forms.Button btnApplications;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label label1;
     }
 }
 
