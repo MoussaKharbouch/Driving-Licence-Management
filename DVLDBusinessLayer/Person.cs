@@ -160,12 +160,12 @@ namespace DVLDBusinessLayer
 
             int PersonID = this.PersonID;
 
-            bool succedded = PeopleData.AddPerson(ref PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
+            bool succeeded = PeopleData.AddPerson(ref PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
                                         DateOfBirth, (int)Gender, Address, Phone, Email, NationalityCountryID, ImagePath);
 
             this.PersonID = PersonID;
 
-            return succedded;
+            return succeeded;
 
         }
 
@@ -180,18 +180,18 @@ namespace DVLDBusinessLayer
         public bool Save()
         {
 
-            bool succedded = false;
+            bool succeeded = false;
 
             switch(Mode)
             {
 
                 case enMode.Add:
-                    succedded = Add();
+                    succeeded = Add();
                     Mode = enMode.Update;
                     break;
 
                 case enMode.Update:
-                    succedded = Update();
+                    succeeded = Update();
                     break;
 
                 default:
@@ -199,7 +199,7 @@ namespace DVLDBusinessLayer
 
             }
 
-            return succedded;
+            return succeeded;
 
         }
 

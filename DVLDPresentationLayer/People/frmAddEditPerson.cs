@@ -16,8 +16,8 @@ namespace DVLDPresentationLayer.People
     public partial class frmAddEditPerson : Form
     {
 
-        enum enMode { Add, Edit }
-        enMode Mode;
+        public enum enMode { Add, Edit }
+        public enMode Mode { get; private set; }
 
         Person person;
         string ImagePath = string.Empty;
@@ -25,6 +25,10 @@ namespace DVLDPresentationLayer.People
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
 
+        public delegate void OnSaveReturningPersonID(int PersonID);
+        public event OnSaveReturningPersonID OnSaveReturningPersonIDEventHandler;
+
+        //Constructor for add person mode
         public frmAddEditPerson()
         {
 
@@ -35,6 +39,7 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //Constructor for update person mode
         public frmAddEditPerson(int PersonID)
         {
 
@@ -45,8 +50,11 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //Show person's image in picturebox
         public void RefreshImage(string ImagePath, Person.enGender Gender)
         {
+
+            //If image is not empty it shows it
 
             if (ImagePath != string.Empty)
             {
@@ -65,6 +73,8 @@ namespace DVLDPresentationLayer.People
                 }
 
             }
+
+            //If image is empty it shows the gender of person
 
             if (ImagePath == string.Empty)
             {
@@ -87,10 +97,11 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //Fill countries (names only) in combobox from database
         private void FillCountries()
         {
 
-            DataTable dtCountriesNames = Country.GetCountriesNames();
+            DataTable dtCountriesNames = Country.GetCountries();
 
             foreach(DataRow drCountry in dtCountriesNames.Rows)
             {
@@ -101,6 +112,7 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //This function choose the right gender radio button in form
         private void ShowGender(Person.enGender gender)
         {
 
@@ -116,13 +128,16 @@ namespace DVLDPresentationLayer.People
                     rbFemale.Checked = true;
                     break;
                 default:
+                    rbMale.Checked = true;
+                    rbFemale.Checked = false;
                     break;
 
             }
 
         }
 
-        private void ShowInformations(Person person)
+        //Show person's information on form
+        private void ShowInformation(Person person)
         {
 
             lblPersonID.Text = person.PersonID.ToString();
@@ -139,9 +154,11 @@ namespace DVLDPresentationLayer.People
             tbAddress.Text = person.Address;
             tbPhone.Text = person.Phone;
 
-            FillCountries();
-            cbCountry.SelectedIndex = person.NationalityCountryID - 1;
+            //Choose the country in combobox
+            if (person.NationalityCountryID > 0 && cbCountry.Items.Count >= person.NationalityCountryID)
+                cbCountry.SelectedIndex = person.NationalityCountryID - 1;
 
+            //Select person's date of birth if he is bigger than 18 years, and shows error if he is smaller than 18 years
             if (person.DateOfBirth <= dtpBirthDate.MaxDate)
                 dtpBirthDate.Value = person.DateOfBirth;
             else
@@ -152,13 +169,11 @@ namespace DVLDPresentationLayer.People
 
             }
 
-            if (person.ImagePath != string.Empty)
-                ImagePath = person.ImagePath;
-
             RefreshImage(person.ImagePath, person.Gender);
 
         }
 
+        //Fill person object from user's inputs (controls)
         private void FillPerson(string ImagePath)
         {
 
@@ -182,24 +197,55 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //Convert form mode to update mode and edit it (show information...)
+        private void InitializeUpdatePersonWindow(Person person)
+        {
+
+            Mode = enMode.Edit;
+
+            Person newPerson = Person.FindPerson(person.PersonID);
+
+            if (newPerson != null)
+                ShowInformation(newPerson);
+            else
+                MessageBox.Show("This person is not available!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            lblMode.Text = "Update Person";
+
+        }
+
+        //Convert form mode to add mode and edit it
+        private void InitializeAddPersonWindow()
+        {
+
+            //Choose Algeria as default country
+            int algeriaIndex = cbCountry.FindString("Algeria");
+            if (algeriaIndex != -1)
+                cbCountry.SelectedIndex = algeriaIndex;
+
+            lblMode.Text = "Add New Person";
+
+        }
+
+        //Load event
         private void frmAddEditPerson_Load(object sender, EventArgs e)
         {
 
+            //Make sure the date in datetimepicker is more than 18 years before current date
             dtpBirthDate.MaxDate = DateTime.Today.AddYears(-18);
             dtpBirthDate.Value = DateTime.Today.AddYears(-18);
+
+            FillCountries();
 
             switch(Mode)
             {
 
                 case enMode.Edit:
-                    ShowInformations((person != null) ? person : new Person());
-                    lblMode.Text = "Update Person";
+                    InitializeUpdatePersonWindow(person);
                     break;
 
                 case enMode.Add:
-                    FillCountries();
-                    cbCountry.SelectedIndex = 2;
-                    lblMode.Text = "Add New Person";
+                    InitializeAddPersonWindow();
                     break;
 
                 default:
@@ -209,6 +255,29 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //Delete person's image from images's folder if he deleted it or replaced it
+        private void DeleteUnusedImage()
+        {
+
+            if ((ImagePath == string.Empty && person.ImagePath != string.Empty) || (ImagePath != string.Empty && person.ImagePath != string.Empty && ImagePath != person.ImagePath && Mode == enMode.Edit))
+            {
+
+                if (pictureBox1.Image != null)
+                {
+
+                    pictureBox1.Image.Dispose();
+                    pictureBox1.Image = null;
+
+                }
+
+                if (File.Exists(ImagePath))
+                    File.Delete(ImagePath);
+
+            }
+
+        }
+
+        //Replace gender image if radiobutton changed and person has not an image
         private void rbGender_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -216,29 +285,18 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //Show openfiledialog to set image
         private void linkSetImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
             if (ofdImage.ShowDialog() == DialogResult.OK)
                 ImagePath = ofdImage.FileName;
 
-            if (ImagePath != string.Empty)
-            {
-
-                if (File.Exists(ImagePath))
-                {
-
-                    if (pbProfileImage.Image != null)
-                        pbProfileImage.Image.Dispose();
-
-                    pbProfileImage.Image = Image.FromFile(ImagePath);
-
-                }
-
-            }
+            RefreshImage(ImagePath, person.Gender);
 
         }
 
+        //Remove person's image
         private void linkRemove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
@@ -252,6 +310,37 @@ namespace DVLDPresentationLayer.People
 
         }
 
+        //To copy person's image from originl path to images's folder
+        private string CopyPersonImage()
+        {
+
+            if (ImagePath != string.Empty && File.Exists(ImagePath))
+            {
+
+                string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImagePath);
+                string destPath = Path.Combine(Properties.Settings.Default.ImageFolderPath, newFileName);
+
+                //Copy image if exists
+                if (File.Exists(ImagePath))
+                {
+
+                    if (!Directory.Exists(Properties.Settings.Default.ImageFolderPath))
+                        Directory.CreateDirectory(Properties.Settings.Default.ImageFolderPath);
+
+                    if (!File.Exists(destPath))
+                        File.Copy(ImagePath, destPath);
+
+                }
+
+                return destPath;
+
+            }
+
+            return string.Empty;
+
+        }
+
+        //Close form
         private void btnClose_Click(object sender, EventArgs e)
         {
 
@@ -259,125 +348,113 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        private void CopyImage(string oldImagePath, string copyImageFolder, string copyImagePath)
-        {
-
-            if (File.Exists(oldImagePath))
-            {
-
-                if (!Directory.Exists(copyImageFolder))
-                    Directory.CreateDirectory(copyImageFolder);
-
-                if (!File.Exists(copyImagePath))
-                    File.Copy(oldImagePath, copyImagePath);
-
-            }
-
-        }
-
-        private void DeleteImage(string ImagePath)
-        {
-
-            if (File.Exists(ImagePath))
-                File.Delete(ImagePath);
-
-        }
-
-        private bool AreAllColumnCompleted()
-        {
-
-            return (tbFirstName.Text != string.Empty && tbLastName.Text != string.Empty &&
-                    tbNationalNo.Text != string.Empty && tbEmail.Text != string.Empty &&
-                    tbAddress.Text != string.Empty && tbPhone.Text != string.Empty);
-
-        }
-
+        //Save person's information in database
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (!AreAllColumnCompleted())
+            if(Mode == enMode.Edit)
+                DeleteUnusedImage();
+
+            FillPerson(CopyPersonImage());
+
+            if (!person.Save())
             {
 
-                MessageBox.Show("Some fields are not completed!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }
 
-            if ((ImagePath == string.Empty && person.ImagePath != string.Empty) || (ImagePath != string.Empty && person.ImagePath != string.Empty && ImagePath != person.ImagePath && Mode == enMode.Edit))
+            MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (Mode == enMode.Add)
             {
 
-                if (pictureBox1.Image != null)
-                {
+                Mode = enMode.Edit;
+                lblMode.Text = "Update Person";
+                lblPersonID.Text = person.PersonID.ToString();
 
-                    pictureBox1.Image.Dispose();
-                    pictureBox1.Image = null;
-
-                }
-
-                DeleteImage(person.ImagePath);
+                return;
 
             }
-                
-            if (ImagePath != string.Empty && File.Exists(ImagePath))
-            {
-
-                string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImagePath);
-                string destPath = Path.Combine(Properties.Settings.Default.ImageFolderPath, newFileName);
-                CopyImage(ImagePath, Properties.Settings.Default.ImageFolderPath, destPath);
-                FillPerson(destPath);
-
-            }
-            else
-            {
-
-                FillPerson(string.Empty);
-
-            }
-
-            person.Save();
 
             if (OnSaveEventHandler != null)
                 OnSaveEventHandler();
+
+            if (OnSaveReturningPersonIDEventHandler != null)
+                OnSaveReturningPersonIDEventHandler(person.PersonID);
 
             this.Close();
 
         }
 
+        //Check if NationalNo exists
         private void tbNationalNo_Validating(object sender, CancelEventArgs e)
         {
 
-            if (Person.DoesNationalNoExist(tbNationalNo.Text))
+            if (string.IsNullOrEmpty(tbNationalNo.Text))
             {
 
                 e.Cancel = true;
-                epNationalNo.SetError(tbNationalNo, "This national number already exist!");
+                epEmail.SetError(tbNationalNo, "You have to complete this field!");
+
+            }
+            else if (Person.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text))
+            {
+
+                e.Cancel = true;
+                epEmail.SetError(tbNationalNo, "This national number is already used!");
 
             }
             else
             {
 
                 e.Cancel = false;
-                epNationalNo.SetError(tbNationalNo, "");
+                epEmail.SetError(tbNationalNo, "");
 
             }
 
         }
 
+        //Check if email is valid
         private void tbEmail_Validating(object sender, CancelEventArgs e)
         {
 
-            if (!tbEmail.Text.EndsWith("gmail.com"))
+            if (!tbEmail.Text.EndsWith("@gmail.com") && !string.IsNullOrEmpty(tbEmail.Text))
             {
 
                 e.Cancel = true;
-                epNationalNo.SetError(tbEmail, "Invalid email format!");
+                epEmail.SetError(tbEmail, "Invalid email format!");
 
             }
             else
             {
 
                 e.Cancel = false;
-                epNationalNo.SetError(tbEmail, "");
+                epEmail.SetError(tbEmail, "");
+
+            }
+
+        }
+
+        //Make sure that no field is empty
+        private void CheckEmptyFields(object sender, CancelEventArgs e)
+        {
+
+            TextBox tbSender = (TextBox)sender;
+
+            if (tbSender.Tag == null && string.IsNullOrEmpty(tbSender.Text))
+            {
+
+                e.Cancel = true;
+                epEmptyField.SetError(tbSender, "You have to complete this field!");
+
+            }
+            else
+            {
+
+                e.Cancel = false;
+                epEmptyField.SetError(tbSender, "");
 
             }
 

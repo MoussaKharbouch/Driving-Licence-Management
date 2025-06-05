@@ -16,7 +16,7 @@ namespace DVLDPresentationLayer.People
     public partial class ctrlPersonCard : UserControl
     {
 
-        private Person person = null;
+        private Person person;
 
         public ctrlPersonCard()
         {
@@ -30,9 +30,11 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        public void ShowImage()
+        //Show person's image in picturebox
+        public void RefreshImage()
         {
 
+            //Show image if person has image
             if (person.ImagePath != string.Empty)
             {
 
@@ -51,6 +53,7 @@ namespace DVLDPresentationLayer.People
 
             }
 
+            //Show gender if person does not have an image
             if (person.ImagePath == string.Empty)
             {
 
@@ -59,9 +62,11 @@ namespace DVLDPresentationLayer.People
 
                     case Person.enGender.Male:
                         pbProfileImage.Image = Properties.Resources.Male_512;
+                        pbGender.Image = Properties.Resources.Man_32;
                         break;
                     case Person.enGender.Female:
                         pbProfileImage.Image = Properties.Resources.Female_512;
+                        pbGender.Image = Properties.Resources.Woman_32;
                         break;
                     default:
                         break;
@@ -72,10 +77,13 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        private void ClearInformations()
+        private void ShowInformation(Person person)
         {
 
-            ShowImage();
+            if (person == null)
+                return;
+
+            RefreshImage();
             lblPersonID.Text = person.PersonID.ToString();
             lblName.Text = person.FullName();
             lblNationalNo.Text = person.NationalNo;
@@ -88,29 +96,11 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        public void RefreshInformations()
+        public void RefreshInformation()
         {
 
-            if (person == null)
-                return;
-
-            LoadPerson(person.PersonID);
-
-            ShowImage();
-            lblPersonID.Text = person.PersonID.ToString();
-            lblName.Text = person.FullName();
-            lblNationalNo.Text = person.NationalNo;
-            lblGender.Text = (person.Gender == Person.enGender.Male ? "Male" : "Female");
-            lblEmail.Text = person.Email;
-            lblAddress.Text = person.Address;
-            lblDateOfBirth.Text = person.DateOfBirth.ToString();
-            lblPhone.Text = person.Phone;
-            lblCountry.Text = Country.FindCountry(person.NationalityCountryID).CountryName;
-
-            if (person.Gender == Person.enGender.Male)
-                pbGender.Image = Properties.Resources.Man_32;
-            else
-                pbGender.Image = Properties.Resources.Woman_32;
+            person = Person.FindPerson(person.PersonID);
+            ShowInformation(person);
 
         }
 
@@ -118,7 +108,7 @@ namespace DVLDPresentationLayer.People
         {
 
             LoadPerson(PersonID);
-            RefreshInformations();
+            RefreshInformation();
 
         }
 
@@ -128,15 +118,10 @@ namespace DVLDPresentationLayer.People
             if (person != null)
             {
 
-                if (person.PersonID != -1)
-                {
+                frmAddEditPerson EditPerson = new frmAddEditPerson(person.PersonID);
+                EditPerson.OnSaveEventHandler += RefreshInformation;
 
-                    frmAddEditPerson EditPerson = new frmAddEditPerson(person.PersonID);
-                    EditPerson.OnSaveEventHandler += RefreshInformations;
-
-                    EditPerson.ShowDialog();
-
-                }
+                EditPerson.ShowDialog();
 
             }
             else
@@ -151,7 +136,7 @@ namespace DVLDPresentationLayer.People
         private void ctrlPersonCard_Load(object sender, EventArgs e)
         {
 
-            RefreshInformations();
+            RefreshInformation();
 
         }
 

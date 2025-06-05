@@ -76,6 +76,7 @@
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
             this.epNationalNo = new System.Windows.Forms.ErrorProvider(this.components);
             this.epEmail = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epEmptyField = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
@@ -90,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epNationalNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epEmail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epEmptyField)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMode
@@ -255,6 +257,7 @@
             this.tbPhone.Name = "tbPhone";
             this.tbPhone.Size = new System.Drawing.Size(106, 20);
             this.tbPhone.TabIndex = 34;
+            this.tbPhone.Validating += new System.ComponentModel.CancelEventHandler(this.CheckEmptyFields);
             // 
             // rbFemale
             // 
@@ -287,6 +290,7 @@
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(393, 89);
             this.tbAddress.TabIndex = 31;
+            this.tbAddress.Validating += new System.ComponentModel.CancelEventHandler(this.CheckEmptyFields);
             // 
             // tbEmail
             // 
@@ -294,6 +298,7 @@
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(127, 20);
             this.tbEmail.TabIndex = 30;
+            this.tbEmail.Tag = "AllowsNull";
             this.tbEmail.Validating += new System.ComponentModel.CancelEventHandler(this.tbEmail_Validating);
             // 
             // pictureBox5
@@ -331,6 +336,7 @@
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(127, 20);
             this.tbLastName.TabIndex = 27;
+            this.tbLastName.Validating += new System.ComponentModel.CancelEventHandler(this.CheckEmptyFields);
             // 
             // tbThirdName
             // 
@@ -338,6 +344,7 @@
             this.tbThirdName.Name = "tbThirdName";
             this.tbThirdName.Size = new System.Drawing.Size(127, 20);
             this.tbThirdName.TabIndex = 26;
+            this.tbThirdName.Tag = "AllowsNull";
             // 
             // tbSecondName
             // 
@@ -345,6 +352,7 @@
             this.tbSecondName.Name = "tbSecondName";
             this.tbSecondName.Size = new System.Drawing.Size(127, 20);
             this.tbSecondName.TabIndex = 25;
+            this.tbSecondName.Tag = "AllowsNull";
             // 
             // tbFirstName
             // 
@@ -352,6 +360,7 @@
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(127, 20);
             this.tbFirstName.TabIndex = 24;
+            this.tbFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.CheckEmptyFields);
             // 
             // pictureBox12
             // 
@@ -566,6 +575,10 @@
             // 
             this.epEmail.ContainerControl = this;
             // 
+            // epEmptyField
+            // 
+            this.epEmptyField.ContainerControl = this;
+            // 
             // frmAddEditPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -596,6 +609,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epNationalNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epEmail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epEmptyField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -649,5 +663,6 @@
         private System.Windows.Forms.OpenFileDialog ofdImage;
         private System.Windows.Forms.ErrorProvider epNationalNo;
         private System.Windows.Forms.ErrorProvider epEmail;
+        private System.Windows.Forms.ErrorProvider epEmptyField;
     }
 }

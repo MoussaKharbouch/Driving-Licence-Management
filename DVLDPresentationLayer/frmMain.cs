@@ -16,8 +16,6 @@ namespace DVLDPresentationLayer
     public partial class frmMain : Form
     {
 
-        //Remember me
-
         public frmMain(User user)
         {
 

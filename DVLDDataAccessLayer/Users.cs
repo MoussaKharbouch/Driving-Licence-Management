@@ -311,7 +311,7 @@ namespace DVLDDataAccessLayer
                                     ISNULL(NULLIF(People.ThirdName, ''), '') + ' ',
                                     People.LastName
                                 )
-                              )) AS FullName, Users.Username, Users.Password
+                              )) AS FullName, Users.Username, Users.Password, Users.IsActive
                               FROM Users INNER JOIN People ON Users.PersonID = People.PersonID";
 
             SqlCommand command = new SqlCommand(query, connection);

@@ -15,8 +15,6 @@ namespace DVLDPresentationLayer
     public partial class frmLogin : Form
     {
 
-        //Remember me
-
         public User user;
 
         public frmLogin()
@@ -34,6 +32,7 @@ namespace DVLDPresentationLayer
             if (user != null && user.IsActive)
             {
 
+                //Make DialogResult eqauls ok so we can check if user logged in successfully
                 this.DialogResult = DialogResult.OK;
                 this.Close();
 
@@ -46,6 +45,7 @@ namespace DVLDPresentationLayer
 
         }
 
+        //Check if textboxes has data
         private void CheckField(object sender, CancelEventArgs e)
         {
 

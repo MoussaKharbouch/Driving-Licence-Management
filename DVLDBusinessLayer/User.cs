@@ -95,11 +95,11 @@ namespace DVLDBusinessLayer
 
             int UserID = this.UserID;
 
-            bool succedded = UsersData.AddUser(ref UserID, PersonID, Username, Password, IsActive);
+            bool succeeded = UsersData.AddUser(ref UserID, PersonID, Username, Password, IsActive);
 
             this.UserID = UserID;
 
-            return succedded;
+            return succeeded;
 
         }
 
@@ -113,18 +113,18 @@ namespace DVLDBusinessLayer
         public bool Save()
         {
 
-            bool succedded = false;
+            bool succeeded = false;
 
             switch(Mode)
             {
 
                 case enMode.Add:
-                    succedded = Add();
+                    succeeded = Add();
                     Mode = enMode.Update;
                     break;
 
                 case enMode.Update:
-                    succedded = Update();
+                    succeeded = Update();
                     break;
 
                 default:
@@ -132,7 +132,7 @@ namespace DVLDBusinessLayer
 
             }
 
-            return succedded;
+            return succeeded;
 
         }
 

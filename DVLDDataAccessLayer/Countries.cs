@@ -12,12 +12,12 @@ namespace DVLDDataAccessLayer
     public static class CountriesData
     {
 
-        public static DataTable GetCountriesNames()
+        public static DataTable GetCountries()
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT CountryName FROM Countries";
+            string query = "SELECT * FROM Countries";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -96,7 +96,7 @@ namespace DVLDDataAccessLayer
                 if (reader.Read())
                 {
 
-                    CountryName = reader["CountryID"].ToString();
+                    CountryName = reader["CountryName"].ToString();
                     reader.Close();
 
                 }

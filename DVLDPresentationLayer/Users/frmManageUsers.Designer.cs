@@ -128,6 +128,7 @@
             this.cbFilter.Name = "cbFilter";
             this.cbFilter.Size = new System.Drawing.Size(121, 21);
             this.cbFilter.TabIndex = 19;
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbIsActive_SelectedIndexChanged);
             // 
             // tbValue
             // 
@@ -135,6 +136,8 @@
             this.tbValue.Name = "tbValue";
             this.tbValue.Size = new System.Drawing.Size(100, 20);
             this.tbValue.TabIndex = 20;
+            this.tbValue.TextChanged += new System.EventHandler(this.tbValue_TextChanged);
+            this.tbValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValue_KeyPress);
             // 
             // pictureBox1
             // 
@@ -183,10 +186,6 @@
             // 
             this.cbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbIsActive.FormattingEnabled = true;
-            this.cbIsActive.Items.AddRange(new object[] {
-            "All",
-            "True",
-            "False"});
             this.cbIsActive.Location = new System.Drawing.Point(226, 174);
             this.cbIsActive.Name = "cbIsActive";
             this.cbIsActive.Size = new System.Drawing.Size(100, 21);

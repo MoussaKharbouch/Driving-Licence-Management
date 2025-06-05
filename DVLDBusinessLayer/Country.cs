@@ -23,10 +23,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static DataTable GetCountriesNames()
+        public static DataTable GetCountries()
         {
 
-            return CountriesData.GetCountriesNames();
+            return CountriesData.GetCountries();
 
         }
 
@@ -51,7 +51,7 @@ namespace DVLDBusinessLayer
 
             CountriesData.GetCountry(CountryName, ref CountryID);
 
-            if (CountryID == null)
+            if (CountryID == -1)
                 return null;
 
             return new Country(CountryID, CountryName);

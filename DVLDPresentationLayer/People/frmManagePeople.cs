@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
@@ -24,6 +18,7 @@ namespace DVLDPresentationLayer
 
         }
 
+        //Fill filter's combobox with filters's names
         private void LoadFilters()
         {
 
@@ -43,80 +38,65 @@ namespace DVLDPresentationLayer
 
         }
 
-        private bool isInteger(Type type)
+        //Apply normal filter (not special situation)
+        private void ApplyFilter(string filterName, string value, DataTable dtData)
         {
 
-            return (type == typeof(int));
+            Type columnType = dtData.Columns[filterName].DataType;
+
+            if (columnType == typeof(int))
+            {
+
+                int numericValue;
+
+                if (int.TryParse(value, out numericValue))
+                {
+
+                    dtData.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Please enter a valid numeric value.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dtData.DefaultView.RowFilter = string.Empty;
+
+                }
+
+            }
+            if (columnType == typeof(string))
+            {
+
+                dtData.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
+
+            }
 
         }
 
-        private void ApplyFilter(string filterName, string value, DataTable dtData)
+        //Check filter and apply it on people's data (it can be None, or IsActive...)
+        private void CheckFilter(string filterName, string value, DataTable dtData)
         {
 
             if (dtData == null)
                 return;
 
-            if (string.IsNullOrWhiteSpace(value))
-            {
-
-                dtData.DefaultView.RowFilter = string.Empty;
-                return;
-
-            }
-
             if (filterName == "None")
-            {
-
                 dtData.DefaultView.RowFilter = "";
-
-            }
             else
             {
 
-                if (!dtData.Columns.Contains(filterName))
-                {
+                if (string.IsNullOrWhiteSpace(value))
+                    dtData.DefaultView.RowFilter = string.Empty;
 
+                else if (!dtData.Columns.Contains(filterName))
                     MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
 
-                }
-
-
-                if (dtData.Columns.Contains(filterName) && value != string.Empty)
-                {
-
-                    Type columnType = dtData.Columns[filterName].DataType;
-
-                    if(isInteger(columnType))
-                    {
-
-                        int numericValue;
-                        
-                        if (int.TryParse(value, out numericValue))
-                        {
-
-                            dtData.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
-
-                        }
-                        else
-                        {
-
-                            MessageBox.Show("Please enter a valid numeric value.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            dtData.DefaultView.RowFilter = string.Empty;
-
-                        }
-
-                    }
-                    if(columnType == typeof(string))
-                    {
-
-                        dtData.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
-
-                    }
-
-                }
+                else if (dtData.Columns.Contains(filterName) && value != string.Empty)
+                    ApplyFilter(filterName, value, dtData);
 
             }
+
+            lblRecords.Text = dtData.DefaultView.Count.ToString();
 
         }
 
@@ -132,14 +112,6 @@ namespace DVLDPresentationLayer
 
         }
 
-        private void DeleteImage(string ImagePath)
-        {
-
-            if (File.Exists(ImagePath))
-                File.Delete(ImagePath);
-
-        }
-
         private void frmManagePeople_Load(object sender, EventArgs e)
         {
 
@@ -151,7 +123,9 @@ namespace DVLDPresentationLayer
         private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            ApplyFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvPeople.DataSource);
+            tbValue.Text = string.Empty;
+
+            CheckFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvPeople.DataSource);
             dgvPeople.Refresh();
 
         }
@@ -159,7 +133,7 @@ namespace DVLDPresentationLayer
         private void tbValue_TextChanged(object sender, EventArgs e)
         {
 
-            ApplyFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvPeople.DataSource);
+            CheckFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvPeople.DataSource);
 
         }
 
@@ -173,6 +147,7 @@ namespace DVLDPresentationLayer
                 dgvPeople.Rows[e.RowIndex].Selected = true;
 
                 cmsPerson.Show(Cursor.Position);
+
             }
 
         }
@@ -186,13 +161,38 @@ namespace DVLDPresentationLayer
                 if (MessageBox.Show("Are you sure you want delete this person?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                     return;
 
+                //Getting PersonID from row selected
                 int PersonID = Convert.ToInt32(dgvPeople.SelectedRows[0].Cells["PersonID"].Value);
 
                 Person person = Person.FindPerson(PersonID);
-                Person.DeletePerson(PersonID);
 
+                if (person == null)
+                    return;
+
+                try
+                {
+
+                    if (!Person.DeletePerson(person.PersonID))
+                        MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch
+                {
+
+                    MessageBox.Show("Data has not been saved succeesfully. Person has data linked to it.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+                //Delete person's image after delete it
                 if (person.ImagePath != string.Empty)
-                    DeleteImage(person.ImagePath);
+                {
+
+                    if (File.Exists(person.ImagePath))
+                        File.Delete(person.ImagePath);
+
+                }
 
                 LoadPeopleData();
 
@@ -222,6 +222,7 @@ namespace DVLDPresentationLayer
             if (dgvPeople.SelectedRows.Count > 0)
             {
 
+                //Getting PersonID from row selected
                 int PersonID = Convert.ToInt32(dgvPeople.SelectedRows[0].Cells["PersonID"].Value);
 
                 frmAddEditPerson EditPerson = new frmAddEditPerson(PersonID);
@@ -246,6 +247,18 @@ namespace DVLDPresentationLayer
             AddPerson.OnSaveEventHandler += LoadPeopleData;
 
             AddPerson.ShowDialog();
+
+        }
+
+        //Stop entering characters when filter's value is a number
+        private void tbValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (cbFilter.SelectedItem.ToString() != "PersonID")
+                return;
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                e.Handled = true;
 
         }
 

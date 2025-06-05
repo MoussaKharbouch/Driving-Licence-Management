@@ -89,6 +89,7 @@
             resources.ApplyResources(this.tbValue, "tbValue");
             this.tbValue.Name = "tbValue";
             this.tbValue.TextChanged += new System.EventHandler(this.tbValue_TextChanged);
+            this.tbValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValue_KeyPress);
             // 
             // cbFilter
             // 

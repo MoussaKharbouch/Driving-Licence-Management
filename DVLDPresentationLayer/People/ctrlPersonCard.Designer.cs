@@ -29,12 +29,21 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.lblCountry = new System.Windows.Forms.Label();
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblDateOfBirth = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.pbGender = new System.Windows.Forms.PictureBox();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.lblAddress = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblGender = new System.Windows.Forms.Label();
@@ -50,27 +59,18 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pbGender = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbGender)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbGender)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -109,6 +109,56 @@
             this.panel1.Size = new System.Drawing.Size(347, 422);
             this.panel1.TabIndex = 22;
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::DVLDPresentationLayer.Properties.Resources.Calendar_32;
+            this.pictureBox4.Location = new System.Drawing.Point(152, 283);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 25;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = global::DVLDPresentationLayer.Properties.Resources.Phone_32;
+            this.pictureBox11.Location = new System.Drawing.Point(152, 329);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox11.TabIndex = 31;
+            this.pictureBox11.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.Number_32;
+            this.pictureBox1.Location = new System.Drawing.Point(152, 100);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 36;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = global::DVLDPresentationLayer.Properties.Resources.Country_32;
+            this.pictureBox9.Location = new System.Drawing.Point(152, 376);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 30;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::DVLDPresentationLayer.Properties.Resources.Address_32;
+            this.pictureBox8.Location = new System.Drawing.Point(152, 238);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 29;
+            this.pictureBox8.TabStop = false;
+            // 
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
@@ -139,6 +189,16 @@
             this.lblDateOfBirth.TabIndex = 33;
             this.lblDateOfBirth.Text = "1900-01-01 00:00";
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::DVLDPresentationLayer.Properties.Resources.Email_32;
+            this.pictureBox3.Location = new System.Drawing.Point(152, 192);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 24;
+            this.pictureBox3.TabStop = false;
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -148,6 +208,26 @@
             this.label16.Size = new System.Drawing.Size(76, 19);
             this.label16.TabIndex = 32;
             this.label16.Text = "Country :";
+            // 
+            // pbGender
+            // 
+            this.pbGender.Image = global::DVLDPresentationLayer.Properties.Resources.Man_32;
+            this.pbGender.Location = new System.Drawing.Point(152, 145);
+            this.pbGender.Name = "pbGender";
+            this.pbGender.Size = new System.Drawing.Size(29, 20);
+            this.pbGender.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbGender.TabIndex = 28;
+            this.pbGender.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Image = global::DVLDPresentationLayer.Properties.Resources.Number_32;
+            this.pictureBox12.Location = new System.Drawing.Point(152, 8);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox12.TabIndex = 32;
+            this.pictureBox12.TabStop = false;
             // 
             // label17
             // 
@@ -168,6 +248,16 @@
             this.label18.Size = new System.Drawing.Size(107, 19);
             this.label18.TabIndex = 30;
             this.label18.Text = "Date Of Birth:";
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::DVLDPresentationLayer.Properties.Resources.Person_32;
+            this.pictureBox6.Location = new System.Drawing.Point(152, 55);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(29, 20);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 27;
+            this.pictureBox6.TabStop = false;
             // 
             // lblAddress
             // 
@@ -326,96 +416,6 @@
             this.pbProfileImage.TabIndex = 22;
             this.pbProfileImage.TabStop = false;
             // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Image = global::DVLDPresentationLayer.Properties.Resources.Phone_32;
-            this.pictureBox11.Location = new System.Drawing.Point(152, 329);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox11.TabIndex = 31;
-            this.pictureBox11.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = global::DVLDPresentationLayer.Properties.Resources.Country_32;
-            this.pictureBox9.Location = new System.Drawing.Point(152, 376);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox9.TabIndex = 30;
-            this.pictureBox9.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::DVLDPresentationLayer.Properties.Resources.Calendar_32;
-            this.pictureBox4.Location = new System.Drawing.Point(152, 283);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 25;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Image = global::DVLDPresentationLayer.Properties.Resources.Number_32;
-            this.pictureBox12.Location = new System.Drawing.Point(152, 8);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox12.TabIndex = 32;
-            this.pictureBox12.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::DVLDPresentationLayer.Properties.Resources.Address_32;
-            this.pictureBox8.Location = new System.Drawing.Point(152, 238);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 29;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pbGender
-            // 
-            this.pbGender.Image = global::DVLDPresentationLayer.Properties.Resources.Man_32;
-            this.pbGender.Location = new System.Drawing.Point(152, 145);
-            this.pbGender.Name = "pbGender";
-            this.pbGender.Size = new System.Drawing.Size(29, 20);
-            this.pbGender.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbGender.TabIndex = 28;
-            this.pbGender.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::DVLDPresentationLayer.Properties.Resources.Email_32;
-            this.pictureBox3.Location = new System.Drawing.Point(152, 192);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 24;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::DVLDPresentationLayer.Properties.Resources.Person_32;
-            this.pictureBox6.Location = new System.Drawing.Point(152, 55);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 27;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.Number_32;
-            this.pictureBox1.Location = new System.Drawing.Point(152, 100);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(29, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 36;
-            this.pictureBox1.TabStop = false;
-            // 
             // ctrlPersonCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -427,18 +427,18 @@
             this.Load += new System.EventHandler(this.ctrlPersonCard_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbGender)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbGender)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
