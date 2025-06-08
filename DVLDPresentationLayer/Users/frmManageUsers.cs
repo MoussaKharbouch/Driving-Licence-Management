@@ -199,10 +199,10 @@ namespace DVLDPresentationLayer.Users
         private void AddUser_Click(object sender, EventArgs e)
         {
 
-            /*frmAddEditPerson AddPerson = new frmAddEditPerson();
-            AddPerson.OnSaveEventHandler += LoadPeopleDate;
+            frmAddEditUser AddPerson = new frmAddEditUser();
+            AddPerson.OnSaveEventHandler += LoadUsersData;
 
-            AddPerson.ShowDialog();*/
+            AddPerson.ShowDialog();
 
         }
 
@@ -246,10 +246,10 @@ namespace DVLDPresentationLayer.Users
         private void tsShowDetails_Click(object sender, EventArgs e)
         {
 
-            /*frmShowDetails ShowDetails = new frmShowDetails(Convert.ToInt32(dgvPeople.CurrentRow.Cells["PersonID"].Value));
-            ShowDetails.OnSaveEventHandler += LoadPeopleDate;
+            frmShowDetails ShowDetails = new frmShowDetails(Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserID"].Value));
+            ShowDetails.OnSaveEventHandler += LoadUsersData;
 
-            ShowDetails.ShowDialog();*/
+            ShowDetails.ShowDialog();
 
         }
 
@@ -259,12 +259,12 @@ namespace DVLDPresentationLayer.Users
             if (dgvUsers.SelectedRows.Count > 0)
             {
 
-                int PersonID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["PersonID"].Value);
+                int PersonID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
 
-                /*frmAddEditPerson EditPerson = new frmAddEditPerson(PersonID);
-                EditPerson.OnSaveEventHandler += LoadPeopleDate;
+                frmAddEditUser EditPerson = new frmAddEditUser(PersonID);
+                EditPerson.OnSaveEventHandler += LoadUsersData;
 
-                EditPerson.ShowDialog();*/
+                EditPerson.ShowDialog();
 
             }
             else

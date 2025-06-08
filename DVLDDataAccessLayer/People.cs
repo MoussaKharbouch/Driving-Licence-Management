@@ -12,7 +12,7 @@ namespace DVLDDataAccessLayer
     public static class PeopleData
     {
 
-        public static void GetPerson(int PersonID, ref string NationalNo, ref string FirstName, ref string SecondName,
+        public static void FindPerson(int PersonID, ref string NationalNo, ref string FirstName, ref string SecondName,
                                      ref string ThirdName, ref string LastName, ref DateTime DateOfBirth, ref int Gender,
                                      ref string Address, ref string Phone, ref string Email, ref int NationalityCountryID, ref string ImagePath)
         {
@@ -59,7 +59,7 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static void GetPerson(string NationalNo, ref int PersonID, ref string FirstName, ref string SecondName,
+        public static void FindPerson(string NationalNo, ref int PersonID, ref string FirstName, ref string SecondName,
                                      ref string ThirdName, ref string LastName, ref DateTime DateOfBirth, ref int Gender,
                                      ref string Address, ref string Phone, ref string Email, ref int NationalityCountryID, ref string ImagePath)
         {

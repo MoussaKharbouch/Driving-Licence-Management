@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
+using DVLDPresentationLayer.Interfaces;
 
 namespace DVLDPresentationLayer.People
 {
 
-    public partial class frmAddEditPerson : Form
+    public partial class frmAddEditPerson : Form, ISavable<Person>
     {
 
         public enum enMode { Add, Edit }
@@ -21,6 +22,8 @@ namespace DVLDPresentationLayer.People
 
         Person person;
         string ImagePath = string.Empty;
+
+        public bool succeeded { get; set; }
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
@@ -348,24 +351,43 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        //Save person's information in database
-        private void btnSave_Click(object sender, EventArgs e)
+        private bool AreColumnsCompleted()
         {
 
-            if(Mode == enMode.Edit)
+            return (tbFirstName.Text != string.Empty && tbLastName.Text != string.Empty &&
+                    tbAddress.Text != string.Empty && dtpBirthDate.Value != null && tbPhone.Text != string.Empty);
+
+        }
+
+        public bool SaveItem(Person person)
+        {
+
+            if (Mode == enMode.Edit)
                 DeleteUnusedImage();
 
             FillPerson(CopyPersonImage());
 
-            if (!person.Save())
+            if (person.Save())
             {
 
-                MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                succeeded = true;
 
             }
+            else
+            {
+                
+                MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                succeeded = false;
 
-            MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+                
+            return succeeded;
+
+        }
+
+        private void ChangeMode()
+        {
 
             if (Mode == enMode.Add)
             {
@@ -374,17 +396,27 @@ namespace DVLDPresentationLayer.People
                 lblMode.Text = "Update Person";
                 lblPersonID.Text = person.PersonID.ToString();
 
+            }
+            else
+                this.Close();
+
+        }
+
+        //Save person's information in database
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+            if (!AreColumnsCompleted())
+            {
+
+                MessageBox.Show("Some fields are not completed!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }
 
-            if (OnSaveEventHandler != null)
-                OnSaveEventHandler();
 
-            if (OnSaveReturningPersonIDEventHandler != null)
-                OnSaveReturningPersonIDEventHandler(person.PersonID);
-
-            this.Close();
+            if (SaveItem(person))
+                ChangeMode();
 
         }
 
@@ -399,7 +431,7 @@ namespace DVLDPresentationLayer.People
                 epEmail.SetError(tbNationalNo, "You have to complete this field!");
 
             }
-            else if (Person.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text))
+            else if (Person.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text) && Mode == enMode.Add)
             {
 
                 e.Cancel = true;
@@ -457,6 +489,20 @@ namespace DVLDPresentationLayer.People
                 epEmptyField.SetError(tbSender, "");
 
             }
+
+        }
+
+        private void frmAddEditPerson_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (succeeded == false)
+                return;
+
+            if (OnSaveEventHandler != null)
+                OnSaveEventHandler();
+
+            if (OnSaveReturningPersonIDEventHandler != null)
+                OnSaveReturningPersonIDEventHandler(person.PersonID);
 
         }
 

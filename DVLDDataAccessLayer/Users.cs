@@ -13,7 +13,7 @@ namespace DVLDDataAccessLayer
     public static class UsersData
     {
 
-        public static void GetUser(string Username, string Password, ref int UserID, ref int PersonID, ref bool IsActive)
+        public static void FindUser(string Username, string Password, ref int UserID, ref int PersonID, ref bool IsActive)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -50,7 +50,7 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static void GetUser(int UserID, ref int PersonID, ref string Username, ref string Password, ref bool IsActive)
+        public static void FindUser(int UserID, ref int PersonID, ref string Username, ref string Password, ref bool IsActive)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);

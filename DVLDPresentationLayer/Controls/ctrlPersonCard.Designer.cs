@@ -106,7 +106,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(347, 422);
+            this.panel1.Size = new System.Drawing.Size(233, 422);
             this.panel1.TabIndex = 22;
             // 
             // pictureBox4
@@ -165,9 +165,9 @@
             this.lblCountry.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblCountry.Location = new System.Drawing.Point(197, 376);
             this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(59, 19);
+            this.lblCountry.Size = new System.Drawing.Size(33, 19);
             this.lblCountry.TabIndex = 35;
-            this.lblCountry.Text = "Algeria";
+            this.lblCountry.Text = "???";
             // 
             // lblPhone
             // 
@@ -175,9 +175,9 @@
             this.lblPhone.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblPhone.Location = new System.Drawing.Point(191, 330);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(99, 19);
+            this.lblPhone.Size = new System.Drawing.Size(33, 19);
             this.lblPhone.TabIndex = 34;
-            this.lblPhone.Text = "0000000000";
+            this.lblPhone.Text = "???";
             // 
             // lblDateOfBirth
             // 
@@ -185,9 +185,9 @@
             this.lblDateOfBirth.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblDateOfBirth.Location = new System.Drawing.Point(191, 284);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
-            this.lblDateOfBirth.Size = new System.Drawing.Size(140, 19);
+            this.lblDateOfBirth.Size = new System.Drawing.Size(33, 19);
             this.lblDateOfBirth.TabIndex = 33;
-            this.lblDateOfBirth.Text = "1900-01-01 00:00";
+            this.lblDateOfBirth.Text = "???";
             // 
             // pictureBox3
             // 
@@ -266,9 +266,9 @@
             this.lblAddress.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblAddress.Location = new System.Drawing.Point(191, 238);
             this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(130, 19);
+            this.lblAddress.Size = new System.Drawing.Size(33, 19);
             this.lblAddress.TabIndex = 29;
-            this.lblAddress.Text = "Random Address";
+            this.lblAddress.Text = "???";
             // 
             // lblEmail
             // 
@@ -276,9 +276,9 @@
             this.lblEmail.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblEmail.Location = new System.Drawing.Point(191, 192);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(153, 19);
+            this.lblEmail.Size = new System.Drawing.Size(33, 19);
             this.lblEmail.TabIndex = 28;
-            this.lblEmail.Text = "random@gmail.com";
+            this.lblEmail.Text = "???";
             // 
             // lblGender
             // 
@@ -286,9 +286,9 @@
             this.lblGender.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblGender.Location = new System.Drawing.Point(191, 146);
             this.lblGender.Name = "lblGender";
-            this.lblGender.Size = new System.Drawing.Size(41, 19);
+            this.lblGender.Size = new System.Drawing.Size(33, 19);
             this.lblGender.TabIndex = 27;
-            this.lblGender.Text = "Male";
+            this.lblGender.Text = "???";
             this.lblGender.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNationalNo
@@ -297,9 +297,9 @@
             this.lblNationalNo.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblNationalNo.Location = new System.Drawing.Point(191, 100);
             this.lblNationalNo.Name = "lblNationalNo";
-            this.lblNationalNo.Size = new System.Drawing.Size(93, 19);
+            this.lblNationalNo.Size = new System.Drawing.Size(33, 19);
             this.lblNationalNo.TabIndex = 26;
-            this.lblNationalNo.Text = "Random No";
+            this.lblNationalNo.Text = "???";
             // 
             // lblName
             // 
@@ -307,9 +307,9 @@
             this.lblName.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblName.Location = new System.Drawing.Point(191, 54);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(122, 19);
+            this.lblName.Size = new System.Drawing.Size(33, 19);
             this.lblName.TabIndex = 25;
-            this.lblName.Text = "Khaled Kashmiri";
+            this.lblName.Text = "???";
             // 
             // lblPersonID
             // 
@@ -317,9 +317,9 @@
             this.lblPersonID.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblPersonID.Location = new System.Drawing.Point(197, 8);
             this.lblPersonID.Name = "lblPersonID";
-            this.lblPersonID.Size = new System.Drawing.Size(24, 19);
+            this.lblPersonID.Size = new System.Drawing.Size(33, 19);
             this.lblPersonID.TabIndex = 24;
-            this.lblPersonID.Text = "-1";
+            this.lblPersonID.Text = "???";
             // 
             // label6
             // 

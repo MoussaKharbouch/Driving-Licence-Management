@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DVLDBusinessLayer;
 
 namespace DVLDPresentationLayer
 {
@@ -19,14 +20,18 @@ namespace DVLDPresentationLayer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            frmLogin Login = new frmLogin();
+            //This is the right start (application starts from login from)
+            /*frmLogin Login = new frmLogin();
 
             if (Login.ShowDialog() == DialogResult.OK)
             {
 
                 Application.Run(new frmMain(Login.user));
 
-            }
+            }*/
+
+            //If i want run main from to test features
+            Application.Run(new frmMain(new User()));
 
         }
 

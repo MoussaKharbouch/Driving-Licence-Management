@@ -9,18 +9,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
+using DVLDPresentationLayer.Interfaces;
 
 namespace DVLDPresentationLayer.People
 {
 
-    public partial class ctrlPersonCard : UserControl
+    public partial class ctrlPersonCard : UserControl, IShowable<Person>
     {
 
-        private Person person;
+        public Person person { get; private set; }
 
         public ctrlPersonCard()
         {
+
             InitializeComponent();
+
+        }
+
+        public ctrlPersonCard(int PersonID = -1)
+        {
+
+            InitializeComponent();
+
+            Refresh(PersonID);
+            
         }
 
         public void LoadPerson(int PersonID)
@@ -77,7 +89,7 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        private void ShowInformation(Person person)
+        public void ShowItem(Person person)
         {
 
             if (person == null)
@@ -100,15 +112,20 @@ namespace DVLDPresentationLayer.People
         {
 
             person = Person.FindPerson(person.PersonID);
-            ShowInformation(person);
+            ShowItem(person);
 
         }
 
-        public void Initialize(int PersonID)
+        public void Refresh(int PersonID)
         {
 
-            LoadPerson(PersonID);
-            RefreshInformation();
+            if (PersonID != -1)
+            {
+
+                LoadPerson(PersonID);
+                RefreshInformation();
+
+            }
 
         }
 
@@ -136,7 +153,8 @@ namespace DVLDPresentationLayer.People
         private void ctrlPersonCard_Load(object sender, EventArgs e)
         {
 
-            RefreshInformation();
+            if(person != null)
+                RefreshInformation();
 
         }
 

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DVLDPresentationLayer.Interfaces;
+using DVLDBusinessLayer;
 
-namespace DVLDPresentationLayer.People
+namespace DVLDPresentationLayer.Users
 {
 
     public partial class frmShowDetails : Form
@@ -18,19 +18,11 @@ namespace DVLDPresentationLayer.People
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
 
-        public frmShowDetails()
+        public frmShowDetails(int UserID)
         {
 
             InitializeComponent();
-
-        }
-
-        public frmShowDetails(int PersonID)
-        {
-
-            InitializeComponent();
-
-            ctrlPersonCard1.Refresh(PersonID);
+            ctrlUserInfoCard1.ShowInformation(User.FindUser(UserID));
 
         }
 

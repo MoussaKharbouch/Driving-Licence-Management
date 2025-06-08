@@ -4,11 +4,12 @@ using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
 using DVLDPresentationLayer.People;
+using DVLDPresentationLayer.Interfaces;
 
 namespace DVLDPresentationLayer
 {
 
-    public partial class frmManagePeople : Form
+    public partial class frmManagePeople : Form, IDeletable, IFilterable, ILoadable
     {
 
         public frmManagePeople()
@@ -19,7 +20,7 @@ namespace DVLDPresentationLayer
         }
 
         //Fill filter's combobox with filters's names
-        private void LoadFilters()
+        public void LoadFilters()
         {
 
             cbFilter.Items.Add("None");
@@ -38,44 +39,11 @@ namespace DVLDPresentationLayer
 
         }
 
-        //Apply normal filter (not special situation)
-        private void ApplyFilter(string filterName, string value, DataTable dtData)
-        {
-
-            Type columnType = dtData.Columns[filterName].DataType;
-
-            if (columnType == typeof(int))
-            {
-
-                int numericValue;
-
-                if (int.TryParse(value, out numericValue))
-                {
-
-                    dtData.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
-
-                }
-                else
-                {
-
-                    MessageBox.Show("Please enter a valid numeric value.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    dtData.DefaultView.RowFilter = string.Empty;
-
-                }
-
-            }
-            if (columnType == typeof(string))
-            {
-
-                dtData.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
-
-            }
-
-        }
-
         //Check filter and apply it on people's data (it can be None, or IsActive...)
-        private void CheckFilter(string filterName, string value, DataTable dtData)
+        public void ApplyFilter(string filterName, string value)
         {
+
+            DataTable dtData = (DataTable)dgvPeople.DataSource;
 
             if (dtData == null)
                 return;
@@ -92,7 +60,7 @@ namespace DVLDPresentationLayer
                     MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 else if (dtData.Columns.Contains(filterName) && value != string.Empty)
-                    ApplyFilter(filterName, value, dtData);
+                    Utils.FilterDataTable(filterName, value, dtData);
 
             }
 
@@ -100,7 +68,7 @@ namespace DVLDPresentationLayer
 
         }
 
-        private void LoadPeopleData()
+        public void LoadItems()
         {
 
             DataTable dtPeople = Person.GetPeopleMainInfo();
@@ -116,7 +84,7 @@ namespace DVLDPresentationLayer
         {
 
             LoadFilters();
-            LoadPeopleData();
+            LoadItems();
 
         }
 
@@ -125,7 +93,12 @@ namespace DVLDPresentationLayer
 
             tbValue.Text = string.Empty;
 
-            CheckFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvPeople.DataSource);
+            if (cbFilter.SelectedItem.ToString() == "None")
+                tbValue.Enabled = false;
+            else
+                tbValue.Enabled = true;
+
+            ApplyFilter(cbFilter.SelectedItem.ToString(), tbValue.Text);
             dgvPeople.Refresh();
 
         }
@@ -133,7 +106,7 @@ namespace DVLDPresentationLayer
         private void tbValue_TextChanged(object sender, EventArgs e)
         {
 
-            CheckFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvPeople.DataSource);
+            ApplyFilter(cbFilter.SelectedItem.ToString(), tbValue.Text);
 
         }
 
@@ -152,30 +125,34 @@ namespace DVLDPresentationLayer
 
         }
 
-        private void deletePerson(object sender, EventArgs e)
+        private void DeletePerson(object sender, EventArgs e)
         {
 
-            if (dgvPeople.SelectedRows.Count > 0)
+            if (dgvPeople.SelectedRows.Count == 0)
             {
 
-                if (MessageBox.Show("Are you sure you want delete this person?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
-                    return;
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
 
-                //Getting PersonID from row selected
-                int PersonID = Convert.ToInt32(dgvPeople.SelectedRows[0].Cells["PersonID"].Value);
+            }
 
-                Person person = Person.FindPerson(PersonID);
-
-                if (person == null)
-                    return;
+            if (MessageBox.Show("Are you sure you want delete this person?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
 
                 try
                 {
 
-                    if (!Person.DeletePerson(person.PersonID))
-                        MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    bool succeeded = DeleteItem(Convert.ToInt32(dgvPeople.SelectedRows[0].Cells["PersonID"].Value));
+
+                    if (succeeded)
+                    {
+
+                        MessageBox.Show("Person deleted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadItems();
+
+                    }
                     else
-                        MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Failed to delete person", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
                 catch
@@ -185,24 +162,10 @@ namespace DVLDPresentationLayer
 
                 }
 
-                //Delete person's image after delete it
-                if (person.ImagePath != string.Empty)
-                {
-
-                    if (File.Exists(person.ImagePath))
-                        File.Delete(person.ImagePath);
-
-                }
-
-                LoadPeopleData();
-
             }
             else
-            {
+                MessageBox.Show("Failed to delete person", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
 
         }
 
@@ -210,9 +173,49 @@ namespace DVLDPresentationLayer
         {
 
             frmShowDetails ShowDetails = new frmShowDetails(Convert.ToInt32(dgvPeople.CurrentRow.Cells["PersonID"].Value));
-            ShowDetails.OnSaveEventHandler += LoadPeopleData;
+            ShowDetails.OnSaveEventHandler += LoadItems;
 
             ShowDetails.ShowDialog();
+
+        }
+
+        public bool DeleteItem(int PersonID)
+        {
+
+            Person person = Person.FindPerson(PersonID);
+
+            if (person == null)
+                return false;
+
+            try
+            {
+
+                if (Person.DeletePerson(person.PersonID)){
+                
+                    //Delete person's image after delete it
+                    if (person.ImagePath != string.Empty)
+                    {
+
+                        if (File.Exists(person.ImagePath))
+                            File.Delete(person.ImagePath);
+
+                    }
+
+                    LoadItems();
+
+                    return true;
+
+                }
+                else
+                    return false;
+
+            }
+            catch
+            {
+
+                throw;
+
+            }
 
         }
 
@@ -226,7 +229,7 @@ namespace DVLDPresentationLayer
                 int PersonID = Convert.ToInt32(dgvPeople.SelectedRows[0].Cells["PersonID"].Value);
 
                 frmAddEditPerson EditPerson = new frmAddEditPerson(PersonID);
-                EditPerson.OnSaveEventHandler += LoadPeopleData;
+                EditPerson.OnSaveEventHandler += LoadItems;
 
                 EditPerson.ShowDialog();
 
@@ -244,7 +247,7 @@ namespace DVLDPresentationLayer
         {
 
             frmAddEditPerson AddPerson = new frmAddEditPerson();
-            AddPerson.OnSaveEventHandler += LoadPeopleData;
+            AddPerson.OnSaveEventHandler += LoadItems;
 
             AddPerson.ShowDialog();
 
@@ -254,11 +257,13 @@ namespace DVLDPresentationLayer
         private void tbValue_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (cbFilter.SelectedItem.ToString() != "PersonID")
-                return;
+            if (cbFilter.SelectedItem.ToString() == "PersonID")
+            {
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                e.Handled = true;
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                    e.Handled = true;
+
+            }
 
         }
 

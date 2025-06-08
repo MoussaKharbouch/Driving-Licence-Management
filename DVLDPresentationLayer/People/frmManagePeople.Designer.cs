@@ -180,7 +180,7 @@
             // 
             this.tsDeletePerson.Name = "tsDeletePerson";
             resources.ApplyResources(this.tsDeletePerson, "tsDeletePerson");
-            this.tsDeletePerson.Click += new System.EventHandler(this.deletePerson);
+            this.tsDeletePerson.Click += new System.EventHandler(this.DeletePerson);
             // 
             // toolStripSeparator1
             // 

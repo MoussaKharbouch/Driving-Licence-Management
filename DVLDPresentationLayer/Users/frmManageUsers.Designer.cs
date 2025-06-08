@@ -106,6 +106,7 @@
             this.btnAddUser.Size = new System.Drawing.Size(56, 48);
             this.btnAddUser.TabIndex = 17;
             this.btnAddUser.UseVisualStyleBackColor = false;
+            this.btnAddUser.Click += new System.EventHandler(this.AddUser_Click);
             // 
             // label3
             // 
@@ -173,8 +174,8 @@
             this.panel2.Controls.Add(this.lblRecords);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.dgvUsers);
-            this.panel2.Controls.Add(this.cbIsActive);
             this.panel2.Controls.Add(this.tbValue);
+            this.panel2.Controls.Add(this.cbIsActive);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.ForeColor = System.Drawing.Color.Black;
             this.panel2.Location = new System.Drawing.Point(0, 0);

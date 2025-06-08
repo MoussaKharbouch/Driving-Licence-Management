@@ -61,7 +61,7 @@ namespace DVLDBusinessLayer
 
             bool IsActive = false;
 
-            UsersData.GetUser(Username, Password, ref UserID, ref PersonID, ref IsActive);
+            UsersData.FindUser(Username, Password, ref UserID, ref PersonID, ref IsActive);
 
             if (UserID == -1)
                 return null;
@@ -81,9 +81,9 @@ namespace DVLDBusinessLayer
 
             bool IsActive = false;
 
-            UsersData.GetUser(UserID, ref PersonID, ref Username, ref Password, ref IsActive);
+            UsersData.FindUser(UserID, ref PersonID, ref Username, ref Password, ref IsActive);
 
-            if (UserID == -1)
+            if (PersonID == -1)
                 return null;
 
             return new User(UserID, PersonID, Username, Password, IsActive);

@@ -113,7 +113,7 @@ namespace DVLDBusinessLayer
             int NationalityCountryID = -1;
             string ImagePath = string.Empty;
 
-            PeopleData.GetPerson(PersonID, ref NationalNo, ref FirstName,
+            PeopleData.FindPerson(PersonID, ref NationalNo, ref FirstName,
                                      ref SecondName, ref ThirdName, ref LastName,
                                      ref DateOfBirth, ref Gender, ref Address, ref Phone,
                                      ref Email, ref NationalityCountryID, ref ImagePath);
@@ -142,7 +142,7 @@ namespace DVLDBusinessLayer
             int NationalityCountryID = -1;
             string ImagePath = string.Empty;
 
-            PeopleData.GetPerson(NationalNo, ref PersonID, ref FirstName,
+            PeopleData.FindPerson(NationalNo, ref PersonID, ref FirstName,
                                      ref SecondName, ref ThirdName, ref LastName,
                                      ref DateOfBirth, ref Gender, ref Address, ref Phone,
                                      ref Email, ref NationalityCountryID, ref ImagePath);
