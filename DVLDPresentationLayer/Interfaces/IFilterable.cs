@@ -11,7 +11,6 @@ namespace DVLDPresentationLayer.Interfaces
     public interface IFilterable
     {
 
-        void LoadFilters();
         void ApplyFilter(string filterName, string value);
 
     }

@@ -62,10 +62,10 @@ namespace DVLDPresentationLayer.Users
         }
 
         //Apply normal filter (not special situation)
-        private void ApplyFilter(string filterName, string value, DataTable dtData)
+        private void ApplyFilter(string filterName, string value, DataTable dtItems)
         {
 
-            Type columnType = dtData.Columns[filterName].DataType;
+            Type columnType = dtItems.Columns[filterName].DataType;
 
             if (columnType == typeof(int))
             {
@@ -75,7 +75,7 @@ namespace DVLDPresentationLayer.Users
                 if (int.TryParse(value, out numericValue) && value != string.Empty)
                 {
 
-                    dtData.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
+                    dtItems.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
 
                 }
 
@@ -83,17 +83,17 @@ namespace DVLDPresentationLayer.Users
             if (columnType == typeof(string))
             {
 
-                dtData.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
+                dtItems.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
 
             }
 
         }
 
         //Check filter and apply it on people's data (it can be None, or IsActive...)
-        private void CheckFilter(string filterName, string value, DataTable dtData)
+        private void CheckFilter(string filterName, string value, DataTable dtItems)
         {
 
-            if (dtData == null)
+            if (dtItems == null)
                 return;
 
             //Default visibility (combobox is hidden while textbox is visible)
@@ -107,18 +107,18 @@ namespace DVLDPresentationLayer.Users
                 cbIsActive.Visible = true;
 
                 if (value == "All")
-                    dtData.DefaultView.RowFilter = string.Empty;
+                    dtItems.DefaultView.RowFilter = string.Empty;
                 else if(value == "True")
-                    dtData.DefaultView.RowFilter = "IsActive = true";
+                    dtItems.DefaultView.RowFilter = "IsActive = true";
                 else if (value == "False")
-                    dtData.DefaultView.RowFilter = "IsActive = false";
+                    dtItems.DefaultView.RowFilter = "IsActive = false";
 
             }
 
             else if (string.IsNullOrEmpty(value))
             {
-                dtData.DefaultView.RowFilter = "";
-                lblRecords.Text = dtData.DefaultView.Count.ToString();
+                dtItems.DefaultView.RowFilter = "";
+                lblRecords.Text = dtItems.DefaultView.Count.ToString();
                 return;
             }
 
@@ -126,17 +126,17 @@ namespace DVLDPresentationLayer.Users
             else if (filterName == "None")
             {
 
-                dtData.DefaultView.RowFilter = "";
+                dtItems.DefaultView.RowFilter = "";
 
             }
             else
             {
 
-                if (!dtData.Columns.Contains(filterName))
+                if (!dtItems.Columns.Contains(filterName))
                     MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                else if (dtData.Columns.Contains(filterName) && value != string.Empty)
-                    ApplyFilter(filterName, value, dtData);
+                else if (dtItems.Columns.Contains(filterName) && value != string.Empty)
+                    ApplyFilter(filterName, value, dtItems);
 
             }
 
@@ -299,8 +299,7 @@ namespace DVLDPresentationLayer.Users
             if (cbFilter.SelectedItem.ToString() != "PersonID" && cbFilter.SelectedItem.ToString() != "UserID")
                 return;
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                e.Handled = true;
+            Utils.UI.StopEnteringCharacters(e);
 
         }
 

@@ -20,16 +20,13 @@ namespace DVLDPresentationLayer.People
         public enum enMode { Add, Edit }
         public enMode Mode { get; private set; }
 
-        Person person;
+        public Person person { get; set; }
         string ImagePath = string.Empty;
 
         public bool succeeded { get; set; }
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
-
-        public delegate void OnSaveReturningPersonID(int PersonID);
-        public event OnSaveReturningPersonID OnSaveReturningPersonIDEventHandler;
 
         //Constructor for add person mode
         public frmAddEditPerson()
@@ -58,27 +55,9 @@ namespace DVLDPresentationLayer.People
         {
 
             //If image is not empty it shows it
-
-            if (ImagePath != string.Empty)
-            {
-
-                if (File.Exists(ImagePath))
-                {
-
-                    if (pbProfileImage.Image != null)
-                        pbProfileImage.Image.Dispose();
-
-                    using (var fs = new FileStream(ImagePath, FileMode.Open, FileAccess.Read))
-                    {
-                        pbProfileImage.Image = Image.FromStream(fs);
-                    }
-
-                }
-
-            }
+            Utils.ImageHandling.ShowLocalImage(ImagePath, pbProfileImage);
 
             //If image is empty it shows the gender of person
-
             if (ImagePath == string.Empty)
             {
 
@@ -239,6 +218,7 @@ namespace DVLDPresentationLayer.People
             dtpBirthDate.Value = DateTime.Today.AddYears(-18);
 
             FillCountries();
+            ImagePath = person.ImagePath;
 
             switch(Mode)
             {
@@ -262,7 +242,10 @@ namespace DVLDPresentationLayer.People
         private void DeleteUnusedImage()
         {
 
-            if ((ImagePath == string.Empty && person.ImagePath != string.Empty) || (ImagePath != string.Empty && person.ImagePath != string.Empty && ImagePath != person.ImagePath && Mode == enMode.Edit))
+            bool isProfileImageDeleted = (ImagePath == string.Empty && person.ImagePath != string.Empty);
+            bool doesPersonEditProfileImage = (ImagePath != string.Empty && person.ImagePath != string.Empty && ImagePath != person.ImagePath && Mode == enMode.Edit);
+
+            if (isProfileImageDeleted || doesPersonEditProfileImage)
             {
 
                 if (pictureBox1.Image != null)
@@ -313,36 +296,6 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        //To copy person's image from originl path to images's folder
-        private string CopyPersonImage()
-        {
-
-            if (ImagePath != string.Empty && File.Exists(ImagePath))
-            {
-
-                string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImagePath);
-                string destPath = Path.Combine(Properties.Settings.Default.ImageFolderPath, newFileName);
-
-                //Copy image if exists
-                if (File.Exists(ImagePath))
-                {
-
-                    if (!Directory.Exists(Properties.Settings.Default.ImageFolderPath))
-                        Directory.CreateDirectory(Properties.Settings.Default.ImageFolderPath);
-
-                    if (!File.Exists(destPath))
-                        File.Copy(ImagePath, destPath);
-
-                }
-
-                return destPath;
-
-            }
-
-            return string.Empty;
-
-        }
-
         //Close form
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -365,7 +318,8 @@ namespace DVLDPresentationLayer.People
             if (Mode == enMode.Edit)
                 DeleteUnusedImage();
 
-            FillPerson(CopyPersonImage());
+            string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImagePath);
+            FillPerson(Utils.ImageHandling.CopyImage(ImagePath, newFileName));
 
             if (person.Save())
             {
@@ -424,27 +378,10 @@ namespace DVLDPresentationLayer.People
         private void tbNationalNo_Validating(object sender, CancelEventArgs e)
         {
 
-            if (string.IsNullOrEmpty(tbNationalNo.Text))
-            {
+            CheckEmptyFields(sender, e);
 
-                e.Cancel = true;
-                epEmail.SetError(tbNationalNo, "You have to complete this field!");
-
-            }
-            else if (Person.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text) && Mode == enMode.Add)
-            {
-
-                e.Cancel = true;
-                epEmail.SetError(tbNationalNo, "This national number is already used!");
-
-            }
-            else
-            {
-
-                e.Cancel = false;
-                epEmail.SetError(tbNationalNo, "");
-
-            }
+            if(!string.IsNullOrEmpty(tbNationalNo.Text))
+                Utils.UI.ShowErrorProvider(Person.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text) && Mode == enMode.Add, "This national number already exists!", (Control)tbNationalNo, epNationalNo, e);
 
         }
 
@@ -452,20 +389,7 @@ namespace DVLDPresentationLayer.People
         private void tbEmail_Validating(object sender, CancelEventArgs e)
         {
 
-            if (!tbEmail.Text.EndsWith("@gmail.com") && !string.IsNullOrEmpty(tbEmail.Text))
-            {
-
-                e.Cancel = true;
-                epEmail.SetError(tbEmail, "Invalid email format!");
-
-            }
-            else
-            {
-
-                e.Cancel = false;
-                epEmail.SetError(tbEmail, "");
-
-            }
+            Utils.UI.ValidateEmail(tbEmail, epEmail, e);
 
         }
 
@@ -500,9 +424,6 @@ namespace DVLDPresentationLayer.People
 
             if (OnSaveEventHandler != null)
                 OnSaveEventHandler();
-
-            if (OnSaveReturningPersonIDEventHandler != null)
-                OnSaveReturningPersonIDEventHandler(person.PersonID);
 
         }
 

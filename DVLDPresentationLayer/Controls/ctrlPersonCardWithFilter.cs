@@ -18,6 +18,8 @@ namespace DVLDPresentationLayer.User_Controls
         public int PersonID { get; private set; }
         private DataTable dtPeople;
 
+        frmAddEditPerson AddPerson;
+
         public ctrlPersonCardWithFilter()
         {
 
@@ -54,10 +56,10 @@ namespace DVLDPresentationLayer.User_Controls
         }
 
         //Apply normal filter (not special situation)
-        private void ApplyFilter(string filterName, string value, DataTable dtData)
+        private void ApplyFilter(string filterName, string value, DataTable dtItems)
         {
 
-            Type columnType = dtData.Columns[filterName].DataType;
+            Type columnType = dtItems.Columns[filterName].DataType;
 
             if (columnType == typeof(int))
             {
@@ -67,14 +69,14 @@ namespace DVLDPresentationLayer.User_Controls
                 if (int.TryParse(value, out numericValue))
                 {
 
-                    dtData.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
+                    dtItems.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
 
                 }
                 else
                 {
 
                     MessageBox.Show("Please enter a valid numeric value.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    dtData.DefaultView.RowFilter = string.Empty;
+                    dtItems.DefaultView.RowFilter = string.Empty;
 
                 }
 
@@ -82,32 +84,32 @@ namespace DVLDPresentationLayer.User_Controls
             if (columnType == typeof(string))
             {
 
-                dtData.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
+                dtItems.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
 
             }
 
         }
 
         //Check filter and apply it on people's data (it can be None, or IsActive...)
-        private void CheckFilter(string filterName, string value, DataTable dtData)
+        private void CheckFilter(string filterName, string value, DataTable dtItems)
         {
 
-            if (dtData == null)
+            if (dtItems == null)
                 return;
 
             if (filterName == "None")
-                dtData.DefaultView.RowFilter = "";
+                dtItems.DefaultView.RowFilter = "";
             else
             {
 
                 if (string.IsNullOrWhiteSpace(value))
-                    dtData.DefaultView.RowFilter = string.Empty;
+                    dtItems.DefaultView.RowFilter = string.Empty;
 
-                else if (!dtData.Columns.Contains(filterName))
+                else if (!dtItems.Columns.Contains(filterName))
                     MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                else if (dtData.Columns.Contains(filterName) && value != string.Empty)
-                    ApplyFilter(filterName, value, dtData);
+                else if (dtItems.Columns.Contains(filterName) && value != string.Empty)
+                    ApplyFilter(filterName, value, dtItems);
 
             }
 
@@ -154,11 +156,21 @@ namespace DVLDPresentationLayer.User_Controls
 
         }
 
+        public void RefreshPerson()
+        {
+
+            Person person = Person.FindPerson(AddPerson.person.PersonID);
+
+            if (person != null)
+                ctrlPersonCard1.Refresh(person.PersonID);
+
+        }
+
         private void btnAddPerson_Click(object sender, EventArgs e)
         {
 
-            frmAddEditPerson AddPerson = new frmAddEditPerson();
-            AddPerson.OnSaveReturningPersonIDEventHandler += RefreshPerson;
+            AddPerson = new frmAddEditPerson();
+            AddPerson.OnSaveEventHandler += RefreshPerson;
 
             AddPerson.ShowDialog();
 

@@ -19,52 +19,16 @@ namespace DVLDPresentationLayer
 
         }
 
-        //Fill filter's combobox with filters's names
-        public void LoadFilters()
-        {
-
-            cbFilter.Items.Add("None");
-            cbFilter.Items.Add("PersonID");
-            cbFilter.Items.Add("NationalNo");
-            cbFilter.Items.Add("FirstName");
-            cbFilter.Items.Add("SecondName");
-            cbFilter.Items.Add("ThirdName");
-            cbFilter.Items.Add("LastName");
-            cbFilter.Items.Add("Gender");
-            cbFilter.Items.Add("Nationality");
-            cbFilter.Items.Add("Phone");
-            cbFilter.Items.Add("Email");
-
-            cbFilter.SelectedIndex = 0;
-
-        }
-
         //Check filter and apply it on people's data (it can be None, or IsActive...)
         public void ApplyFilter(string filterName, string value)
         {
 
-            DataTable dtData = (DataTable)dgvPeople.DataSource;
+            DataTable dtItems = (DataTable)dgvPeople.DataSource;
 
-            if (dtData == null)
-                return;
-
-            if (filterName == "None")
-                dtData.DefaultView.RowFilter = "";
+            if (!Utils.Filtering.FilterDataTable(filterName, value, dtItems))
+                MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-            {
-
-                if (string.IsNullOrWhiteSpace(value))
-                    dtData.DefaultView.RowFilter = string.Empty;
-
-                else if (!dtData.Columns.Contains(filterName))
-                    MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                else if (dtData.Columns.Contains(filterName) && value != string.Empty)
-                    Utils.FilterDataTable(filterName, value, dtData);
-
-            }
-
-            lblRecords.Text = dtData.DefaultView.Count.ToString();
+                lblRecords.Text = dtItems.DefaultView.Count.ToString();
 
         }
 
@@ -83,8 +47,15 @@ namespace DVLDPresentationLayer
         private void frmManagePeople_Load(object sender, EventArgs e)
         {
 
-            LoadFilters();
             LoadItems();
+
+            if (dgvPeople.Columns.Count > 0)
+            {
+
+                Utils.Filtering.FillFilters((DataTable)dgvPeople.DataSource, cbFilters);
+                cbFilters.SelectedIndex = 0;
+
+            }
 
         }
 
@@ -93,12 +64,12 @@ namespace DVLDPresentationLayer
 
             tbValue.Text = string.Empty;
 
-            if (cbFilter.SelectedItem.ToString() == "None")
+            if (cbFilters.SelectedItem.ToString() == "None")
                 tbValue.Enabled = false;
             else
                 tbValue.Enabled = true;
 
-            ApplyFilter(cbFilter.SelectedItem.ToString(), tbValue.Text);
+            ApplyFilter(cbFilters.SelectedItem.ToString(), tbValue.Text);
             dgvPeople.Refresh();
 
         }
@@ -106,22 +77,14 @@ namespace DVLDPresentationLayer
         private void tbValue_TextChanged(object sender, EventArgs e)
         {
 
-            ApplyFilter(cbFilter.SelectedItem.ToString(), tbValue.Text);
+            ApplyFilter(cbFilters.SelectedItem.ToString(), tbValue.Text);
 
         }
 
         private void dgvPeople_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
-            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
-            {
-
-                dgvPeople.ClearSelection();
-                dgvPeople.Rows[e.RowIndex].Selected = true;
-
-                cmsPerson.Show(Cursor.Position);
-
-            }
+            Utils.UI.ShowCMS(dgvPeople, e, cmsPerson);
 
         }
 
@@ -257,11 +220,10 @@ namespace DVLDPresentationLayer
         private void tbValue_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (cbFilter.SelectedItem.ToString() == "PersonID")
+            if (cbFilters.SelectedItem.ToString() == "PersonID")
             {
 
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                    e.Handled = true;
+                Utils.UI.StopEnteringCharacters(e);
 
             }
 

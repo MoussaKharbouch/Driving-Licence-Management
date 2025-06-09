@@ -34,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbValue = new System.Windows.Forms.TextBox();
-            this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.cbFilters = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAddPerson = new System.Windows.Forms.Button();
             this.lblRecords = new System.Windows.Forms.Label();
@@ -61,7 +61,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.tbValue);
-            this.panel2.Controls.Add(this.cbFilter);
+            this.panel2.Controls.Add(this.cbFilters);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.btnAddPerson);
             this.panel2.Controls.Add(this.lblRecords);
@@ -93,11 +93,11 @@
             // 
             // cbFilter
             // 
-            this.cbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.cbFilter, "cbFilter");
-            this.cbFilter.FormattingEnabled = true;
-            this.cbFilter.Name = "cbFilter";
-            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            this.cbFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.cbFilters, "cbFilter");
+            this.cbFilters.FormattingEnabled = true;
+            this.cbFilters.Name = "cbFilter";
+            this.cbFilters.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -221,7 +221,7 @@
         private System.Windows.Forms.Label lblRecords;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvPeople;
-        private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.ComboBox cbFilters;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbValue;
         private System.Windows.Forms.ContextMenuStrip cmsPerson;
