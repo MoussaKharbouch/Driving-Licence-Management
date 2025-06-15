@@ -4,12 +4,11 @@ using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
 using DVLDPresentationLayer.People;
-using DVLDPresentationLayer.Interfaces;
 
 namespace DVLDPresentationLayer
 {
 
-    public partial class frmManagePeople : Form, IDeletable, IFilterable, ILoadable
+    public partial class frmManagePeople : Form
     {
 
         public frmManagePeople()
@@ -53,6 +52,8 @@ namespace DVLDPresentationLayer
             {
 
                 Utils.Filtering.FillFilters((DataTable)dgvPeople.DataSource, cbFilters);
+                cbFilters.Items.Remove("DateOfBirth");
+
                 cbFilters.SelectedIndex = 0;
 
             }
@@ -69,7 +70,7 @@ namespace DVLDPresentationLayer
             else
                 tbValue.Enabled = true;
 
-            ApplyFilter(cbFilters.SelectedItem.ToString(), tbValue.Text);
+            //ApplyFilter(cbFilters.SelectedItem.ToString(), tbValue.Text);
             dgvPeople.Refresh();
 
         }

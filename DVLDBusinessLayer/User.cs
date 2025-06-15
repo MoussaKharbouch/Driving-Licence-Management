@@ -150,6 +150,20 @@ namespace DVLDBusinessLayer
 
         }
 
+        public static bool DoesPersonUse(int PersonID)
+        {
+
+            return UsersData.DoesPersonUse(PersonID);
+
+        }
+
+        public static bool DoesUsernameExist(string Username, int UserID)
+        {
+
+            return UsersData.DoesUsernameExist(Username, UserID);
+
+        }
+
         public static bool DoesUsernameExist(string Username)
         {
 
@@ -164,10 +178,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        static public DataTable GetUsersWithFullName()
+        static public DataTable GetUsersMainInfo()
         {
 
-            return UsersData.GetUsersWithFullName();
+            return UsersData.GetUsersMainInfo();
 
         }
 

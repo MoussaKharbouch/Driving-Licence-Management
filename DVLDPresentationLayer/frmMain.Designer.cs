@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnAccountSettings = new System.Windows.Forms.Button();
@@ -39,9 +40,15 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmsAccountSettings = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsCurrentUserInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsChangePassword = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsSignOut = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cmsAccountSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +82,7 @@
             this.btnAccountSettings.Text = "Account Settings";
             this.btnAccountSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAccountSettings.UseVisualStyleBackColor = false;
+            this.btnAccountSettings.Click += new System.EventHandler(this.btnAccountSettings_Click);
             // 
             // btnUsers
             // 
@@ -192,6 +200,48 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // cmsAccountSettings
+            // 
+            this.cmsAccountSettings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsCurrentUserInfo,
+            this.tsChangePassword,
+            this.toolStripSeparator1,
+            this.tsSignOut});
+            this.cmsAccountSettings.Name = "cmsAccountSettings";
+            this.cmsAccountSettings.Size = new System.Drawing.Size(185, 124);
+            // 
+            // tsCurrentUserInfo
+            // 
+            this.tsCurrentUserInfo.Image = global::DVLDPresentationLayer.Properties.Resources.PersonDetails_32;
+            this.tsCurrentUserInfo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsCurrentUserInfo.Name = "tsCurrentUserInfo";
+            this.tsCurrentUserInfo.Size = new System.Drawing.Size(184, 38);
+            this.tsCurrentUserInfo.Text = "Current User Info";
+            this.tsCurrentUserInfo.Click += new System.EventHandler(this.tsCurrentUserInfo_Click);
+            // 
+            // tsChangePassword
+            // 
+            this.tsChangePassword.Image = global::DVLDPresentationLayer.Properties.Resources.Password_32;
+            this.tsChangePassword.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsChangePassword.Name = "tsChangePassword";
+            this.tsChangePassword.Size = new System.Drawing.Size(184, 38);
+            this.tsChangePassword.Text = "Change Password";
+            this.tsChangePassword.Click += new System.EventHandler(this.tsChangePassword_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+            // 
+            // tsSignOut
+            // 
+            this.tsSignOut.Image = global::DVLDPresentationLayer.Properties.Resources.sign_out_32__2;
+            this.tsSignOut.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsSignOut.Name = "tsSignOut";
+            this.tsSignOut.Size = new System.Drawing.Size(184, 38);
+            this.tsSignOut.Text = "Sign Out";
+            this.tsSignOut.Click += new System.EventHandler(this.tsSignOut_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,6 +258,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.cmsAccountSettings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -224,6 +275,11 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip cmsAccountSettings;
+        private System.Windows.Forms.ToolStripMenuItem tsCurrentUserInfo;
+        private System.Windows.Forms.ToolStripMenuItem tsChangePassword;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsSignOut;
     }
 }
 

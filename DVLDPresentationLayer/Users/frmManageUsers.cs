@@ -25,7 +25,7 @@ namespace DVLDPresentationLayer.Users
         private void frmManageUsers_Load(object sender, EventArgs e)
         {
 
-            LoadUsersData();
+            LoadItems();
             LoadFilters();
 
         }
@@ -35,117 +35,62 @@ namespace DVLDPresentationLayer.Users
         {
 
             //Remove the events temperoraly so no null error shows
-            cbFilter.SelectedIndexChanged -= cbFilter_SelectedIndexChanged;
+            cbFilters.SelectedIndexChanged -= cbFilters_SelectedIndexChanged;
             cbIsActive.SelectedIndexChanged -= cbIsActive_SelectedIndexChanged;
 
-            cbFilter.Items.Add("None");
-            cbFilter.Items.Add("UserID");
-            cbFilter.Items.Add("PersonID");
-            cbFilter.Items.Add("Username");
-            cbFilter.Items.Add("Password");
-            cbFilter.Items.Add("IsActive");
-
+            Utils.Filtering.FillFilters((DataTable)dgvUsers.DataSource, cbFilters);
 
             cbIsActive.Items.Add("All");
             cbIsActive.Items.Add("True");
             cbIsActive.Items.Add("False");
 
-            cbIsActive.SelectedIndex = 0;
             cbIsActive.Visible = false;
 
-            cbFilter.SelectedIndex = 0;
+            cbFilters.SelectedIndex = 0;
+            cbFilters_SelectedIndexChanged(null, null);
+
+            cbIsActive.SelectedIndex = 0;
 
             //Adding events again
-            cbFilter.SelectedIndexChanged += cbFilter_SelectedIndexChanged;
+            cbFilters.SelectedIndexChanged += cbFilters_SelectedIndexChanged;
             cbIsActive.SelectedIndexChanged += cbIsActive_SelectedIndexChanged;
 
         }
 
-        //Apply normal filter (not special situation)
-        private void ApplyFilter(string filterName, string value, DataTable dtItems)
+        public void ApplyFilter(string filterName, string value)
         {
 
-            Type columnType = dtItems.Columns[filterName].DataType;
+            DataTable dtItems = (DataTable)dgvUsers.DataSource;
+            bool succeeded = false;
 
-            if (columnType == typeof(int))
-            {
+            succeeded = Utils.Filtering.FilterDataTable(filterName, value, dtItems);
 
-                int numericValue;
-
-                if (int.TryParse(value, out numericValue) && value != string.Empty)
-                {
-
-                    dtItems.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
-
-                }
-
-            }
-            if (columnType == typeof(string))
-            {
-
-                dtItems.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
-
-            }
-
-        }
-
-        //Check filter and apply it on people's data (it can be None, or IsActive...)
-        private void CheckFilter(string filterName, string value, DataTable dtItems)
-        {
-
-            if (dtItems == null)
-                return;
-
-            //Default visibility (combobox is hidden while textbox is visible)
-            tbValue.Visible = true;
-            cbIsActive.Visible = false;
-
-            if (filterName == "IsActive")
-            {
-
-                tbValue.Visible = false;
-                cbIsActive.Visible = true;
-
-                if (value == "All")
-                    dtItems.DefaultView.RowFilter = string.Empty;
-                else if(value == "True")
-                    dtItems.DefaultView.RowFilter = "IsActive = true";
-                else if (value == "False")
-                    dtItems.DefaultView.RowFilter = "IsActive = false";
-
-            }
-
-            else if (string.IsNullOrEmpty(value))
-            {
-                dtItems.DefaultView.RowFilter = "";
-                lblRecords.Text = dtItems.DefaultView.Count.ToString();
-                return;
-            }
-
-
-            else if (filterName == "None")
-            {
-
-                dtItems.DefaultView.RowFilter = "";
-
-            }
+            if (!succeeded)
+                MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-            {
-
-                if (!dtItems.Columns.Contains(filterName))
-                    MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                else if (dtItems.Columns.Contains(filterName) && value != string.Empty)
-                    ApplyFilter(filterName, value, dtItems);
-
-            }
+                lblRecords.Text = dtItems.DefaultView.Count.ToString();
 
         }
 
-        private void LoadUsersData()
+        public void ApplyFilter(string filterName, Utils.Filtering.enBoolFilter value)
         {
 
-            DataTable dtUsers = User.GetUsersWithFullName();
+            DataTable dtItems = (DataTable)dgvUsers.DataSource;
+            bool succeeded = false;
+
+            succeeded = Utils.Filtering.FilterDataTable(filterName, value, dtItems);
+
+            if (!succeeded)
+                MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+                lblRecords.Text = dtItems.DefaultView.Count.ToString();
+
+        }
+
+        public void LoadItems()
+        {
+
+            DataTable dtUsers = User.GetUsersMainInfo();
 
             if (dtUsers.Rows.Count > 0)
                 dgvUsers.DataSource = dtUsers;
@@ -154,8 +99,41 @@ namespace DVLDPresentationLayer.Users
 
         }
 
-        private void deleteUser(object sender, EventArgs e)
+        public bool DeleteItem(int UserID)
         {
+
+            User user = User.FindUser(UserID);
+
+            if (user == null)
+                return false;
+
+            bool succeeded = false;
+
+            try
+            {
+
+                succeeded = User.DeleteUser(user.UserID);
+                    
+
+            }
+            catch
+            {
+
+                MessageBox.Show("User has data linked to it.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+
+            }
+
+            LoadItems();
+            return succeeded;
+
+        }
+
+        private void DeleteUser(object sender, EventArgs e)
+        {
+
+            //Getting UserID from selected row
+            int UserID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
 
             if (dgvUsers.SelectedRows.Count > 0)
             {
@@ -163,28 +141,10 @@ namespace DVLDPresentationLayer.Users
                 if (MessageBox.Show("Are you sure you want delete this user?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                     return;
 
-                //Getting UserID from selected row
-                int UserID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
-
-                User user = User.FindUser(UserID);
-
-                try
-                {
-
-                    if (!User.DeleteUser(user.UserID))
-                        MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    else
-                        MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                catch
-                {
-
-                    MessageBox.Show("Data has not been saved succeesfully. Person has data linked to it.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-
-                LoadUsersData();
+                if (!DeleteItem(UserID))
+                    MessageBox.Show("Data has not been saved succeesfully", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             else
@@ -194,52 +154,77 @@ namespace DVLDPresentationLayer.Users
 
             }
 
+
+        }
+
+        private Utils.Filtering.enBoolFilter GetIsActiveFilterValue(string IsActive)
+        {
+
+            switch (IsActive)
+            {
+
+                case "All":
+                    return Utils.Filtering.enBoolFilter.All;
+                case "True":
+                    return Utils.Filtering.enBoolFilter.True;
+                case "False":
+                    return Utils.Filtering.enBoolFilter.False;
+
+            }
+
+            return Utils.Filtering.enBoolFilter.All;
+
         }
 
         private void AddUser_Click(object sender, EventArgs e)
         {
 
             frmAddEditUser AddPerson = new frmAddEditUser();
-            AddPerson.OnSaveEventHandler += LoadUsersData;
+            AddPerson.OnSaveEventHandler += LoadItems;
 
             AddPerson.ShowDialog();
 
         }
 
-        private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             tbValue.Text = string.Empty;
 
-            string filterName = cbFilter.SelectedItem != null ? cbFilter.SelectedItem.ToString() : string.Empty;
+            string filterName = cbFilters.SelectedItem != null ? cbFilters.SelectedItem.ToString() : string.Empty;
 
-            string filterValue;
+            if (cbFilters.SelectedItem.ToString() == "None")
+                tbValue.Enabled = false;
+            else
+                tbValue.Enabled = true;
 
             if (filterName == "IsActive")
-                filterValue = cbIsActive.SelectedItem != null ? cbIsActive.SelectedItem.ToString() : string.Empty;
+            {
+
+                tbValue.Visible = false;
+                cbIsActive.Visible = true;
+
+                DataTable dtItems = (DataTable)dgvUsers.DataSource;
+
+                cbIsActive_SelectedIndexChanged(cbIsActive, EventArgs.Empty);
+
+            }
             else
             {
 
-                filterValue = tbValue.Text;
+                tbValue.Visible = true;
+                cbIsActive.Visible = false;
+
+                ApplyFilter(filterName, tbValue.Text);
 
             }
-
-            CheckFilter(filterName, filterValue, (DataTable)dgvUsers.DataSource);
 
         }
 
         private void dgvUsers_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
-            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
-            {
-
-                dgvUsers.ClearSelection();
-                dgvUsers.Rows[e.RowIndex].Selected = true;
-
-                cmsUser.Show(Cursor.Position);
-
-            }
+            Utils.UI.ShowCMS(dgvUsers, e, cmsUser);
 
         }
 
@@ -247,7 +232,7 @@ namespace DVLDPresentationLayer.Users
         {
 
             frmShowDetails ShowDetails = new frmShowDetails(Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserID"].Value));
-            ShowDetails.OnSaveEventHandler += LoadUsersData;
+            ShowDetails.OnSaveEventHandler += LoadItems;
 
             ShowDetails.ShowDialog();
 
@@ -259,12 +244,35 @@ namespace DVLDPresentationLayer.Users
             if (dgvUsers.SelectedRows.Count > 0)
             {
 
-                int PersonID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
+                int UserID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
 
-                frmAddEditUser EditPerson = new frmAddEditUser(PersonID);
-                EditPerson.OnSaveEventHandler += LoadUsersData;
+                frmAddEditUser EditPerson = new frmAddEditUser(UserID);
+                EditPerson.OnSaveEventHandler += LoadItems;
 
                 EditPerson.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsChangePassword_Click(object sender, EventArgs e)
+        {
+
+            if (dgvUsers.SelectedRows.Count > 0)
+            {
+
+                int UserID = Convert.ToInt32(dgvUsers.SelectedRows[0].Cells["UserID"].Value);
+
+                frmChangePassword ChangePassword = new frmChangePassword(UserID);
+                ChangePassword.OnSaveEventHandler += LoadItems;
+
+                ChangePassword.ShowDialog();
 
             }
             else
@@ -279,16 +287,17 @@ namespace DVLDPresentationLayer.Users
         private void tbValue_TextChanged(object sender, EventArgs e)
         {
 
-            CheckFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, (DataTable)dgvUsers.DataSource);
+            ApplyFilter(cbFilters.SelectedItem.ToString(), tbValue.Text);
 
         }
 
         private void cbIsActive_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            CheckFilter(cbFilter.SelectedItem.ToString(), cbIsActive.SelectedItem.ToString(), (DataTable)dgvUsers.DataSource);
-
-            lblRecords.Text = dgvUsers.RowCount.ToString();
+            if (cbIsActive.SelectedItem != null)
+                ApplyFilter("IsActive", GetIsActiveFilterValue(cbIsActive.SelectedItem.ToString()));
+            else
+                ApplyFilter("IsActive", Utils.Filtering.enBoolFilter.All);
 
         }
 
@@ -296,7 +305,7 @@ namespace DVLDPresentationLayer.Users
         private void tbValue_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (cbFilter.SelectedItem.ToString() != "PersonID" && cbFilter.SelectedItem.ToString() != "UserID")
+            if (cbFilters.SelectedItem.ToString() != "PersonID" && cbFilters.SelectedItem.ToString() != "UserID")
                 return;
 
             Utils.UI.StopEnteringCharacters(e);

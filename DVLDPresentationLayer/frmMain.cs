@@ -47,6 +47,53 @@ namespace DVLDPresentationLayer
 
         }
 
+        private void tsCurrentUserInfo_Click(object sender, EventArgs e)
+        {
+
+            if (Global.user != null)
+            {
+
+                frmShowDetails CurrentUserInfo = new frmShowDetails(Global.user.UserID);
+                CurrentUserInfo.ShowDialog();
+
+            }
+
+        }
+
+        private void tsChangePassword_Click(object sender, EventArgs e)
+        {
+
+            if (Global.user != null)
+            {
+
+                frmChangePassword ChangePassword = new frmChangePassword(Global.user.UserID);
+                ChangePassword.ShowDialog();
+
+            }
+
+        }
+
+        private void tsSignOut_Click(object sender, EventArgs e)
+        {
+
+            Global.user = null;
+
+            this.DialogResult = DialogResult.Retry;
+            this.Close();
+
+
+        }
+
+        private void btnAccountSettings_Click(object sender, EventArgs e)
+        {
+            
+            Point location = btnAccountSettings.PointToScreen(new Point(0, btnAccountSettings.Height));
+
+            cmsAccountSettings.Show(location);
+
+        }
+
+
     }
 
 }

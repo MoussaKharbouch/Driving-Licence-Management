@@ -16,7 +16,7 @@ namespace DVLDPresentationLayer.User_Controls
     {
 
         public int PersonID { get; private set; }
-        private DataTable dtPeople;
+        private DataTable dtItems;
 
         frmAddEditPerson AddPerson;
 
@@ -39,86 +39,30 @@ namespace DVLDPresentationLayer.User_Controls
         private void LoadFilters()
         {
 
-            cbFilter.Items.Add("None");
-            cbFilter.Items.Add("PersonID");
-            cbFilter.Items.Add("NationalNo");
-            cbFilter.Items.Add("FirstName");
-            cbFilter.Items.Add("SecondName");
-            cbFilter.Items.Add("ThirdName");
-            cbFilter.Items.Add("LastName");
-            cbFilter.Items.Add("Gender");
-            cbFilter.Items.Add("Nationality");
-            cbFilter.Items.Add("Phone");
-            cbFilter.Items.Add("Email");
+            Utils.Filtering.FillFilters(dtItems, cbFilters);
+            cbFilters.Items.Remove("DateOfBirth");
 
-            cbFilter.SelectedIndex = 0;
-
-        }
-
-        //Apply normal filter (not special situation)
-        private void ApplyFilter(string filterName, string value, DataTable dtItems)
-        {
-
-            Type columnType = dtItems.Columns[filterName].DataType;
-
-            if (columnType == typeof(int))
-            {
-
-                int numericValue;
-
-                if (int.TryParse(value, out numericValue))
-                {
-
-                    dtItems.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
-
-                }
-                else
-                {
-
-                    MessageBox.Show("Please enter a valid numeric value.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    dtItems.DefaultView.RowFilter = string.Empty;
-
-                }
-
-            }
-            if (columnType == typeof(string))
-            {
-
-                dtItems.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
-
-            }
+            cbFilters.SelectedIndex = 0;
 
         }
 
         //Check filter and apply it on people's data (it can be None, or IsActive...)
-        private void CheckFilter(string filterName, string value, DataTable dtItems)
+        public void ApplyFilter(string filterName, string value)
         {
 
-            if (dtItems == null)
-                return;
-
-            if (filterName == "None")
-                dtItems.DefaultView.RowFilter = "";
+            if (!Utils.Filtering.FilterDataTable(filterName, value, dtItems))
+                MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (dtItems.DefaultView.Count > 0)
+                PersonID = Convert.ToInt32(dtItems.DefaultView[0]["PersonID"]);
             else
-            {
-
-                if (string.IsNullOrWhiteSpace(value))
-                    dtItems.DefaultView.RowFilter = string.Empty;
-
-                else if (!dtItems.Columns.Contains(filterName))
-                    MessageBox.Show("This filter is invalid!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                else if (dtItems.Columns.Contains(filterName) && value != string.Empty)
-                    ApplyFilter(filterName, value, dtItems);
-
-            }
+                MessageBox.Show("No matching person found.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
 
         private void ctrlPersonCardWithFilter_Load(object sender, EventArgs e)
         {
 
-            dtPeople = Person.GetPeople();
+            dtItems = Person.GetPeopleMainInfo();
             LoadFilters();
 
         }
@@ -126,21 +70,20 @@ namespace DVLDPresentationLayer.User_Controls
         private void btnSearch_Click(object sender, EventArgs e)
         {
 
-            CheckFilter(cbFilter.SelectedItem.ToString(), tbValue.Text, dtPeople);
+            ApplyFilter(cbFilters.SelectedItem.ToString(), tbValue.Text);
 
-            if (dtPeople.DefaultView.Count == 1)
-                ctrlPersonCard1.Refresh((int)dtPeople.Rows[0]["PersonID"]);
+            if (dtItems.DefaultView.Count == 1)
+                ctrlPersonCard1.Refresh((int)dtItems.DefaultView[0]["PersonID"]);
 
         }
 
         private void tbValue_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (cbFilter.SelectedItem.ToString() != "PersonID")
+            if (cbFilters.SelectedItem.ToString() != "PersonID")
                 return;
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                e.Handled = true;
+            Utils.UI.StopEnteringCharacters(e);
 
         }
 
@@ -170,9 +113,31 @@ namespace DVLDPresentationLayer.User_Controls
         {
 
             AddPerson = new frmAddEditPerson();
-            AddPerson.OnSaveEventHandler += RefreshPerson;
+
+            if (AddPerson.person.PersonID != -1)
+                PersonID = AddPerson.person.PersonID;
+
+            AddPerson.OnSaveEventHandler += () =>
+            {
+
+                PersonID = AddPerson.person.PersonID;
+                RefreshPerson(PersonID);
+
+            };
 
             AddPerson.ShowDialog();
+
+        }
+
+        private void cbFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (cbFilters.SelectedItem.ToString() == "None")
+                tbValue.Enabled = false;
+            else
+                tbValue.Enabled = true;
+
+            tbValue.Text = string.Empty;
 
         }
 

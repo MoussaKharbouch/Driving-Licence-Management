@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
-using DVLDPresentationLayer.Interfaces;
 
 namespace DVLDPresentationLayer.People
 {
 
-    public partial class frmAddEditPerson : Form, ISavable<Person>
+    public partial class frmAddEditPerson : Form
     {
 
         public enum enMode { Add, Edit }

@@ -20,18 +20,33 @@ namespace DVLDPresentationLayer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //This is the right start (application starts from login from)
-            /*frmLogin Login = new frmLogin();
+            //This is the right start (application starts from login from)         
 
-            if (Login.ShowDialog() == DialogResult.OK)
+            frmLogin Login;
+            frmMain Main = new frmMain(null);
+
+            do
             {
 
-                Application.Run(new frmMain(Login.user));
+                Global.user = null;
 
-            }*/
+                Login = new frmLogin();
+                DialogResult succeeded = Login.ShowDialog();
+
+                if (succeeded == DialogResult.OK)
+                {
+
+                    Main = new frmMain(Login.user);
+                    Main.ShowDialog();
+
+                }
+                else if (succeeded == DialogResult.Cancel)
+                    break;
+
+                } while ((Main.DialogResult == DialogResult.Retry));
 
             //If i want run main from to test features
-            Application.Run(new frmMain(new User()));
+            //Application.Run(new frmMain(null));
 
         }
 

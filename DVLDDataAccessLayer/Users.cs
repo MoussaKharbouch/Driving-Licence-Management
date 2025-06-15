@@ -71,7 +71,7 @@ namespace DVLDDataAccessLayer
                 {
 
                     PersonID = (int)reader["PersonID"];
-                    Username = reader["PersonID"].ToString();
+                    Username = reader["Username"].ToString();
                     Password = reader["Password"].ToString();
                     IsActive = Convert.ToBoolean(reader["IsActive"].ToString());
 
@@ -87,6 +87,38 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool DoesPersonUse(int PersonID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT 1 AS FOUND FROM Users WHERE PersonID = @PersonID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
         public static bool DoesUserExist(string Username, string Password)
         {
 
@@ -97,6 +129,39 @@ namespace DVLDDataAccessLayer
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Username", Username);
             command.Parameters.AddWithValue("@Password", Password);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
+        public static bool DoesUsernameExist(string Username, int UserID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT 1 AS FOUND FROM Users WHERE Username = @Username AND UserID != @UserID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Username", Username);
+            command.Parameters.AddWithValue("@UserID", UserID);
 
             bool isFound = false;
 
@@ -218,6 +283,8 @@ namespace DVLDDataAccessLayer
             command.Parameters.AddWithValue("@Password", Password);
             command.Parameters.AddWithValue("@IsActive", IsActive);
 
+            command.Parameters.AddWithValue("@UserID", UserID);
+
             try
             {
 
@@ -298,7 +365,7 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static DataTable GetUsersWithFullName()
+        public static DataTable GetUsersMainInfo()
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -311,7 +378,7 @@ namespace DVLDDataAccessLayer
                                     ISNULL(NULLIF(People.ThirdName, ''), '') + ' ',
                                     People.LastName
                                 )
-                              )) AS FullName, Users.Username, Users.Password, Users.IsActive
+                              )) AS FullName, Users.Username, Users.IsActive
                               FROM Users INNER JOIN People ON Users.PersonID = People.PersonID";
 
             SqlCommand command = new SqlCommand(query, connection);

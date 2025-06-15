@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DVLDBusinessLayer;
-using DVLDPresentationLayer.Interfaces;
 
 namespace DVLDPresentationLayer.People
 {
 
-    public partial class ctrlPersonCard : UserControl, IShowable<Person>
+    public partial class ctrlPersonCard : UserControl
     {
 
         public Person person { get; private set; }

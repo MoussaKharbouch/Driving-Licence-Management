@@ -18,7 +18,9 @@ namespace DVLDPresentationLayer
         public static class Filtering
         {
 
-            static public bool ValidateFilter(string filterName, string value, DataTable dtItems)
+            public enum enBoolFilter { All, True, False }
+
+            static public bool ValidateFilter(string filterName, DataTable dtItems)
             {
 
                 if (dtItems == null)
@@ -42,7 +44,7 @@ namespace DVLDPresentationLayer
             static public bool FilterDataTable(string filterName, string value, DataTable dtItems)
             {
 
-                if (!ValidateFilter(filterName, value, dtItems))
+                if (!ValidateFilter(filterName, dtItems))
                     return false;
 
                 if (filterName == "None")
@@ -84,10 +86,32 @@ namespace DVLDPresentationLayer
                     }
 
                 }
-                if (columnType == typeof(string))
+                else if (columnType == typeof(string))
                 {
 
                     dtItems.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
+
+                }
+
+                return true;
+
+            }
+
+            static public bool FilterDataTable(string filterName, enBoolFilter value, DataTable dtItems)
+            {
+
+                if (value != enBoolFilter.All)
+                {
+
+                    bool boolValue = (value == enBoolFilter.True ? true : false);
+                    dtItems.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, boolValue ? "True" : "False");
+
+
+                }
+                else
+                {
+
+                    dtItems.DefaultView.RowFilter = string.Empty;
 
                 }
 
@@ -152,6 +176,24 @@ namespace DVLDPresentationLayer
                 {
 
                     e.Cancel = false;
+                    ep.SetError(control, string.Empty);
+
+                }
+
+            }
+
+            static public void ShowErrorProvider(bool condition, string message, Control control, ErrorProvider ep)
+            {
+
+                if (condition)
+                {
+
+                    ep.SetError(control, message);
+
+                }
+                else
+                {
+
                     ep.SetError(control, string.Empty);
 
                 }

@@ -34,7 +34,7 @@
             this.lblRecords = new System.Windows.Forms.Label();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.cbFilters = new System.Windows.Forms.ComboBox();
             this.tbValue = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@
             this.tsSendEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.tsCallPhone = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsUser = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -120,20 +121,20 @@
             this.label3.TabIndex = 18;
             this.label3.Text = "Filter By:";
             // 
-            // cbFilter
+            // cbFilters
             // 
-            this.cbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFilter.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbFilter.FormattingEnabled = true;
-            this.cbFilter.Location = new System.Drawing.Point(99, 173);
-            this.cbFilter.Name = "cbFilter";
-            this.cbFilter.Size = new System.Drawing.Size(121, 21);
-            this.cbFilter.TabIndex = 19;
-            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbIsActive_SelectedIndexChanged);
+            this.cbFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbFilters.FormattingEnabled = true;
+            this.cbFilters.Location = new System.Drawing.Point(99, 173);
+            this.cbFilters.Name = "cbFilters";
+            this.cbFilters.Size = new System.Drawing.Size(121, 21);
+            this.cbFilters.TabIndex = 19;
+            this.cbFilters.SelectedIndexChanged += new System.EventHandler(this.cbFilters_SelectedIndexChanged);
             // 
             // tbValue
             // 
-            this.tbValue.Location = new System.Drawing.Point(226, 173);
+            this.tbValue.Location = new System.Drawing.Point(226, 175);
             this.tbValue.Name = "tbValue";
             this.tbValue.Size = new System.Drawing.Size(100, 20);
             this.tbValue.TabIndex = 20;
@@ -168,7 +169,7 @@
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.cbFilter);
+            this.panel2.Controls.Add(this.cbFilters);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.btnAddUser);
             this.panel2.Controls.Add(this.lblRecords);
@@ -197,51 +198,51 @@
             // tsShowDetails
             // 
             this.tsShowDetails.Name = "tsShowDetails";
-            this.tsShowDetails.Size = new System.Drawing.Size(141, 22);
+            this.tsShowDetails.Size = new System.Drawing.Size(168, 22);
             this.tsShowDetails.Text = "Show Details";
             this.tsShowDetails.Click += new System.EventHandler(this.tsShowDetails_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(165, 6);
             // 
             // tsEdit
             // 
             this.tsEdit.Name = "tsEdit";
-            this.tsEdit.Size = new System.Drawing.Size(141, 22);
+            this.tsEdit.Size = new System.Drawing.Size(168, 22);
             this.tsEdit.Text = "Edit";
             this.tsEdit.Click += new System.EventHandler(this.tsEdit_Click);
             // 
             // tsAdd
             // 
             this.tsAdd.Name = "tsAdd";
-            this.tsAdd.Size = new System.Drawing.Size(141, 22);
+            this.tsAdd.Size = new System.Drawing.Size(168, 22);
             this.tsAdd.Text = "Add";
             this.tsAdd.Click += new System.EventHandler(this.AddUser_Click);
             // 
             // tsDelete
             // 
             this.tsDelete.Name = "tsDelete";
-            this.tsDelete.Size = new System.Drawing.Size(141, 22);
+            this.tsDelete.Size = new System.Drawing.Size(168, 22);
             this.tsDelete.Text = "Delete";
-            this.tsDelete.Click += new System.EventHandler(this.deleteUser);
+            this.tsDelete.Click += new System.EventHandler(this.DeleteUser);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(165, 6);
             // 
             // tsSendEmail
             // 
             this.tsSendEmail.Name = "tsSendEmail";
-            this.tsSendEmail.Size = new System.Drawing.Size(141, 22);
+            this.tsSendEmail.Size = new System.Drawing.Size(168, 22);
             this.tsSendEmail.Text = "Send Email";
             // 
             // tsCallPhone
             // 
             this.tsCallPhone.Name = "tsCallPhone";
-            this.tsCallPhone.Size = new System.Drawing.Size(141, 22);
+            this.tsCallPhone.Size = new System.Drawing.Size(168, 22);
             this.tsCallPhone.Text = "Call Phone";
             // 
             // cmsUser
@@ -252,11 +253,19 @@
             this.tsEdit,
             this.tsAdd,
             this.tsDelete,
+            this.tsChangePassword,
             this.toolStripSeparator1,
             this.tsSendEmail,
             this.tsCallPhone});
             this.cmsUser.Name = "cmsPerson";
-            this.cmsUser.Size = new System.Drawing.Size(142, 148);
+            this.cmsUser.Size = new System.Drawing.Size(169, 192);
+            // 
+            // tsChangePassword
+            // 
+            this.tsChangePassword.Name = "tsChangePassword";
+            this.tsChangePassword.Size = new System.Drawing.Size(168, 22);
+            this.tsChangePassword.Text = "Change Password";
+            this.tsChangePassword.Click += new System.EventHandler(this.tsChangePassword_Click);
             // 
             // frmManageUsers
             // 
@@ -285,7 +294,7 @@
         private System.Windows.Forms.Label lblRecords;
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.ComboBox cbFilters;
         private System.Windows.Forms.TextBox tbValue;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
@@ -300,5 +309,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsCallPhone;
         private System.Windows.Forms.ContextMenuStrip cmsUser;
         private System.Windows.Forms.ComboBox cbIsActive;
+        private System.Windows.Forms.ToolStripMenuItem tsChangePassword;
     }
 }
