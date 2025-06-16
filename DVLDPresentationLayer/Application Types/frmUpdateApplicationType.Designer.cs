@@ -83,11 +83,11 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(27, 22);
+            this.label2.Location = new System.Drawing.Point(35, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(268, 24);
+            this.label2.Size = new System.Drawing.Size(258, 24);
             this.label2.TabIndex = 44;
-            this.label2.Text = "Update Application Types";
+            this.label2.Text = "Update Application Type";
             // 
             // label4
             // 

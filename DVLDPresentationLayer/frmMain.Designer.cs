@@ -31,34 +31,34 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmsAccountSettings = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmsApplications = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAccountSettings = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.btnDrivers = new System.Windows.Forms.Button();
             this.btnPeople = new System.Windows.Forms.Button();
             this.btnApplications = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblUsername = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cmsAccountSettings = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsCurrentUserInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.tsChangePassword = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsSignOut = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsApplications = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsDrivingLicenceServices = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsManageApplications = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsDetainLicenses = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsManageApplicationTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsManageTestTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cmsAccountSettings.SuspendLayout();
             this.cmsApplications.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -74,6 +74,92 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(984, 65);
             this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblUsername);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 65);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(984, 497);
+            this.panel2.TabIndex = 1;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.Font = new System.Drawing.Font("Rockwell", 10F, System.Drawing.FontStyle.Bold);
+            this.lblUsername.ForeColor = System.Drawing.Color.White;
+            this.lblUsername.Location = new System.Drawing.Point(169, 470);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(149, 17);
+            this.lblUsername.TabIndex = 4;
+            this.lblUsername.Text = "???";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Rockwell", 10F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(12, 470);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 18);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Logged in with user:";
+            // 
+            // cmsAccountSettings
+            // 
+            this.cmsAccountSettings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsCurrentUserInfo,
+            this.tsChangePassword,
+            this.toolStripSeparator1,
+            this.tsSignOut});
+            this.cmsAccountSettings.Name = "cmsAccountSettings";
+            this.cmsAccountSettings.Size = new System.Drawing.Size(185, 124);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+            // 
+            // cmsApplications
+            // 
+            this.cmsApplications.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsDrivingLicenceServices,
+            this.toolStripSeparator2,
+            this.tsManageApplications,
+            this.toolStripSeparator3,
+            this.tsDetainLicenses,
+            this.toolStripSeparator4,
+            this.tsManageApplicationTypes,
+            this.tsManageTestTypes});
+            this.cmsApplications.Name = "cmsAccountSettings";
+            this.cmsApplications.Size = new System.Drawing.Size(265, 394);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(261, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(261, 6);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(261, 6);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.DVLD_Logo;
+            this.pictureBox1.Location = new System.Drawing.Point(351, 111);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(282, 274);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // btnAccountSettings
             // 
@@ -169,58 +255,6 @@
             this.btnApplications.UseVisualStyleBackColor = false;
             this.btnApplications.Click += new System.EventHandler(this.btnApplications_Click);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblUsername);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 65);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(984, 497);
-            this.panel2.TabIndex = 1;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.Font = new System.Drawing.Font("Rockwell", 10F, System.Drawing.FontStyle.Bold);
-            this.lblUsername.ForeColor = System.Drawing.Color.White;
-            this.lblUsername.Location = new System.Drawing.Point(169, 470);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(149, 17);
-            this.lblUsername.TabIndex = 4;
-            this.lblUsername.Text = "???";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Rockwell", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 470);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 18);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Logged in with user:";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.DVLD_Logo;
-            this.pictureBox1.Location = new System.Drawing.Point(351, 111);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(282, 274);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            // 
-            // cmsAccountSettings
-            // 
-            this.cmsAccountSettings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsCurrentUserInfo,
-            this.tsChangePassword,
-            this.toolStripSeparator1,
-            this.tsSignOut});
-            this.cmsAccountSettings.Name = "cmsAccountSettings";
-            this.cmsAccountSettings.Size = new System.Drawing.Size(185, 124);
-            // 
             // tsCurrentUserInfo
             // 
             this.tsCurrentUserInfo.Image = global::DVLDPresentationLayer.Properties.Resources.PersonDetails_32;
@@ -239,11 +273,6 @@
             this.tsChangePassword.Text = "Change Password";
             this.tsChangePassword.Click += new System.EventHandler(this.tsChangePassword_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
-            // 
             // tsSignOut
             // 
             this.tsSignOut.Image = global::DVLDPresentationLayer.Properties.Resources.sign_out_32__2;
@@ -253,20 +282,6 @@
             this.tsSignOut.Text = "Sign Out";
             this.tsSignOut.Click += new System.EventHandler(this.tsSignOut_Click);
             // 
-            // cmsApplications
-            // 
-            this.cmsApplications.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsDrivingLicenceServices,
-            this.toolStripSeparator2,
-            this.tsManageApplications,
-            this.toolStripSeparator3,
-            this.tsDetainLicenses,
-            this.toolStripSeparator4,
-            this.tsManageApplicationTypes,
-            this.tsManageTestTypes});
-            this.cmsApplications.Name = "cmsAccountSettings";
-            this.cmsApplications.Size = new System.Drawing.Size(265, 372);
-            // 
             // tsDrivingLicenceServices
             // 
             this.tsDrivingLicenceServices.Image = global::DVLDPresentationLayer.Properties.Resources.Driver_License_48;
@@ -274,11 +289,6 @@
             this.tsDrivingLicenceServices.Name = "tsDrivingLicenceServices";
             this.tsDrivingLicenceServices.Size = new System.Drawing.Size(264, 70);
             this.tsDrivingLicenceServices.Text = "Driving Licence Services";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(261, 6);
             // 
             // tsManageApplications
             // 
@@ -288,11 +298,6 @@
             this.tsManageApplications.Size = new System.Drawing.Size(264, 70);
             this.tsManageApplications.Text = "Manage Applications";
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(261, 6);
-            // 
             // tsDetainLicenses
             // 
             this.tsDetainLicenses.Image = global::DVLDPresentationLayer.Properties.Resources.Detain_64;
@@ -300,11 +305,6 @@
             this.tsDetainLicenses.Name = "tsDetainLicenses";
             this.tsDetainLicenses.Size = new System.Drawing.Size(264, 70);
             this.tsDetainLicenses.Text = "Detain Licenses";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(261, 6);
             // 
             // tsManageApplicationTypes
             // 
@@ -322,6 +322,7 @@
             this.tsManageTestTypes.Name = "tsManageTestTypes";
             this.tsManageTestTypes.Size = new System.Drawing.Size(264, 70);
             this.tsManageTestTypes.Text = "Manage Test Types";
+            this.tsManageTestTypes.Click += new System.EventHandler(this.tsManageTestTypes_Click);
             // 
             // frmMain
             // 
@@ -338,9 +339,9 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cmsAccountSettings.ResumeLayout(false);
             this.cmsApplications.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

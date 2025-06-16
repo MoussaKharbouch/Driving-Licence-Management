@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using DVLDDataAccessLayer;
+
+namespace DVLDBusinessLayer
+{
+
+    public class TestType
+    {
+
+        public int TestTypeID { get; set; }
+
+        public string TestTypeTitle { get; set; }
+        public string TestTypeDescription { get; set; }
+        public decimal TestTypeFees { get; set; }
+
+        public TestType(int TestTypeID, string TestTypeTitle, string TestTypeDescription, decimal TestTypeFees)
+        {
+
+            this.TestTypeID = TestTypeID;
+
+            this.TestTypeTitle = TestTypeTitle;
+            this.TestTypeDescription = TestTypeDescription;
+            this.TestTypeFees = TestTypeFees;
+
+        }
+
+        public static TestType FindTestType(int TestTypeID)
+        {
+
+            string TestTypeTitle = string.Empty;
+            string TestTypeDescription = string.Empty;
+            decimal TestTypeFees = 0;
+
+            TestTypesData.FindTestType(TestTypeID, ref TestTypeTitle, ref TestTypeDescription, ref TestTypeFees);
+
+            if (TestTypeTitle == string.Empty)
+                return null;
+
+            return new TestType(TestTypeID, TestTypeTitle, TestTypeDescription, TestTypeFees);
+
+        }
+
+        public static bool DoesTestTypeTitleExist(string TestTypeTitle)
+        {
+
+            return TestTypesData.DoesTestTypeTitleExist(TestTypeTitle);
+
+        }
+
+        public bool Update()
+        {
+
+            return TestTypesData.UpdateTestType(TestTypeID, TestTypeTitle, TestTypeDescription, TestTypeFees);
+
+        }
+
+        static public DataTable GetTestTypes()
+        {
+
+            return TestTypesData.GetTestTypes();
+
+        }
+
+    }
+
+}

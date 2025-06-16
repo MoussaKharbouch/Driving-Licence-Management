@@ -11,6 +11,7 @@ using DVLDBusinessLayer;
 using DVLDPresentationLayer.People;
 using DVLDPresentationLayer.Users;
 using DVLDPresentationLayer.ApplicationTypes;
+using DVLDPresentationLayer.Test_Types;
 
 namespace DVLDPresentationLayer
 {
@@ -108,6 +109,14 @@ namespace DVLDPresentationLayer
 
             Point menuLocation = btnApplications.PointToScreen(new Point(0, btnApplications.Height));
             cmsApplications.Show(menuLocation);
+
+        }
+
+        private void tsManageTestTypes_Click(object sender, EventArgs e)
+        {
+
+            frmManageTestTypes ManageTestTypes = new frmManageTestTypes();
+            ManageTestTypes.ShowDialog();
 
         }
 
