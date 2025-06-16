@@ -231,7 +231,7 @@ namespace DVLDPresentationLayer.Users
         private void tsShowDetails_Click(object sender, EventArgs e)
         {
 
-            frmShowDetails ShowDetails = new frmShowDetails(Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserID"].Value));
+            frmShowUserDetails ShowDetails = new frmShowUserDetails(Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserID"].Value));
             ShowDetails.OnSaveEventHandler += LoadItems;
 
             ShowDetails.ShowDialog();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
+using DVLDPresentationLayer.ApplicationTypes;
 
 namespace DVLDPresentationLayer
 {
@@ -45,7 +46,7 @@ namespace DVLDPresentationLayer
 
                 } while ((Main.DialogResult == DialogResult.Retry));
 
-            //If i want run main from to test features
+            //If i want run any from to test features
             //Application.Run(new frmMain(null));
 
         }

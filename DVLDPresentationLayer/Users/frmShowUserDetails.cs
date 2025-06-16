@@ -12,13 +12,13 @@ using DVLDBusinessLayer;
 namespace DVLDPresentationLayer.Users
 {
 
-    public partial class frmShowDetails : Form
+    public partial class frmShowUserDetails : Form
     {
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
 
-        public frmShowDetails(int UserID)
+        public frmShowUserDetails(int UserID)
         {
 
             InitializeComponent();

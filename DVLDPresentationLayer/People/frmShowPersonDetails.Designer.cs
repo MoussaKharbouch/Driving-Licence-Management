@@ -1,6 +1,6 @@
 ﻿namespace DVLDPresentationLayer.People
 {
-    partial class frmShowDetails
+    partial class frmShowPersonDetails
     {
         /// <summary>
         /// Required designer variable.

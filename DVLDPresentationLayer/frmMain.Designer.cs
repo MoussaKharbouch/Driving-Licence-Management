@@ -45,10 +45,20 @@
             this.tsChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsSignOut = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsApplications = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsDrivingLicenceServices = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsManageApplications = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsDetainLicenses = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsManageApplicationTypes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsManageTestTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cmsAccountSettings.SuspendLayout();
+            this.cmsApplications.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -157,6 +167,7 @@
             this.btnApplications.Text = "Applications";
             this.btnApplications.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnApplications.UseVisualStyleBackColor = false;
+            this.btnApplications.Click += new System.EventHandler(this.btnApplications_Click);
             // 
             // panel2
             // 
@@ -242,6 +253,76 @@
             this.tsSignOut.Text = "Sign Out";
             this.tsSignOut.Click += new System.EventHandler(this.tsSignOut_Click);
             // 
+            // cmsApplications
+            // 
+            this.cmsApplications.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsDrivingLicenceServices,
+            this.toolStripSeparator2,
+            this.tsManageApplications,
+            this.toolStripSeparator3,
+            this.tsDetainLicenses,
+            this.toolStripSeparator4,
+            this.tsManageApplicationTypes,
+            this.tsManageTestTypes});
+            this.cmsApplications.Name = "cmsAccountSettings";
+            this.cmsApplications.Size = new System.Drawing.Size(265, 372);
+            // 
+            // tsDrivingLicenceServices
+            // 
+            this.tsDrivingLicenceServices.Image = global::DVLDPresentationLayer.Properties.Resources.Driver_License_48;
+            this.tsDrivingLicenceServices.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsDrivingLicenceServices.Name = "tsDrivingLicenceServices";
+            this.tsDrivingLicenceServices.Size = new System.Drawing.Size(264, 70);
+            this.tsDrivingLicenceServices.Text = "Driving Licence Services";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(261, 6);
+            // 
+            // tsManageApplications
+            // 
+            this.tsManageApplications.Image = global::DVLDPresentationLayer.Properties.Resources.Manage_Applications_64;
+            this.tsManageApplications.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsManageApplications.Name = "tsManageApplications";
+            this.tsManageApplications.Size = new System.Drawing.Size(264, 70);
+            this.tsManageApplications.Text = "Manage Applications";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(261, 6);
+            // 
+            // tsDetainLicenses
+            // 
+            this.tsDetainLicenses.Image = global::DVLDPresentationLayer.Properties.Resources.Detain_64;
+            this.tsDetainLicenses.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsDetainLicenses.Name = "tsDetainLicenses";
+            this.tsDetainLicenses.Size = new System.Drawing.Size(264, 70);
+            this.tsDetainLicenses.Text = "Detain Licenses";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(261, 6);
+            // 
+            // tsManageApplicationTypes
+            // 
+            this.tsManageApplicationTypes.Image = global::DVLDPresentationLayer.Properties.Resources.Application_Types_64;
+            this.tsManageApplicationTypes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsManageApplicationTypes.Name = "tsManageApplicationTypes";
+            this.tsManageApplicationTypes.Size = new System.Drawing.Size(264, 70);
+            this.tsManageApplicationTypes.Text = "Manage Application Types";
+            this.tsManageApplicationTypes.Click += new System.EventHandler(this.tsManageApplicationTypes_Click);
+            // 
+            // tsManageTestTypes
+            // 
+            this.tsManageTestTypes.Image = global::DVLDPresentationLayer.Properties.Resources.Test_Type_64;
+            this.tsManageTestTypes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsManageTestTypes.Name = "tsManageTestTypes";
+            this.tsManageTestTypes.Size = new System.Drawing.Size(264, 70);
+            this.tsManageTestTypes.Text = "Manage Test Types";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,6 +340,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cmsAccountSettings.ResumeLayout(false);
+            this.cmsApplications.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -280,6 +362,15 @@
         private System.Windows.Forms.ToolStripMenuItem tsChangePassword;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsSignOut;
+        private System.Windows.Forms.ContextMenuStrip cmsApplications;
+        private System.Windows.Forms.ToolStripMenuItem tsDrivingLicenceServices;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem tsManageApplications;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem tsDetainLicenses;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsManageApplicationTypes;
+        private System.Windows.Forms.ToolStripMenuItem tsManageTestTypes;
     }
 }
 

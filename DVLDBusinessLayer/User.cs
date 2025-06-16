@@ -157,13 +157,6 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static bool DoesUsernameExist(string Username, int UserID)
-        {
-
-            return UsersData.DoesUsernameExist(Username, UserID);
-
-        }
-
         public static bool DoesUsernameExist(string Username)
         {
 

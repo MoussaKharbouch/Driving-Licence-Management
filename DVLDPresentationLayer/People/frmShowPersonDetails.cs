@@ -11,20 +11,20 @@ using System.Windows.Forms;
 namespace DVLDPresentationLayer.People
 {
 
-    public partial class frmShowDetails : Form
+    public partial class frmShowPersonDetails : Form
     {
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
 
-        public frmShowDetails()
+        public frmShowPersonDetails()
         {
 
             InitializeComponent();
 
         }
 
-        public frmShowDetails(int PersonID)
+        public frmShowPersonDetails(int PersonID)
         {
 
             InitializeComponent();

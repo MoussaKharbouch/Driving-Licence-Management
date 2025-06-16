@@ -152,39 +152,6 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static bool DoesUsernameExist(string Username, int UserID)
-        {
-
-            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-
-            string query = "SELECT 1 AS FOUND FROM Users WHERE Username = @Username AND UserID != @UserID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Username", Username);
-            command.Parameters.AddWithValue("@UserID", UserID);
-
-            bool isFound = false;
-
-            try
-            {
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                isFound = reader.HasRows;
-
-                reader.Close();
-
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return isFound;
-
-        }
-
         public static bool DoesUsernameExist(string Username)
         {
 

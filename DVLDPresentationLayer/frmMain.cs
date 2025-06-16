@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
+using DVLDPresentationLayer.People;
 using DVLDPresentationLayer.Users;
+using DVLDPresentationLayer.ApplicationTypes;
 
 namespace DVLDPresentationLayer
 {
@@ -53,7 +55,7 @@ namespace DVLDPresentationLayer
             if (Global.user != null)
             {
 
-                frmShowDetails CurrentUserInfo = new frmShowDetails(Global.user.UserID);
+                frmShowPersonDetails CurrentUserInfo = new frmShowPersonDetails(Global.user.UserID);
                 CurrentUserInfo.ShowDialog();
 
             }
@@ -93,6 +95,21 @@ namespace DVLDPresentationLayer
 
         }
 
+        private void tsManageApplicationTypes_Click(object sender, EventArgs e)
+        {
+
+            frmManageApplicationTypes ManageApplicationTypes = new frmManageApplicationTypes();
+            ManageApplicationTypes.ShowDialog();
+
+        }
+
+        private void btnApplications_Click(object sender, EventArgs e)
+        {
+
+            Point menuLocation = btnApplications.PointToScreen(new Point(0, btnApplications.Height));
+            cmsApplications.Show(menuLocation);
+
+        }
 
     }
 
