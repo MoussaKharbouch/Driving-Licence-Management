@@ -16,7 +16,7 @@ namespace DVLDPresentationLayer.Users
     {
 
 
-        private User user;
+        private clsUser user;
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
@@ -26,7 +26,7 @@ namespace DVLDPresentationLayer.Users
 
             InitializeComponent();
 
-            user = User.FindUser(UserID);
+            user = clsUser.FindUser(UserID);
 
             if (user == null)
             {
@@ -73,7 +73,7 @@ namespace DVLDPresentationLayer.Users
 
         }
 
-        private bool SaveItem(User User)
+        private bool SaveItem(clsUser User)
         {
 
             if (!ValidateInformation())

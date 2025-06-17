@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DVLDBusinessLayer;
 
-namespace DVLDPresentationLayer
+namespace DVLDBusinessLayer
 {
 
-    public static class Global
+    public class clsApplication
     {
 
-        public static clsUser user;
+        
 
     }
 

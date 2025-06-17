@@ -15,7 +15,7 @@ namespace DVLDPresentationLayer.ApplicationTypes
     public partial class frmUpdateApplicationType : Form
     {
 
-        public ApplicationType ApplicationType { get; private set; }
+        public clsApplicationType ApplicationType { get; private set; }
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
@@ -31,7 +31,7 @@ namespace DVLDPresentationLayer.ApplicationTypes
         private void ShowInformation(int ApplicationTypeID)
         {
 
-            ApplicationType = ApplicationType.FindApplicationType(ApplicationTypeID);
+            ApplicationType = clsApplicationType.FindApplicationType(ApplicationTypeID);
 
             if (ApplicationType == null)
             {
@@ -68,7 +68,7 @@ namespace DVLDPresentationLayer.ApplicationTypes
 
             }
 
-            if (ApplicationType.DoesApplicationTypeTitleExist(tbTitle.Text) && tbTitle.Text != ApplicationType.ApplicationTypeTitle)
+            if (clsApplicationType.DoesApplicationTypeTitleExist(tbTitle.Text) && tbTitle.Text != ApplicationType.ApplicationTypeTitle)
             {
 
                 MessageBox.Show("This title is already used!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -80,7 +80,7 @@ namespace DVLDPresentationLayer.ApplicationTypes
 
         }
 
-        private bool SaveItem(ApplicationType ApplicationType)
+        private bool SaveItem(clsApplicationType ApplicationType)
         {
 
             if (!ValidateInformation())

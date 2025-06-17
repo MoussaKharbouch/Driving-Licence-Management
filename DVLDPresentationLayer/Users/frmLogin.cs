@@ -15,7 +15,7 @@ namespace DVLDPresentationLayer
     public partial class frmLogin : Form
     {
 
-        public User user;
+        public clsUser user;
 
         public frmLogin()
         {
@@ -27,7 +27,7 @@ namespace DVLDPresentationLayer
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            user = User.FindUser(tbUsername.Text, tbPassword.Text);
+            user = clsUser.FindUser(tbUsername.Text, tbPassword.Text);
 
             if (user != null && user.IsActive)
             {

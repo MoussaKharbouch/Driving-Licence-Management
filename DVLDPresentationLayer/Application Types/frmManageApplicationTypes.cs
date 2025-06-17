@@ -25,7 +25,7 @@ namespace DVLDPresentationLayer.ApplicationTypes
         public void LoadItems()
         {
 
-            DataTable dtApplicationTypes = ApplicationType.GetApplicationTypes();
+            DataTable dtApplicationTypes = clsApplicationType.GetApplicationTypes();
 
             if (dtApplicationTypes.Rows.Count > 0)
                 dgvApplicationTypes.DataSource = dtApplicationTypes;

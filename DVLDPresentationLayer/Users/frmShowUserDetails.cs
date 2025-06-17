@@ -22,7 +22,7 @@ namespace DVLDPresentationLayer.Users
         {
 
             InitializeComponent();
-            ctrlUserInfoCard1.ShowInformation(User.FindUser(UserID));
+            ctrlUserInfoCard1.ShowInformation(clsUser.FindUser(UserID));
 
         }
 

@@ -39,8 +39,8 @@ namespace DVLDPresentationLayer.User_Controls
         private void LoadFilters()
         {
 
-            Utils.Filtering.FillFilters(dtItems, cbFilters);
-            cbFilters.Items.Remove("DateOfBirth");
+            cbFilters.Items.Add("PersonID");
+            cbFilters.Items.Add("NationalNo");
 
             cbFilters.SelectedIndex = 0;
 
@@ -62,7 +62,7 @@ namespace DVLDPresentationLayer.User_Controls
         private void ctrlPersonCardWithFilter_Load(object sender, EventArgs e)
         {
 
-            dtItems = Person.GetPeopleMainInfo();
+            dtItems = clsPerson.GetPeopleMainInfo();
             LoadFilters();
 
         }
@@ -92,7 +92,7 @@ namespace DVLDPresentationLayer.User_Controls
 
             this.PersonID = PersonID;
 
-            Person person = Person.FindPerson(PersonID);
+            clsPerson person = clsPerson.FindPerson(PersonID);
 
             if(person != null)
                 ctrlPersonCard1.Refresh(person.PersonID);
@@ -102,7 +102,7 @@ namespace DVLDPresentationLayer.User_Controls
         public void RefreshPerson()
         {
 
-            Person person = Person.FindPerson(AddPerson.person.PersonID);
+            clsPerson person = clsPerson.FindPerson(AddPerson.person.PersonID);
 
             if (person != null)
                 ctrlPersonCard1.Refresh(person.PersonID);

@@ -9,7 +9,7 @@ using DVLDDataAccessLayer;
 namespace DVLDBusinessLayer
 {
 
-    public class TestType
+    public class clsTestType
     {
 
         public int TestTypeID { get; set; }
@@ -18,7 +18,7 @@ namespace DVLDBusinessLayer
         public string TestTypeDescription { get; set; }
         public decimal TestTypeFees { get; set; }
 
-        public TestType(int TestTypeID, string TestTypeTitle, string TestTypeDescription, decimal TestTypeFees)
+        public clsTestType(int TestTypeID, string TestTypeTitle, string TestTypeDescription, decimal TestTypeFees)
         {
 
             this.TestTypeID = TestTypeID;
@@ -29,7 +29,7 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static TestType FindTestType(int TestTypeID)
+        public static clsTestType FindTestType(int TestTypeID)
         {
 
             string TestTypeTitle = string.Empty;
@@ -41,7 +41,7 @@ namespace DVLDBusinessLayer
             if (TestTypeTitle == string.Empty)
                 return null;
 
-            return new TestType(TestTypeID, TestTypeTitle, TestTypeDescription, TestTypeFees);
+            return new clsTestType(TestTypeID, TestTypeTitle, TestTypeDescription, TestTypeFees);
 
         }
 

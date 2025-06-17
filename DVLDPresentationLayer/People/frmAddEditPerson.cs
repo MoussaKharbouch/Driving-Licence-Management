@@ -19,7 +19,7 @@ namespace DVLDPresentationLayer.People
         public enum enMode { Add, Edit }
         public enMode Mode { get; private set; }
 
-        public Person person { get; set; }
+        public clsPerson person { get; set; }
         string ImagePath = string.Empty;
 
         public bool succeeded { get; set; }
@@ -32,7 +32,7 @@ namespace DVLDPresentationLayer.People
         {
 
             Mode = enMode.Add;
-            person = new Person();
+            person = new clsPerson();
 
             InitializeComponent();
 
@@ -43,14 +43,14 @@ namespace DVLDPresentationLayer.People
         {
 
             Mode = enMode.Edit;
-            person = Person.FindPerson(PersonID);
+            person = clsPerson.FindPerson(PersonID);
 
             InitializeComponent();
 
         }
 
         //Show person's image in picturebox
-        public void RefreshImage(string ImagePath, Person.enGender Gender)
+        public void RefreshImage(string ImagePath, clsPerson.enGender Gender)
         {
 
             //If image is not empty it shows it
@@ -63,10 +63,10 @@ namespace DVLDPresentationLayer.People
                 switch (Gender)
                 {
 
-                    case Person.enGender.Male:
+                    case clsPerson.enGender.Male:
                         pbProfileImage.Image = Properties.Resources.Male_512;
                         break;
-                    case Person.enGender.Female:
+                    case clsPerson.enGender.Female:
                         pbProfileImage.Image = Properties.Resources.Female_512;
                         break;
                     default:
@@ -82,7 +82,7 @@ namespace DVLDPresentationLayer.People
         private void FillCountries()
         {
 
-            DataTable dtCountriesNames = Country.GetCountries();
+            DataTable dtCountriesNames = clsCountry.GetCountries();
 
             foreach(DataRow drCountry in dtCountriesNames.Rows)
             {
@@ -94,17 +94,17 @@ namespace DVLDPresentationLayer.People
         }
 
         //This function choose the right gender radio button in form
-        private void ShowGender(Person.enGender gender)
+        private void ShowGender(clsPerson.enGender gender)
         {
 
             switch (gender)
             {
 
-                case Person.enGender.Male:
+                case clsPerson.enGender.Male:
                     rbMale.Checked = true;
                     rbFemale.Checked = false;
                     break;
-                case Person.enGender.Female:
+                case clsPerson.enGender.Female:
                     rbMale.Checked = false;
                     rbFemale.Checked = true;
                     break;
@@ -118,7 +118,7 @@ namespace DVLDPresentationLayer.People
         }
 
         //Show person's information on form
-        private void ShowInformation(Person person)
+        private void ShowInformation(clsPerson person)
         {
 
             lblPersonID.Text = person.PersonID.ToString();
@@ -170,7 +170,7 @@ namespace DVLDPresentationLayer.People
 
             person.DateOfBirth = dtpBirthDate.Value;
 
-            person.Gender = (rbMale.Checked ? Person.enGender.Male : Person.enGender.Female);
+            person.Gender = (rbMale.Checked ? clsPerson.enGender.Male : clsPerson.enGender.Female);
 
             person.NationalityCountryID = cbCountry.SelectedIndex + 1;
 
@@ -179,12 +179,12 @@ namespace DVLDPresentationLayer.People
         }
 
         //Convert form mode to update mode and edit it (show information...)
-        private void InitializeUpdatePersonWindow(Person person)
+        private void InitializeUpdatePersonWindow(clsPerson person)
         {
 
             Mode = enMode.Edit;
 
-            Person newPerson = Person.FindPerson(person.PersonID);
+            clsPerson newPerson = clsPerson.FindPerson(person.PersonID);
 
             if (newPerson != null)
                 ShowInformation(newPerson);
@@ -266,7 +266,7 @@ namespace DVLDPresentationLayer.People
         private void rbGender_CheckedChanged(object sender, EventArgs e)
         {
 
-            RefreshImage(ImagePath, (rbMale.Checked ? Person.enGender.Male : Person.enGender.Female));
+            RefreshImage(ImagePath, (rbMale.Checked ? clsPerson.enGender.Male : clsPerson.enGender.Female));
 
         }
 
@@ -289,7 +289,7 @@ namespace DVLDPresentationLayer.People
             {
 
                 ImagePath = string.Empty;
-                RefreshImage(ImagePath, (rbMale.Checked ? Person.enGender.Male : Person.enGender.Female));
+                RefreshImage(ImagePath, (rbMale.Checked ? clsPerson.enGender.Male : clsPerson.enGender.Female));
 
             }
 
@@ -311,7 +311,7 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        public bool SaveItem(Person person)
+        public bool SaveItem(clsPerson person)
         {
 
             if (Mode == enMode.Edit)
@@ -323,7 +323,7 @@ namespace DVLDPresentationLayer.People
             if (person.Save())
             {
 
-                MessageBox.Show("Data has been saved succeesfully", "Secceeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Data has been saved succeesfully", "Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 succeeded = true;
 
             }
@@ -380,7 +380,7 @@ namespace DVLDPresentationLayer.People
             CheckEmptyFields(sender, e);
 
             if(!string.IsNullOrEmpty(tbNationalNo.Text))
-                Utils.UI.ShowErrorProvider(Person.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text) && Mode == enMode.Add, "This national number already exists!", (Control)tbNationalNo, epNationalNo, e);
+                Utils.UI.ShowErrorProvider(clsPerson.DoesNationalNoExist(tbNationalNo.Text) && !string.IsNullOrEmpty(tbNationalNo.Text) && Mode == enMode.Add, "This national number already exists!", (Control)tbNationalNo, epNationalNo, e);
 
         }
 

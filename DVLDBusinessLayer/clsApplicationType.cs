@@ -9,7 +9,7 @@ using DVLDDataAccessLayer;
 namespace DVLDBusinessLayer
 {
 
-    public class ApplicationType
+    public class clsApplicationType
     {
 
         public int ApplicationTypeID { get; set; }
@@ -17,7 +17,7 @@ namespace DVLDBusinessLayer
         public string ApplicationTypeTitle { get; set; }
         public decimal ApplicationFees { get; set; }
 
-        public ApplicationType(int ApplicationTypeID, string ApplicationTypeTitle, decimal ApplicationFees)
+        public clsApplicationType(int ApplicationTypeID, string ApplicationTypeTitle, decimal ApplicationFees)
         {
 
             this.ApplicationTypeID = ApplicationTypeID;
@@ -27,7 +27,7 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static ApplicationType FindApplicationType(int ApplicationTypeID)
+        public static clsApplicationType FindApplicationType(int ApplicationTypeID)
         {
 
             string ApplicationTypeTitle = string.Empty;
@@ -38,7 +38,7 @@ namespace DVLDBusinessLayer
             if (ApplicationTypeTitle == string.Empty)
                 return null;
 
-            return new ApplicationType(ApplicationTypeID, ApplicationTypeTitle, ApplicationFees);
+            return new clsApplicationType(ApplicationTypeID, ApplicationTypeTitle, ApplicationFees);
 
         }
 

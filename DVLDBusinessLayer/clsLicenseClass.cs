@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DVLDBusinessLayer;
 
-namespace DVLDPresentationLayer
+namespace DVLDBusinessLayer
 {
 
-    public static class Global
+    class clsLicenseClass
     {
-
-        public static clsUser user;
 
     }
 

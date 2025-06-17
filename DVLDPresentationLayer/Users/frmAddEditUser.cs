@@ -19,7 +19,7 @@ namespace DVLDPresentationLayer.Users
         public enum enMode { Add, Edit }
         public enMode Mode { get; private set; }
 
-        public User user { get; private set; }
+        public clsUser user { get; private set; }
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
@@ -31,7 +31,7 @@ namespace DVLDPresentationLayer.Users
 
             Mode = enMode.Add;
 
-            user = new User();
+            user = new clsUser();
 
         }
 
@@ -44,7 +44,7 @@ namespace DVLDPresentationLayer.Users
 
             Mode = enMode.Edit;
 
-            user = User.FindUser(UserID);
+            user = clsUser.FindUser(UserID);
             ShowInformation(UserID);
 
         }
@@ -52,7 +52,7 @@ namespace DVLDPresentationLayer.Users
         private void ShowInformation(int UserID)
         {
 
-            user = User.FindUser(UserID);
+            user = clsUser.FindUser(UserID);
 
             if (user == null)
             {
@@ -93,7 +93,7 @@ namespace DVLDPresentationLayer.Users
         private void btnNext_Click(object sender, EventArgs e)
         {
 
-            if (User.DoesPersonUse(ctrlPersonCardWithFilter1.PersonID))
+            if (clsUser.DoesPersonUse(ctrlPersonCardWithFilter1.PersonID))
             {
 
                 MessageBox.Show("This Person is already used. Please select another person!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -138,14 +138,14 @@ namespace DVLDPresentationLayer.Users
             if (Mode == enMode.Add)
             {
 
-                if (User.DoesUsernameExist(tbUsername.Text))
+                if (clsUser.DoesUsernameExist(tbUsername.Text))
                 {
 
                     MessageBox.Show("This username is already used!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
 
                 }
-                if (User.DoesPersonUse(ctrlPersonCardWithFilter1.PersonID))
+                if (clsUser.DoesPersonUse(ctrlPersonCardWithFilter1.PersonID))
                 {
 
                     MessageBox.Show("This Person is already used. Please select another person!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -157,14 +157,14 @@ namespace DVLDPresentationLayer.Users
             else
             {
 
-                if (User.DoesUsernameExist(tbUsername.Text) && !string.Equals(user.Username, tbUsername.Text, StringComparison.OrdinalIgnoreCase))
+                if (clsUser.DoesUsernameExist(tbUsername.Text) && !string.Equals(user.Username, tbUsername.Text, StringComparison.OrdinalIgnoreCase))
                 {
 
                     MessageBox.Show("This username is already used!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
 
                 }
-                if (User.DoesPersonUse(ctrlPersonCardWithFilter1.PersonID) && user.PersonID != ctrlPersonCardWithFilter1.PersonID)
+                if (clsUser.DoesPersonUse(ctrlPersonCardWithFilter1.PersonID) && user.PersonID != ctrlPersonCardWithFilter1.PersonID)
                 {
 
                     MessageBox.Show("This Person is already used. Please select another person!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -211,7 +211,7 @@ namespace DVLDPresentationLayer.Users
 
         }
 
-        private bool SaveItem(User User)
+        private bool SaveItem(clsUser User)
         {
 
             if (!ValidateInformation())
@@ -280,9 +280,9 @@ namespace DVLDPresentationLayer.Users
             bool isUsernameUsed = false;
 
             if (Mode == enMode.Add)
-                isUsernameUsed = User.DoesUsernameExist(tbUsername.Text);
+                isUsernameUsed = clsUser.DoesUsernameExist(tbUsername.Text);
             else
-                isUsernameUsed = User.DoesUsernameExist(tbUsername.Text) &&
+                isUsernameUsed = clsUser.DoesUsernameExist(tbUsername.Text) &&
                                  !string.Equals(user.Username, tbUsername.Text, StringComparison.OrdinalIgnoreCase);
 
             Utils.UI.ShowErrorProvider(isUsernameUsed, "This username is already used!", tbUsername, epConfirmPassword);

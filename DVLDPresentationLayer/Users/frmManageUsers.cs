@@ -90,7 +90,7 @@ namespace DVLDPresentationLayer.Users
         public void LoadItems()
         {
 
-            DataTable dtUsers = User.GetUsersMainInfo();
+            DataTable dtUsers = clsUser.GetUsersMainInfo();
 
             if (dtUsers.Rows.Count > 0)
                 dgvUsers.DataSource = dtUsers;
@@ -102,7 +102,7 @@ namespace DVLDPresentationLayer.Users
         public bool DeleteItem(int UserID)
         {
 
-            User user = User.FindUser(UserID);
+            clsUser user = clsUser.FindUser(UserID);
 
             if (user == null)
                 return false;
@@ -112,7 +112,7 @@ namespace DVLDPresentationLayer.Users
             try
             {
 
-                succeeded = User.DeleteUser(user.UserID);
+                succeeded = clsUser.DeleteUser(user.UserID);
                     
 
             }

@@ -25,7 +25,7 @@ namespace DVLDPresentationLayer.Test_Types
         public void LoadItems()
         {
 
-            DataTable dtTestTypes = TestType.GetTestTypes();
+            DataTable dtTestTypes = clsTestType.GetTestTypes();
 
             if (dtTestTypes.Rows.Count > 0)
                 dgvTestTypes.DataSource = dtTestTypes;

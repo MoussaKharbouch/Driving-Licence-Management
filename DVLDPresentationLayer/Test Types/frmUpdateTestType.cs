@@ -15,7 +15,7 @@ namespace DVLDPresentationLayer.Test_Types
     public partial class frmUpdateTestType : Form
     {
 
-        public TestType TestType { get; private set; }
+        public clsTestType TestType { get; private set; }
 
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
@@ -31,7 +31,7 @@ namespace DVLDPresentationLayer.Test_Types
         private void ShowInformation(int TestTypeID)
         {
 
-            TestType = TestType.FindTestType(TestTypeID);
+            TestType = clsTestType.FindTestType(TestTypeID);
 
             if (TestType == null)
             {
@@ -69,7 +69,7 @@ namespace DVLDPresentationLayer.Test_Types
 
             }
 
-            if (TestType.DoesTestTypeTitleExist(tbTitle.Text) && tbTitle.Text != TestType.TestTypeTitle)
+            if (clsTestType.DoesTestTypeTitleExist(tbTitle.Text) && tbTitle.Text != TestType.TestTypeTitle)
             {
 
                 MessageBox.Show("This title is already used!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -81,7 +81,7 @@ namespace DVLDPresentationLayer.Test_Types
 
         }
 
-        private bool SaveItem(TestType TestType)
+        private bool SaveItem(clsTestType TestType)
         {
 
             if (!ValidateInformation())

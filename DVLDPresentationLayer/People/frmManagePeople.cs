@@ -34,7 +34,7 @@ namespace DVLDPresentationLayer
         public void LoadItems()
         {
 
-            DataTable dtPeople = Person.GetPeopleMainInfo();
+            DataTable dtPeople = clsPerson.GetPeopleMainInfo();
 
             if (dtPeople.Rows.Count > 0)
                 dgvPeople.DataSource = dtPeople;
@@ -146,7 +146,7 @@ namespace DVLDPresentationLayer
         public bool DeleteItem(int PersonID)
         {
 
-            Person person = Person.FindPerson(PersonID);
+            clsPerson person = clsPerson.FindPerson(PersonID);
 
             if (person == null)
                 return false;
@@ -154,7 +154,7 @@ namespace DVLDPresentationLayer
             try
             {
 
-                if (Person.DeletePerson(person.PersonID)){
+                if (clsPerson.DeletePerson(person.PersonID)){
                 
                     //Delete person's image after delete it
                     if (person.ImagePath != string.Empty)

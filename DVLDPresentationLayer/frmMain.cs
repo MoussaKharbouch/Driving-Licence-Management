@@ -19,7 +19,7 @@ namespace DVLDPresentationLayer
     public partial class frmMain : Form
     {
 
-        public frmMain(User user)
+        public frmMain(clsUser user)
         {
 
             InitializeComponent();

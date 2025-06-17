@@ -14,7 +14,7 @@ namespace DVLDPresentationLayer.Users
     public partial class ctrlUserInfoCard : UserControl
     {
 
-        private User user;
+        private clsUser user;
 
         public ctrlUserInfoCard()
         {
@@ -23,7 +23,7 @@ namespace DVLDPresentationLayer.Users
 
         }
 
-        public void ShowInformation(User user)
+        public void ShowInformation(clsUser user)
         {
 
             if (user == null)

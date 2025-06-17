@@ -16,7 +16,7 @@ namespace DVLDPresentationLayer.People
     public partial class ctrlPersonCard : UserControl
     {
 
-        public Person person { get; private set; }
+        public clsPerson person { get; private set; }
 
         public ctrlPersonCard()
         {
@@ -37,7 +37,7 @@ namespace DVLDPresentationLayer.People
         public void LoadPerson(int PersonID)
         {
 
-            person = Person.FindPerson(PersonID);
+            person = clsPerson.FindPerson(PersonID);
 
         }
 
@@ -71,11 +71,11 @@ namespace DVLDPresentationLayer.People
                 switch (person.Gender)
                 {
 
-                    case Person.enGender.Male:
+                    case clsPerson.enGender.Male:
                         pbProfileImage.Image = Properties.Resources.Male_512;
                         pbGender.Image = Properties.Resources.Man_32;
                         break;
-                    case Person.enGender.Female:
+                    case clsPerson.enGender.Female:
                         pbProfileImage.Image = Properties.Resources.Female_512;
                         pbGender.Image = Properties.Resources.Woman_32;
                         break;
@@ -88,7 +88,7 @@ namespace DVLDPresentationLayer.People
 
         }
 
-        public void ShowItem(Person person)
+        public void ShowItem(clsPerson person)
         {
 
             if (person == null)
@@ -98,19 +98,19 @@ namespace DVLDPresentationLayer.People
             lblPersonID.Text = person.PersonID.ToString();
             lblName.Text = person.FullName();
             lblNationalNo.Text = person.NationalNo;
-            lblGender.Text = (person.Gender == Person.enGender.Male ? "Male" : "Female");
+            lblGender.Text = (person.Gender == clsPerson.enGender.Male ? "Male" : "Female");
             lblEmail.Text = person.Email;
             lblAddress.Text = person.Address;
             lblDateOfBirth.Text = person.DateOfBirth.ToString();
             lblPhone.Text = person.Phone;
-            lblCountry.Text = Country.FindCountry(person.NationalityCountryID).CountryName;
+            lblCountry.Text = clsCountry.FindCountry(person.NationalityCountryID).CountryName;
 
         }
 
         public void RefreshInformation()
         {
 
-            person = Person.FindPerson(person.PersonID);
+            person = clsPerson.FindPerson(person.PersonID);
             ShowItem(person);
 
         }

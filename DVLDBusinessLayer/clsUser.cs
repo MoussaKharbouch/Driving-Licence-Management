@@ -9,7 +9,7 @@ using DVLDDataAccessLayer;
 namespace DVLDBusinessLayer
 {
 
-    public class User
+    public class clsUser
     {
 
         enum enMode { Add, Update }
@@ -23,7 +23,7 @@ namespace DVLDBusinessLayer
 
         public bool IsActive { get; set; }
 
-        public User()
+        public clsUser()
         {
 
             UserID = -1;
@@ -37,7 +37,7 @@ namespace DVLDBusinessLayer
 
         }
 
-        public User(int UserID, int PersonID, string Username, string Password, bool IsActive)
+        public clsUser(int UserID, int PersonID, string Username, string Password, bool IsActive)
         {
 
             this.UserID = UserID;
@@ -51,10 +51,10 @@ namespace DVLDBusinessLayer
 
         }
         
-        public static User FindUser(string Username, string Password)
+        public static clsUser FindUser(string Username, string Password)
         {
 
-            User User = new User();
+            clsUser User = new clsUser();
 
             int UserID = -1;
             int PersonID = -1;
@@ -66,14 +66,14 @@ namespace DVLDBusinessLayer
             if (UserID == -1)
                 return null;
 
-            return new User(UserID, PersonID, Username, Password, IsActive);
+            return new clsUser(UserID, PersonID, Username, Password, IsActive);
 
         }
 
-        public static User FindUser(int UserID)
+        public static clsUser FindUser(int UserID)
         {
 
-            User User = new User();
+            clsUser User = new clsUser();
 
             int PersonID = -1;
             string Username = string.Empty;
@@ -86,7 +86,7 @@ namespace DVLDBusinessLayer
             if (PersonID == -1)
                 return null;
 
-            return new User(UserID, PersonID, Username, Password, IsActive);
+            return new clsUser(UserID, PersonID, Username, Password, IsActive);
 
         }
 
