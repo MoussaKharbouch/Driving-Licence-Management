@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 namespace DVLDDataAccessLayer
 {
 
-	public class LocalDrivingLicenseData
+	public class LocalDrivingLicenseApplicationsData
 	{
 
 		public static void FindLocalDrivingLicenseApplication(int LocalDrivingLicenseApplicationID, ref int ApplicationID, ref int LicenseClassID)
@@ -33,7 +33,6 @@ namespace DVLDDataAccessLayer
 				if (reader.Read())
 				{
 
-					LocalDrivingLicenseApplicationID = Convert.ToInt32(reader["LocalDrivingLicenseApplicationID"]);
 					ApplicationID = Convert.ToInt32(reader["ApplicationID"]);
 					LicenseClassID = Convert.ToInt32(reader["LicenseClassID"]);
 
@@ -127,7 +126,7 @@ namespace DVLDDataAccessLayer
 
 			string query = @"UPDATE [dbo].[LocalDrivingLicenseApplications]
 							 SET [ApplicationID] = @ApplicationID,
-							 [LicenseClassID] = @LicenseClassID,
+							 [LicenseClassID] = @LicenseClassID
 						   WHERE [LocalDrivingLicenseApplicationID] = @LocalDrivingLicenseApplicationID";
 
 			SqlCommand command = new SqlCommand(query, connection);
@@ -216,7 +215,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static DataTable GetLocalDrivingLicenseApplicationsInfo()
+		public static DataTable GetFullInfo()
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
