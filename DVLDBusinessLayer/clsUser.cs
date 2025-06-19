@@ -54,8 +54,6 @@ namespace DVLDBusinessLayer
         public static clsUser FindUser(string Username, string Password)
         {
 
-            clsUser User = new clsUser();
-
             int UserID = -1;
             int PersonID = -1;
 
@@ -72,8 +70,6 @@ namespace DVLDBusinessLayer
 
         public static clsUser FindUser(int UserID)
         {
-
-            clsUser User = new clsUser();
 
             int PersonID = -1;
             string Username = string.Empty;

@@ -217,7 +217,8 @@ namespace DVLDDataAccessLayer
 
                 object result = command.ExecuteScalar();
 
-                int.TryParse(result.ToString(), out UserID);
+                if (result != null)
+                    int.TryParse(result.ToString(), out UserID);
 
             }
             finally

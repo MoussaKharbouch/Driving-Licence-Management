@@ -128,7 +128,9 @@ namespace DVLDDataAccessLayer
                 connection.Open();
 
                 object result = command.ExecuteScalar();
-                int.TryParse(result.ToString(), out ApplicationID);
+
+                if (result != null)
+                    int.TryParse(result.ToString(), out ApplicationID);
 
             }
             finally

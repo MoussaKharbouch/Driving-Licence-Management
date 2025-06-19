@@ -228,7 +228,9 @@ namespace DVLDDataAccessLayer
                 connection.Open();
 
                 object result = command.ExecuteScalar();
-                int.TryParse(result.ToString(), out PersonID);
+
+                if (result != null)
+                    int.TryParse(result.ToString(), out PersonID);
 
             }
             finally

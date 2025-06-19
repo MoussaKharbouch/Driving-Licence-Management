@@ -117,7 +117,9 @@ namespace DVLDDataAccessLayer
                 connection.Open();
 
                 object result = command.ExecuteScalar();
-                int.TryParse(result.ToString(), out LicenseClassID);
+
+                if (result != null)
+                    int.TryParse(result.ToString(), out LicenseClassID);
 
             }
             finally
@@ -130,7 +132,7 @@ namespace DVLDDataAccessLayer
         }
 
 
-        public static bool UpdateLicenseClass(ref int LicenseClassID, string ClassName, string ClassDescription,
+        public static bool UpdateLicenseClass(int LicenseClassID, string ClassName, string ClassDescription,
                                               short MinimumAllowedAge, short DefaultValidityLength, decimal ClassFees)
         {
 

@@ -104,7 +104,9 @@ namespace DVLDDataAccessLayer
 				connection.Open();
 
 				object result = command.ExecuteScalar();
-				int.TryParse(result.ToString(), out LocalDrivingLicenseApplicationID);
+
+				if (result != null)
+					int.TryParse(result.ToString(), out LocalDrivingLicenseApplicationID);
 
 			}
 			finally

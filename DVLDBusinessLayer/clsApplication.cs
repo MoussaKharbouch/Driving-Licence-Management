@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DVLDDataAccessLayer;
 using System.Data;
+using DVLDDataAccessLayer;
 
 namespace DVLDBusinessLayer
 {
@@ -72,8 +72,6 @@ namespace DVLDBusinessLayer
         
         public static clsApplication FindApplication(int ApplicationID)
         {
-
-            clsApplication Application = new clsApplication();
 
             int ApplicantPersonID = -1;
             DateTime ApplicationDate = DateTime.Now;

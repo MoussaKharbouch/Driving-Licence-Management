@@ -98,8 +98,6 @@ namespace DVLDBusinessLayer
         public static clsPerson FindPerson(int PersonID)
         {
 
-            clsPerson person = new clsPerson();
-
             string NationalNo = string.Empty;
             string FirstName = string.Empty;
             string SecondName = string.Empty;
