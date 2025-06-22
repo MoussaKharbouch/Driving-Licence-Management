@@ -62,6 +62,14 @@ namespace DVLDBusinessLayer
         private bool Add()
         {
 
+            clsApplication Application = clsApplication.FindApplication(ApplicationID);
+
+            if (Application == null)
+                return false;
+
+            if (clsLocalDrivingLicenseApplication.DoesPersonHaveActiveLocalLicenseInSameClass(Application.ApplicantPersonID, LicenseClassID, 1))
+                return false;
+
             int LocalDrivingLicenseApplicationID = this.LocalDrivingLicenseApplicationID;
 
             bool succeeded = LocalDrivingLicenseApplicationsData.AddLocalDrivingLicenseApplication(ref LocalDrivingLicenseApplicationID, ApplicationID, LicenseClassID);
@@ -107,6 +115,9 @@ namespace DVLDBusinessLayer
 
         public static bool DeleteLocalDrivingLicenseApplication(int LocalDrivingLicenseApplicationID)
         {
+
+            if (!DoesLocalDrivingLicenseApplicationExist(LocalDrivingLicenseApplicationID))
+                return false;
 
             return LocalDrivingLicenseApplicationsData.DeleteLocalDrivingLicenseApplication(LocalDrivingLicenseApplicationID);
 

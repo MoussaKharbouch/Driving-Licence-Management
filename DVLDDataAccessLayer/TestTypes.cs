@@ -81,6 +81,39 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool DoesTestTypeTitleExist(string TestTypeTitle, int ExcludedTestTypeID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT 1 AS FOUND FROM TestTypes WHERE TestTypeTitle = @TestTypeTitle AND TestTypeID = @ExcludedTestTypeID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@TestTypeTitle", TestTypeTitle);
+            command.Parameters.AddWithValue("@ExcludedTestTypeID", ExcludedTestTypeID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
         public static bool UpdateTestType(int TestTypeID, string TestTypeTitle, string TestTypeDescription, decimal TestTypeFees)
         {
 

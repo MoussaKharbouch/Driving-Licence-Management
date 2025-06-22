@@ -156,6 +156,9 @@ namespace DVLDBusinessLayer
         private bool Add()
         {
 
+            if (PeopleData.DoesNationalNoExist(NationalNo))
+                return false;
+
             int PersonID = this.PersonID;
 
             bool succeeded = PeopleData.AddPerson(ref PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
@@ -169,6 +172,9 @@ namespace DVLDBusinessLayer
 
         private bool Update()
         {
+
+            if (PeopleData.DoesNationalNoExist(NationalNo, PersonID))
+                return false;
 
             return PeopleData.UpdatePerson(PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
                                            DateOfBirth, (int)Gender, Address, Phone, Email, NationalityCountryID, ImagePath);
@@ -203,6 +209,9 @@ namespace DVLDBusinessLayer
 
         public static bool DeletePerson(int PersonID)
         {
+
+            if (!DoesPersonExist(PersonID))
+                return false;
 
             return PeopleData.DeletePerson(PersonID);
 

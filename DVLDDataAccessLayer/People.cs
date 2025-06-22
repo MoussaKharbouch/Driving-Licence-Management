@@ -170,6 +170,40 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool DoesNationalNoExist(string NationalNo, int ExcludedPersonID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT 1 AS FOUND FROM People WHERE NationalNo = @NationalNo AND PersonID = @ExcludedPersonID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NationalNo", NationalNo);
+            command.Parameters.AddWithValue("@ExcludedPersonID", ExcludedPersonID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
+
         public static bool AddPerson(ref int PersonID, string NationalNo, string FirstName, string SecondName,
                                      string ThirdName, string LastName, DateTime DateOfBirth, int Gender,
                                      string Address, string Phone, string Email, int NationalityCountryID, string ImagePath)

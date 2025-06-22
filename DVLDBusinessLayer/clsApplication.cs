@@ -147,6 +147,9 @@ namespace DVLDBusinessLayer
         public static bool DeleteApplication(int ApplicationID)
         {
 
+            if (!DoesApplicationExist(ApplicationID))
+                return false;
+
             return ApplicationsData.DeleteApplication(ApplicationID);
 
         }

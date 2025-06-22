@@ -52,6 +52,9 @@ namespace DVLDBusinessLayer
         public bool Update()
         {
 
+            if (ApplicationTypesData.DoesApplicationTypeTitleExist(ApplicationTypeTitle, ApplicationTypeID))
+                return false;
+
             return ApplicationTypesData.UpdateApplicationType(ApplicationTypeID, ApplicationTypeTitle, ApplicationFees);
 
         }

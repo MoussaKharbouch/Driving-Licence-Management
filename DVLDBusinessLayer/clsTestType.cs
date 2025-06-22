@@ -55,6 +55,9 @@ namespace DVLDBusinessLayer
         public bool Update()
         {
 
+            if (TestTypesData.DoesTestTypeTitleExist(TestTypeTitle, TestTypeID))
+                return false;
+
             return TestTypesData.UpdateTestType(TestTypeID, TestTypeTitle, TestTypeDescription, TestTypeFees);
 
         }

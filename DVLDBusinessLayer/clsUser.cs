@@ -89,6 +89,11 @@ namespace DVLDBusinessLayer
         private bool Add()
         {
 
+            if (DoesUsernameExist(Username))
+                return false;
+            if (DoesPersonUse(PersonID))
+                return false;
+
             int UserID = this.UserID;
 
             bool succeeded = UsersData.AddUser(ref UserID, PersonID, Username, Password, IsActive);
@@ -101,6 +106,11 @@ namespace DVLDBusinessLayer
 
         private bool Update()
         {
+
+            if (UsersData.DoesUsernameExist(Username, UserID))
+                return false;
+            if (UsersData.DoesPersonUse(PersonID, UserID))
+                return false;
 
             return UsersData.UpdateUser(UserID, PersonID, Username, Password, IsActive);
 
@@ -134,6 +144,9 @@ namespace DVLDBusinessLayer
 
         public static bool DeleteUser(int UserID)
         {
+
+            if (!UsersData.DoesUserExist(UserID))
+                return false;
 
             return UsersData.DeleteUser(UserID);
 

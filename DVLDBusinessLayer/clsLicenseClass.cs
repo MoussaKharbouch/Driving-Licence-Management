@@ -151,6 +151,9 @@ namespace DVLDBusinessLayer
         public static bool DeleteLicenseClass(int LicenseClassID)
         {
 
+            if (!DoesLicenseClassExist(LicenseClassID))
+                return false;
+
             return LicenseClassesData.DeleteLicenseClass(LicenseClassID);
 
         }

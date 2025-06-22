@@ -80,6 +80,39 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool DoesApplicationTypeTitleExist(string ApplicationTypeTitle, int ExcludedApplicationID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT 1 AS FOUND FROM ApplicationTypes WHERE ApplicationTypeTitle = @ApplicationTypeTitle AND ApplicationID != @ExcludedApplicationID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ApplicationTypeTitle", ApplicationTypeTitle);
+            command.Parameters.AddWithValue("@ExcludedApplicationID", ExcludedApplicationID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
         public static bool UpdateApplicationType(int ApplicationTypeID, string ApplicationTypeTitle, decimal ApplicationFees)
         {
 
