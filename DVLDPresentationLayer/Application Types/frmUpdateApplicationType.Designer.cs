@@ -1,4 +1,4 @@
-﻿namespace DVLDPresentationLayer.ApplicationTypes
+﻿namespace DVLDPresentationLayer.Application_Types
 {
     partial class frmUpdateApplicationType
     {

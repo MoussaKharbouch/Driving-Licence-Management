@@ -94,6 +94,8 @@ namespace DVLDPresentationLayer.Users
 
             if (dtUsers.Rows.Count > 0)
                 dgvUsers.DataSource = dtUsers;
+            else
+                dgvUsers.DataSource = null;
 
             lblRecords.Text = dtUsers.Rows.Count.ToString();
 

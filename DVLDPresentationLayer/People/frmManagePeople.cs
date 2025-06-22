@@ -38,6 +38,8 @@ namespace DVLDPresentationLayer
 
             if (dtPeople.Rows.Count > 0)
                 dgvPeople.DataSource = dtPeople;
+            else
+                dgvPeople.DataSource = null;
 
             lblRecords.Text = dtPeople.Rows.Count.ToString();
 

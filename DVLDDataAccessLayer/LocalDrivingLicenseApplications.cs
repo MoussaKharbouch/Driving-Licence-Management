@@ -80,6 +80,45 @@ namespace DVLDDataAccessLayer
 
 		}
 
+		public static bool DoesPersonHaveActiveLocalLicenseInSameClass(int ApplicantPersonID, int LicenseClassID, int ApplicationTypeID)
+		{
+
+			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+			string query = @"SELECT 1 AS FOUND FROM LocalDrivingLicenseApplications join Applications
+							 ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
+							 WHERE Applications.ApplicantPersonID = @ApplicantPersonID
+							 AND LocalDrivingLicenseApplications.LicenseClassID = @LicenseClassID
+							 AND ApplicationTypeID = @ApplicationTypeID";
+
+			SqlCommand command = new SqlCommand(query, connection);
+
+			command.Parameters.AddWithValue("@ApplicantPersonID", ApplicantPersonID);
+			command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
+			command.Parameters.AddWithValue("@ApplicationTypeID", ApplicationTypeID);
+
+			bool isFound = false;
+
+			try
+			{
+
+				connection.Open();
+
+				SqlDataReader reader = command.ExecuteReader();
+				isFound = reader.HasRows;
+
+				reader.Close();
+
+			}
+			finally
+			{
+				connection.Close();
+			}
+
+			return isFound;
+
+		}
+
 		public static bool AddLocalDrivingLicenseApplication(ref int LocalDrivingLicenseApplicationID, int ApplicationID, int LicenseClassID)
 		{
 
@@ -131,9 +170,10 @@ namespace DVLDDataAccessLayer
 
 			SqlCommand command = new SqlCommand(query, connection);
 
-			command.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID);
 			command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
 			command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
+
+			command.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID);
 
 			try
 			{
@@ -220,7 +260,7 @@ namespace DVLDDataAccessLayer
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-			string query = @"SELECT LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID as ""L.D.L AppID"", LicenseClasses.ClassName as ""Driving Class"", People.NationalNo as ""National No"",
+			string query = @"SELECT LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID as ""LDLAppID"", LicenseClasses.ClassName as ""Driving Class"", People.NationalNo,
 							 LTRIM(RTRIM(
 							 CONCAT(
 							 People.FirstName, ' ',
@@ -228,7 +268,7 @@ namespace DVLDDataAccessLayer
 							 People.ThirdName, ' ',
 							 People.LastName
 							 )
-							 )) AS ""Full Name"", Applications.ApplicationDate, Count(Tests.TestID) as ""Passed Tests"", CASE WHEN Applications.ApplicationStatus = 1 THEN 'New'
+							 )) AS ""FullName"", Applications.ApplicationDate, Count(Tests.TestID) as ""Passed Tests"", CASE WHEN Applications.ApplicationStatus = 1 THEN 'New'
 							 WHEN Applications.ApplicationStatus = 2 THEN 'Canceled' 
 							 WHEN Applications.ApplicationStatus = 3 THEN 'Completed' END AS Status
 							 FROM Applications INNER JOIN

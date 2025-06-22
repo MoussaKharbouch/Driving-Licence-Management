@@ -72,6 +72,18 @@
     <Compile Include="Controls\ctrlUserCard.Designer.cs">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Local Driving License Applications\frmAddEditLDLApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Local Driving License Applications\frmAddEditLDLApplication.Designer.cs">
+      <DependentUpon>frmAddEditLDLApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.Designer.cs">
+      <DependentUpon>frmManageLocalDrivingLicenseApplications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test Types\frmManageTestTypes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +170,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local Driving License Applications\frmAddEditLDLApplication.resx">
+      <DependentUpon>frmAddEditLDLApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.resx">
+      <DependentUpon>frmManageLocalDrivingLicenseApplications.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\frmAddEditPerson.resx">
       <DependentUpon>frmAddEditPerson.cs</DependentUpon>
@@ -572,6 +590,7 @@
   <ItemGroup>
     <None Include="Resources\Written Test 512.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

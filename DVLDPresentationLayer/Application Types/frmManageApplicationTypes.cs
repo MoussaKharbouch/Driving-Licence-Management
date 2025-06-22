@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
 
-namespace DVLDPresentationLayer.ApplicationTypes
+namespace DVLDPresentationLayer.Application_Types
 {
 
     public partial class frmManageApplicationTypes : Form
@@ -29,6 +29,8 @@ namespace DVLDPresentationLayer.ApplicationTypes
 
             if (dtApplicationTypes.Rows.Count > 0)
                 dgvApplicationTypes.DataSource = dtApplicationTypes;
+            else
+                dgvApplicationTypes.DataSource = null;
 
             lblRecords.Text = dtApplicationTypes.Rows.Count.ToString();
 

@@ -110,7 +110,24 @@ namespace DVLDPresentationLayer.People
         public void RefreshInformation()
         {
 
+            if (person == null)
+            {
+
+                MessageBox.Show("Person data not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
             person = clsPerson.FindPerson(person.PersonID);
+
+            if (person == null)
+            {
+
+                MessageBox.Show("Person data not found on refresh!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
             ShowItem(person);
 
         }

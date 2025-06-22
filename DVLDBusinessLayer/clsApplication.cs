@@ -21,7 +21,7 @@ namespace DVLDBusinessLayer
         public DateTime ApplicationDate { get; set; }
         public int ApplicationTypeID { get; set; }
 
-        public enum enStatus { New, Completed, Cancelled }
+        public enum enStatus { New = 1, Canceled = 2, Completed = 3}
         public enStatus ApplicationStatus;
 
         public DateTime LastStatusDate { get; set; }

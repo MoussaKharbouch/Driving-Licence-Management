@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
-using DVLDPresentationLayer.ApplicationTypes;
+using DVLDPresentationLayer.Application_Types;
+using DVLDPresentationLayer.Local_Driving_License_Applications;
 
 namespace DVLDPresentationLayer
 {

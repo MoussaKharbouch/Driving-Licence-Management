@@ -25,6 +25,8 @@ namespace DVLDPresentationLayer.User_Controls
 
             InitializeComponent();
 
+            PersonID = -1;
+
         }
 
         public ctrlPersonCardWithFilter(int PersonID)
@@ -52,9 +54,9 @@ namespace DVLDPresentationLayer.User_Controls
 
             if (!Utils.Filtering.FilterDataTable(filterName, value, dtItems))
                 MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (dtItems.DefaultView.Count > 0)
+            else if (dtItems.DefaultView.Count == 1)
                 PersonID = Convert.ToInt32(dtItems.DefaultView[0]["PersonID"]);
-            else
+            else if (dtItems.DefaultView.Count != 1)
                 MessageBox.Show("No matching person found.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }

@@ -119,6 +119,13 @@ namespace DVLDBusinessLayer
 
         }
 
+        public static bool DoesPersonHaveActiveLocalLicenseInSameClass(int ApplicantPersonID, int LicenseClassID, int ApplicationTypeID)
+        {
+
+            return LocalDrivingLicenseApplicationsData.DoesPersonHaveActiveLocalLicenseInSameClass(ApplicantPersonID, LicenseClassID, ApplicationTypeID);
+
+        }
+
         static public DataTable GetLocalDrivingLicenseApplications()
         { 
 

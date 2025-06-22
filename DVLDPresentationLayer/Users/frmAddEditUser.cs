@@ -257,7 +257,12 @@ namespace DVLDPresentationLayer.Users
             if (ctrlPersonCardWithFilter1.PersonID != -1)
                 e.Cancel = false;
             else
+            {
+
                 e.Cancel = true;
+                MessageBox.Show("No person is selected!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
 
         }
 

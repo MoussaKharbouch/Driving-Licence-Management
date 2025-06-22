@@ -52,6 +52,45 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static void FindLicenseClass(string ClassName, ref int LicenseClassID, ref string ClassDescription,
+                                            ref short MinimumAllowedAge, ref short DefaultValidityLength, ref decimal ClassFees)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT * FROM LicenseClasses WHERE ClassName = @ClassName";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ClassName", ClassName);
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+
+                    LicenseClassID = (int)reader["LicenseClassID"];
+                    ClassDescription = reader["ClassDescription"].ToString();
+                    MinimumAllowedAge = Convert.ToInt16(reader["MinimumAllowedAge"]);
+                    DefaultValidityLength = Convert.ToInt16(reader["DefaultValidityLength"]);
+                    ClassFees = Convert.ToDecimal(reader["ClassFees"]);
+
+                    reader.Close();
+
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
         public static bool DoesLicenseClassExist(int LicenseClassID)
         {
 

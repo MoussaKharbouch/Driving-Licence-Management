@@ -127,7 +127,8 @@ namespace DVLDPresentationLayer.Users
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            SaveItem(user);
+            if (!SaveItem(user))
+                return;
 
             if (OnSaveEventHandler != null)
                 OnSaveEventHandler();

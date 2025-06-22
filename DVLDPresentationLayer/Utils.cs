@@ -241,14 +241,14 @@ namespace DVLDPresentationLayer
                 if (ImagePath != string.Empty && File.Exists(ImagePath))
                 {
 
-                    string destPath = Path.Combine(Properties.Settings.Default.ImageFolderPath, newFileName);
+                    string destPath = Path.Combine(Application.StartupPath, "Images", newFileName);
 
                     //Copy image if exists
                     if (File.Exists(ImagePath))
                     {
 
-                        if (!Directory.Exists(Properties.Settings.Default.ImageFolderPath))
-                            Directory.CreateDirectory(Properties.Settings.Default.ImageFolderPath);
+                        if (!Directory.Exists(Path.Combine(Application.StartupPath, "Images")))
+                            Directory.CreateDirectory(Path.Combine(Application.StartupPath, "Images"));
 
                         if (!File.Exists(destPath))
                             File.Copy(ImagePath, destPath);

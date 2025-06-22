@@ -9,7 +9,7 @@ using DVLDDataAccessLayer;
 namespace DVLDBusinessLayer
 {
 
-    class clsLicenseClass
+    public class clsLicenseClass
     {
 
         enum enMode { Add, Update }
@@ -73,6 +73,26 @@ namespace DVLDBusinessLayer
                                                 ref MinimumAllowedAge, ref DefaultValidityLength, ref ClassFees);
 
             if (MinimumAllowedAge == -1)
+                return null;
+
+            return new clsLicenseClass(LicenseClassID, ClassName, ClassDescription,
+                                       MinimumAllowedAge, DefaultValidityLength, ClassFees);
+
+        }
+
+        public static clsLicenseClass FindLicenseClass(string ClassName)
+        {
+
+            int LicenseClassID = -1;
+            string ClassDescription = string.Empty;
+            short MinimumAllowedAge = -1;
+            short DefaultValidityLength = -1;
+            decimal ClassFees = -1;
+
+            LicenseClassesData.FindLicenseClass(ClassName, ref LicenseClassID, ref ClassDescription,
+                                                ref MinimumAllowedAge, ref DefaultValidityLength, ref ClassFees);
+
+            if (LicenseClassID == -1)
                 return null;
 
             return new clsLicenseClass(LicenseClassID, ClassName, ClassDescription,

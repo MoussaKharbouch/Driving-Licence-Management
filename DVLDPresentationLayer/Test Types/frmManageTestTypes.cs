@@ -29,6 +29,8 @@ namespace DVLDPresentationLayer.Test_Types
 
             if (dtTestTypes.Rows.Count > 0)
                 dgvTestTypes.DataSource = dtTestTypes;
+            else
+                dgvTestTypes.DataSource = null;
 
             lblRecords.Text = dtTestTypes.Rows.Count.ToString();
 

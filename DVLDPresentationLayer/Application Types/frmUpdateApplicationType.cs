@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
 
-namespace DVLDPresentationLayer.ApplicationTypes
+namespace DVLDPresentationLayer.Application_Types
 {
 
     public partial class frmUpdateApplicationType : Form

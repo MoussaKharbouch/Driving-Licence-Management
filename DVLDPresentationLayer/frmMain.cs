@@ -10,8 +10,9 @@ using System.Windows.Forms;
 using DVLDBusinessLayer;
 using DVLDPresentationLayer.People;
 using DVLDPresentationLayer.Users;
-using DVLDPresentationLayer.ApplicationTypes;
+using DVLDPresentationLayer.Application_Types;
 using DVLDPresentationLayer.Test_Types;
+using DVLDPresentationLayer.Local_Driving_License_Applications;
 
 namespace DVLDPresentationLayer
 {
@@ -56,7 +57,7 @@ namespace DVLDPresentationLayer
             if (Global.user != null)
             {
 
-                frmShowPersonDetails CurrentUserInfo = new frmShowPersonDetails(Global.user.UserID);
+                frmShowUserDetails CurrentUserInfo = new frmShowUserDetails(Global.user.UserID);
                 CurrentUserInfo.ShowDialog();
 
             }
@@ -117,6 +118,14 @@ namespace DVLDPresentationLayer
 
             frmManageTestTypes ManageTestTypes = new frmManageTestTypes();
             ManageTestTypes.ShowDialog();
+
+        }
+
+        private void localDrivingLicenseApplicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmManageLocalDrivingLicenseApplications ManageLocalDrivingLicenseApplications = new frmManageLocalDrivingLicenseApplications();
+            ManageLocalDrivingLicenseApplications.ShowDialog();
 
         }
 
