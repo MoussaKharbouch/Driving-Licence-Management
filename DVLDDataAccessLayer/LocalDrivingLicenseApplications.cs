@@ -89,7 +89,8 @@ namespace DVLDDataAccessLayer
 							 ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
 							 WHERE Applications.ApplicantPersonID = @ApplicantPersonID
 							 AND LocalDrivingLicenseApplications.LicenseClassID = @LicenseClassID
-							 AND ApplicationTypeID = @ApplicationTypeID";
+							 AND Applications.ApplicationTypeID = @ApplicationTypeID
+							 AND Applications.ApplicationStatus != 2";
 
 			SqlCommand command = new SqlCommand(query, connection);
 
@@ -260,7 +261,7 @@ namespace DVLDDataAccessLayer
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-			string query = @"SELECT LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID as ""LDLAppID"", LicenseClasses.ClassName as ""Driving Class"", People.NationalNo,
+			string query = @"SELECT LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID as ""LDL AppID"", LicenseClasses.ClassName as ""Driving Class"", People.NationalNo,
 							 LTRIM(RTRIM(
 							 CONCAT(
 							 People.FirstName, ' ',
@@ -268,7 +269,7 @@ namespace DVLDDataAccessLayer
 							 People.ThirdName, ' ',
 							 People.LastName
 							 )
-							 )) AS ""FullName"", Applications.ApplicationDate, Count(Tests.TestID) as ""Passed Tests"", CASE WHEN Applications.ApplicationStatus = 1 THEN 'New'
+							 )) AS ""Full Name"", Applications.ApplicationDate, Count(Tests.TestID) as ""Passed Tests"", CASE WHEN Applications.ApplicationStatus = 1 THEN 'New'
 							 WHEN Applications.ApplicationStatus = 2 THEN 'Canceled' 
 							 WHEN Applications.ApplicationStatus = 3 THEN 'Completed' END AS Status
 							 FROM Applications INNER JOIN

@@ -11,7 +11,7 @@ using DVLDBusinessLayer;
 
 namespace DVLDPresentationLayer.Local_Driving_License_Applications
 {
-    public partial class frmAddEditLDLApplication : Form
+    public partial class frmNewLDLApplication : Form
     {
 
         public enum enStatus { New = 1, Canceled = 2, Completed = 3 }
@@ -22,7 +22,7 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
         public delegate void OnSave();
         public event OnSave OnSaveEventHandler;
 
-        public frmAddEditLDLApplication()
+        public frmNewLDLApplication()
         {
 
             InitializeComponent();

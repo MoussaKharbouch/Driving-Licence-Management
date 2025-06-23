@@ -44,12 +44,19 @@
             this.tsShowDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.tsDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsCancel = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsScheduleTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsVisionTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsWrittenTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsStreetTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsIssueDrivingLicense = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsSendEmail = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsCallPhone = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsShowLicense = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLDLApplications)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -198,70 +205,138 @@
             this.tsShowDetails,
             this.toolStripSeparator2,
             this.tsEdit,
-            this.tsAdd,
             this.tsDelete,
+            this.toolStripSeparator3,
             this.tsCancel,
+            this.tsScheduleTest,
+            this.toolStripSeparator4,
+            this.tsIssueDrivingLicense,
             this.toolStripSeparator1,
-            this.tsSendEmail,
-            this.tsCallPhone});
+            this.tsShowLicense,
+            this.toolStripSeparator5,
+            this.toolStripMenuItem4});
             this.cmsLocalDrivingLicenseApplication.Name = "cmsPerson";
-            this.cmsLocalDrivingLicenseApplication.Size = new System.Drawing.Size(142, 170);
+            this.cmsLocalDrivingLicenseApplication.Size = new System.Drawing.Size(247, 232);
+            this.cmsLocalDrivingLicenseApplication.Opening += new System.ComponentModel.CancelEventHandler(this.cmsLocalDrivingLicenseApplication_Opening);
             // 
             // tsShowDetails
             // 
+            this.tsShowDetails.Image = global::DVLDPresentationLayer.Properties.Resources.PersonDetails_32;
             this.tsShowDetails.Name = "tsShowDetails";
-            this.tsShowDetails.Size = new System.Drawing.Size(141, 22);
-            this.tsShowDetails.Text = "Show Details";
+            this.tsShowDetails.Size = new System.Drawing.Size(246, 22);
+            this.tsShowDetails.Text = "Show Application Details";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(243, 6);
             // 
             // tsEdit
             // 
+            this.tsEdit.Image = global::DVLDPresentationLayer.Properties.Resources.edit_32;
             this.tsEdit.Name = "tsEdit";
-            this.tsEdit.Size = new System.Drawing.Size(141, 22);
-            this.tsEdit.Text = "Edit";
-            this.tsEdit.Click += new System.EventHandler(this.tsEditLocalDrivingLicenseApplication_Click);
-            // 
-            // tsAdd
-            // 
-            this.tsAdd.Name = "tsAdd";
-            this.tsAdd.Size = new System.Drawing.Size(141, 22);
-            this.tsAdd.Text = "Add";
-            this.tsAdd.Click += new System.EventHandler(this.AddLocalDrivingLicenseApplication_Click);
+            this.tsEdit.Size = new System.Drawing.Size(246, 22);
+            this.tsEdit.Text = "Edit Application";
             // 
             // tsDelete
             // 
+            this.tsDelete.Image = global::DVLDPresentationLayer.Properties.Resources.Delete_32_2;
             this.tsDelete.Name = "tsDelete";
-            this.tsDelete.Size = new System.Drawing.Size(141, 22);
-            this.tsDelete.Text = "Delete";
+            this.tsDelete.Size = new System.Drawing.Size(246, 22);
+            this.tsDelete.Text = "Delete Application";
             this.tsDelete.Click += new System.EventHandler(this.DeleteLocalDrivingLicenseApplication);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(243, 6);
             // 
             // tsCancel
             // 
+            this.tsCancel.Enabled = false;
+            this.tsCancel.Image = global::DVLDPresentationLayer.Properties.Resources.Delete_32;
             this.tsCancel.Name = "tsCancel";
-            this.tsCancel.Size = new System.Drawing.Size(141, 22);
-            this.tsCancel.Text = "Cancel";
+            this.tsCancel.Size = new System.Drawing.Size(246, 22);
+            this.tsCancel.Text = "Cancel Application";
             this.tsCancel.Click += new System.EventHandler(this.tsCancel_Click);
+            // 
+            // tsScheduleTest
+            // 
+            this.tsScheduleTest.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsVisionTest,
+            this.tsWrittenTest,
+            this.tsStreetTest});
+            this.tsScheduleTest.Enabled = false;
+            this.tsScheduleTest.Image = global::DVLDPresentationLayer.Properties.Resources.Schedule_Test_512;
+            this.tsScheduleTest.Name = "tsScheduleTest";
+            this.tsScheduleTest.Size = new System.Drawing.Size(246, 22);
+            this.tsScheduleTest.Text = "Schedule Test";
+            this.tsScheduleTest.DropDownOpening += new System.EventHandler(this.tsScheduleTest_DropDownOpening);
+            // 
+            // tsVisionTest
+            // 
+            this.tsVisionTest.Enabled = false;
+            this.tsVisionTest.Image = global::DVLDPresentationLayer.Properties.Resources.Vision_512;
+            this.tsVisionTest.Name = "tsVisionTest";
+            this.tsVisionTest.Size = new System.Drawing.Size(152, 22);
+            this.tsVisionTest.Text = "Vision Test";
+            this.tsVisionTest.Click += new System.EventHandler(this.tsVisionTest_Click);
+            // 
+            // tsWrittenTest
+            // 
+            this.tsWrittenTest.Enabled = false;
+            this.tsWrittenTest.Image = global::DVLDPresentationLayer.Properties.Resources.Written_Test_32;
+            this.tsWrittenTest.Name = "tsWrittenTest";
+            this.tsWrittenTest.Size = new System.Drawing.Size(152, 22);
+            this.tsWrittenTest.Text = "Written Test";
+            this.tsWrittenTest.Click += new System.EventHandler(this.tsWrittenTest_Click);
+            // 
+            // tsStreetTest
+            // 
+            this.tsStreetTest.Enabled = false;
+            this.tsStreetTest.Image = global::DVLDPresentationLayer.Properties.Resources.Street_Test_32;
+            this.tsStreetTest.Name = "tsStreetTest";
+            this.tsStreetTest.Size = new System.Drawing.Size(152, 22);
+            this.tsStreetTest.Text = "Street Test";
+            this.tsStreetTest.Click += new System.EventHandler(this.tsStreetTest_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(243, 6);
+            // 
+            // tsIssueDrivingLicense
+            // 
+            this.tsIssueDrivingLicense.Enabled = false;
+            this.tsIssueDrivingLicense.Image = global::DVLDPresentationLayer.Properties.Resources.IssueDrivingLicense_32;
+            this.tsIssueDrivingLicense.Name = "tsIssueDrivingLicense";
+            this.tsIssueDrivingLicense.Size = new System.Drawing.Size(246, 22);
+            this.tsIssueDrivingLicense.Text = "Issue Driving License (First Time)";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(243, 6);
             // 
-            // tsSendEmail
+            // tsShowLicense
             // 
-            this.tsSendEmail.Name = "tsSendEmail";
-            this.tsSendEmail.Size = new System.Drawing.Size(141, 22);
-            this.tsSendEmail.Text = "Send Email";
+            this.tsShowLicense.Enabled = false;
+            this.tsShowLicense.Image = global::DVLDPresentationLayer.Properties.Resources.LicenseView_400;
+            this.tsShowLicense.Name = "tsShowLicense";
+            this.tsShowLicense.Size = new System.Drawing.Size(246, 22);
+            this.tsShowLicense.Text = "Show License";
             // 
-            // tsCallPhone
+            // toolStripSeparator5
             // 
-            this.tsCallPhone.Name = "tsCallPhone";
-            this.tsCallPhone.Size = new System.Drawing.Size(141, 22);
-            this.tsCallPhone.Text = "Call Phone";
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(243, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Image = global::DVLDPresentationLayer.Properties.Resources.PersonLicenseHistory_32;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(246, 22);
+            this.toolStripMenuItem4.Text = "Show Person License History";
             // 
             // frmManageLocalDrivingLicenseApplications
             // 
@@ -282,7 +357,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmManageLocalDrivingLicenseApplications";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmManageLocalDrivingLicenseApplications";
+            this.Text = "Manage Local Driving License Applications";
             this.Load += new System.EventHandler(this.frmManageLocalDrivingLicenseApplications_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLDLApplications)).EndInit();
@@ -310,11 +385,18 @@
         private System.Windows.Forms.ToolStripMenuItem tsShowDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem tsEdit;
-        private System.Windows.Forms.ToolStripMenuItem tsAdd;
         private System.Windows.Forms.ToolStripMenuItem tsDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem tsSendEmail;
-        private System.Windows.Forms.ToolStripMenuItem tsCallPhone;
         private System.Windows.Forms.ToolStripMenuItem tsCancel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem tsScheduleTest;
+        private System.Windows.Forms.ToolStripMenuItem tsVisionTest;
+        private System.Windows.Forms.ToolStripMenuItem tsWrittenTest;
+        private System.Windows.Forms.ToolStripMenuItem tsStreetTest;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsIssueDrivingLicense;
+        private System.Windows.Forms.ToolStripMenuItem tsShowLicense;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }

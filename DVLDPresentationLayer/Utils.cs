@@ -72,7 +72,7 @@ namespace DVLDPresentationLayer
                     if (int.TryParse(value, out numericValue))
                     {
 
-                        dtItems.DefaultView.RowFilter = string.Format("{0} = {1}", filterName, value.Replace("'", "''"));
+                        dtItems.DefaultView.RowFilter = string.Format("[{0}] = {1}", filterName, value.Replace("'", "''"));
 
                     }
                     else
@@ -89,7 +89,7 @@ namespace DVLDPresentationLayer
                 else if (columnType == typeof(string))
                 {
 
-                    dtItems.DefaultView.RowFilter = string.Format("{0} like '{1}%'", filterName, value.Replace("'", "''"));
+                    dtItems.DefaultView.RowFilter = string.Format("[{0}] like '{1}%'", filterName, value.Replace("'", "''"));
 
                 }
 

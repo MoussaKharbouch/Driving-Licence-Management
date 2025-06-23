@@ -314,7 +314,7 @@
             // 
             this.lblPersonID.AutoSize = true;
             this.lblPersonID.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.lblPersonID.Location = new System.Drawing.Point(167, 7);
+            this.lblPersonID.Location = new System.Drawing.Point(161, 7);
             this.lblPersonID.Name = "lblPersonID";
             this.lblPersonID.Size = new System.Drawing.Size(33, 19);
             this.lblPersonID.TabIndex = 24;

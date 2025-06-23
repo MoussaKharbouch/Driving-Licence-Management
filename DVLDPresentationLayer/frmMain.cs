@@ -129,6 +129,14 @@ namespace DVLDPresentationLayer
 
         }
 
+        private void localLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmNewLDLApplication NewLDLApplication = new frmNewLDLApplication();
+            NewLDLApplication.ShowDialog();
+
+        }
+
     }
 
 }

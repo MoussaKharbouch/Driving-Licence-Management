@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
+using DVLDPresentationLayer.Tests;
 
 namespace DVLDPresentationLayer.Local_Driving_License_Applications
 {
@@ -59,9 +60,9 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
                 cbFilters.Items.Add("None");
 
-                cbFilters.Items.Add("LDLAppID");
-                cbFilters.Items.Add("NationalNo");
-                cbFilters.Items.Add("FullName");
+                cbFilters.Items.Add("LDL AppID");
+                cbFilters.Items.Add("National No");
+                cbFilters.Items.Add("Full Name");
                 cbFilters.Items.Add("Status");
 
                 cbStatus.SelectedIndex = 0;
@@ -138,7 +139,7 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                 try
                 {
 
-                    bool succeeded = DeleteItem(Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDLAppID"].Value));
+                    bool succeeded = DeleteItem(Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
 
                     if (succeeded)
                     {
@@ -195,34 +196,10 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
         }
 
-        private void tsEditLocalDrivingLicenseApplication_Click(object sender, EventArgs e)
-        {
-
-            /*if (dgvLDLApplications.SelectedRows.Count > 0)
-            {
-
-                //Getting LocalDrivingLicenseApplicationID from row selected
-                int LocalDrivingLicenseApplicationID = Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDLAppID"].Value);
-
-                frmAddEditLDLApplication EditLocalDrivingLicenseApplication = new frmAddEditLDLApplication(LocalDrivingLicenseApplicationID);
-                EditLocalDrivingLicenseApplication.OnSaveEventHandler += LoadItems;
-
-                EditLocalDrivingLicenseApplication.ShowDialog();
-
-            }
-            else
-            {
-
-                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }*/
-
-        }
-
         private void AddLocalDrivingLicenseApplication_Click(object sender, EventArgs e)
         {
 
-            frmAddEditLDLApplication AddLocalDrivingLicenseApplication = new frmAddEditLDLApplication();
+            frmNewLDLApplication AddLocalDrivingLicenseApplication = new frmNewLDLApplication();
             AddLocalDrivingLicenseApplication.OnSaveEventHandler += LoadItems;
 
             AddLocalDrivingLicenseApplication.ShowDialog();
@@ -265,7 +242,7 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
             if (dgvLDLApplications.SelectedRows.Count > 0)
             {
 
-                clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDLAppID"].Value));
+                clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
                 clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
 
                 if (Application.ApplicationStatus == clsApplication.enStatus.New)
@@ -285,6 +262,122 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                     MessageBox.Show("You can't cancel this application!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void cmsLocalDrivingLicenseApplication_Opening(object sender, CancelEventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
+
+                if (Application.ApplicationStatus == clsApplication.enStatus.New)
+                {
+
+                    tsCancel.Enabled = true;
+                    tsScheduleTest.Enabled = true;
+
+
+                }
+                else
+                {
+
+                    tsCancel.Enabled = false;
+                    tsScheduleTest.Enabled = false;
+
+                }
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsScheduleTest_DropDownOpening(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                List<ToolStripMenuItem> TestsMenuStrips = new List<ToolStripMenuItem>();
+
+                TestsMenuStrips.Add(tsVisionTest);
+                TestsMenuStrips.Add(tsWrittenTest);
+                TestsMenuStrips.Add(tsStreetTest);
+
+                TestsMenuStrips[Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["Passed Tests"].Value)].Enabled = true;
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsVisionTest_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                frmTestAppointments TestAppointments = new frmTestAppointments(frmTestAppointments.enTestType.Vision, Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                TestAppointments.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsWrittenTest_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                frmTestAppointments TestAppointments = new frmTestAppointments(frmTestAppointments.enTestType.Written, Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                TestAppointments.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsStreetTest_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                frmTestAppointments TestAppointments = new frmTestAppointments(frmTestAppointments.enTestType.Street, Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                TestAppointments.ShowDialog();
 
             }
             else

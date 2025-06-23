@@ -175,7 +175,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT 1 AS FOUND FROM People WHERE NationalNo = @NationalNo AND PersonID = @ExcludedPersonID";
+            string query = "SELECT 1 AS FOUND FROM People WHERE NationalNo = @NationalNo AND PersonID != @ExcludedPersonID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@NationalNo", NationalNo);

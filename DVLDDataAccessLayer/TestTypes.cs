@@ -86,7 +86,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT 1 AS FOUND FROM TestTypes WHERE TestTypeTitle = @TestTypeTitle AND TestTypeID = @ExcludedTestTypeID";
+            string query = "SELECT 1 AS FOUND FROM TestTypes WHERE TestTypeTitle = @TestTypeTitle AND TestTypeID != @ExcludedTestTypeID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@TestTypeTitle", TestTypeTitle);

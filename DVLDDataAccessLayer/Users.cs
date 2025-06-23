@@ -254,7 +254,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT 1 AS FOUND FROM Users WHERE Username = @Username AND UserID = @ExcludedUserID";
+            string query = "SELECT 1 AS FOUND FROM Users WHERE Username = @Username AND UserID != @ExcludedUserID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Username", Username);

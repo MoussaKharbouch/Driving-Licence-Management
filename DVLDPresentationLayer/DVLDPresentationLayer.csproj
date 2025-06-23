@@ -59,6 +59,24 @@
     <Compile Include="Application Types\frmUpdateApplicationType.Designer.cs">
       <DependentUpon>frmUpdateApplicationType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ctrlApplicationBasicInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlApplicationBasicInfo.Designer.cs">
+      <DependentUpon>ctrlApplicationBasicInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlDrivingLicenseApplicationInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlDrivingLicenseApplicationInfo.Designer.cs">
+      <DependentUpon>ctrlDrivingLicenseApplicationInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlTestDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlTestDetails.Designer.cs">
+      <DependentUpon>ctrlTestDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="Controls\ctrlPersonCardWithFilter.cs">
       <SubType>UserControl</SubType>
@@ -72,11 +90,11 @@
     <Compile Include="Controls\ctrlUserCard.Designer.cs">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Local Driving License Applications\frmAddEditLDLApplication.cs">
+    <Compile Include="Local Driving License Applications\frmNewLDLApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Local Driving License Applications\frmAddEditLDLApplication.Designer.cs">
-      <DependentUpon>frmAddEditLDLApplication.cs</DependentUpon>
+    <Compile Include="Local Driving License Applications\frmNewLDLApplication.Designer.cs">
+      <DependentUpon>frmNewLDLApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.cs">
       <SubType>Form</SubType>
@@ -95,6 +113,12 @@
     </Compile>
     <Compile Include="Test Types\frmUpdateTestType.Designer.cs">
       <DependentUpon>frmUpdateTestType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\frmTestAppointments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tests\frmTestAppointments.Designer.cs">
+      <DependentUpon>frmTestAppointments.cs</DependentUpon>
     </Compile>
     <Compile Include="Users\frmAddEditUser.cs">
       <SubType>Form</SubType>
@@ -165,14 +189,20 @@
     <EmbeddedResource Include="Application Types\frmUpdateApplicationType.resx">
       <DependentUpon>frmUpdateApplicationType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlApplicationBasicInfo.resx">
+      <DependentUpon>ctrlApplicationBasicInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlDrivingLicenseApplicationInfo.resx">
+      <DependentUpon>ctrlDrivingLicenseApplicationInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Local Driving License Applications\frmAddEditLDLApplication.resx">
-      <DependentUpon>frmAddEditLDLApplication.cs</DependentUpon>
+    <EmbeddedResource Include="Local Driving License Applications\frmNewLDLApplication.resx">
+      <DependentUpon>frmNewLDLApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.resx">
       <DependentUpon>frmManageLocalDrivingLicenseApplications.cs</DependentUpon>
@@ -207,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Test Types\frmUpdateTestType.resx">
       <DependentUpon>frmUpdateTestType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tests\frmTestAppointments.resx">
+      <DependentUpon>frmTestAppointments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\frmAddEditUser.resx">
       <DependentUpon>frmAddEditUser.cs</DependentUpon>
