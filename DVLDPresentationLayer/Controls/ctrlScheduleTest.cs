@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DVLDPresentationLayer.Controls
 {
-    public partial class ctrlTestDetails : UserControl
+    public partial class ctrlScheduleTest : UserControl
     {
-        public ctrlTestDetails()
+        public ctrlScheduleTest()
         {
             InitializeComponent();
         }

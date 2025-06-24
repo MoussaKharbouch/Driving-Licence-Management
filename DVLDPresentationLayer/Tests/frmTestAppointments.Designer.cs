@@ -28,17 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pbTestType = new System.Windows.Forms.PictureBox();
-            this.dgvPeople = new System.Windows.Forms.DataGridView();
+            this.dgvAppointments = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAddAppointment = new System.Windows.Forms.Button();
             this.lblRecords = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editAppointmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.retakeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctrlDrivingLicenseDLApplicationInfo1 = new DVLDPresentationLayer.Controls.ctrlDrivingLicenseDLApplicationInfo();
             ((System.ComponentModel.ISupportInitialize)(this.pbTestType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
+            this.cmsAppointment.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -64,19 +69,20 @@
             this.pbTestType.TabIndex = 48;
             this.pbTestType.TabStop = false;
             // 
-            // dgvPeople
+            // dgvAppointments
             // 
-            this.dgvPeople.AllowUserToAddRows = false;
-            this.dgvPeople.AllowUserToDeleteRows = false;
-            this.dgvPeople.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPeople.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPeople.Location = new System.Drawing.Point(26, 470);
-            this.dgvPeople.MultiSelect = false;
-            this.dgvPeople.Name = "dgvPeople";
-            this.dgvPeople.RowTemplate.ReadOnly = true;
-            this.dgvPeople.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPeople.Size = new System.Drawing.Size(613, 186);
-            this.dgvPeople.TabIndex = 50;
+            this.dgvAppointments.AllowUserToAddRows = false;
+            this.dgvAppointments.AllowUserToDeleteRows = false;
+            this.dgvAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAppointments.Location = new System.Drawing.Point(26, 470);
+            this.dgvAppointments.MultiSelect = false;
+            this.dgvAppointments.Name = "dgvAppointments";
+            this.dgvAppointments.RowTemplate.ReadOnly = true;
+            this.dgvAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAppointments.Size = new System.Drawing.Size(613, 186);
+            this.dgvAppointments.TabIndex = 50;
+            this.dgvAppointments.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAppointments_CellMouseClick);
             // 
             // label3
             // 
@@ -101,6 +107,7 @@
             this.btnAddAppointment.Size = new System.Drawing.Size(39, 33);
             this.btnAddAppointment.TabIndex = 52;
             this.btnAddAppointment.UseVisualStyleBackColor = false;
+            this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
             // 
             // lblRecords
             // 
@@ -142,6 +149,30 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // cmsAppointment
+            // 
+            this.cmsAppointment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editAppointmentToolStripMenuItem,
+            this.retakeTestToolStripMenuItem});
+            this.cmsAppointment.Name = "cmsAppointment";
+            this.cmsAppointment.Size = new System.Drawing.Size(169, 48);
+            // 
+            // editAppointmentToolStripMenuItem
+            // 
+            this.editAppointmentToolStripMenuItem.Image = global::DVLDPresentationLayer.Properties.Resources.edit_32;
+            this.editAppointmentToolStripMenuItem.Name = "editAppointmentToolStripMenuItem";
+            this.editAppointmentToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.editAppointmentToolStripMenuItem.Text = "Edit Appointment";
+            this.editAppointmentToolStripMenuItem.Click += new System.EventHandler(this.editAppointmentToolStripMenuItem_Click);
+            // 
+            // retakeTestToolStripMenuItem
+            // 
+            this.retakeTestToolStripMenuItem.Image = global::DVLDPresentationLayer.Properties.Resources.Retake_Test_32;
+            this.retakeTestToolStripMenuItem.Name = "retakeTestToolStripMenuItem";
+            this.retakeTestToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.retakeTestToolStripMenuItem.Text = "Retake Test";
+            this.retakeTestToolStripMenuItem.Click += new System.EventHandler(this.retakeTestToolStripMenuItem_Click);
+            // 
             // ctrlDrivingLicenseDLApplicationInfo1
             // 
             this.ctrlDrivingLicenseDLApplicationInfo1.Location = new System.Drawing.Point(26, 138);
@@ -159,7 +190,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAddAppointment);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dgvPeople);
+            this.Controls.Add(this.dgvAppointments);
             this.Controls.Add(this.ctrlDrivingLicenseDLApplicationInfo1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pbTestType);
@@ -169,7 +200,8 @@
             this.Text = "Vision Test Appointments";
             this.Load += new System.EventHandler(this.frmScheduleTest_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbTestType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
+            this.cmsAppointment.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,12 +212,15 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pbTestType;
         private Controls.ctrlDrivingLicenseDLApplicationInfo ctrlDrivingLicenseDLApplicationInfo1;
-        private System.Windows.Forms.DataGridView dgvPeople;
+        private System.Windows.Forms.DataGridView dgvAppointments;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAddAppointment;
         private System.Windows.Forms.Label lblRecords;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ContextMenuStrip cmsAppointment;
+        private System.Windows.Forms.ToolStripMenuItem editAppointmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem retakeTestToolStripMenuItem;
 
     }
 }

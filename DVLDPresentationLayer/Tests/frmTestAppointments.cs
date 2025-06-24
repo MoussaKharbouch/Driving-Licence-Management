@@ -64,11 +64,21 @@ namespace DVLDPresentationLayer.Tests
 
         }
 
+        private void RefreshAppointments()
+        {
+
+            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfo();
+            lblRecords.Text = ((DataTable)dgvAppointments.DataSource).Rows.Count.ToString();
+
+        }
+
         private void frmScheduleTest_Load(object sender, EventArgs e)
         {
 
             RefreshWindowInfo(TestType);
             ctrlDrivingLicenseDLApplicationInfo1.Refresh(LDLApplication.LocalDrivingLicenseApplicationID);
+
+            RefreshAppointments();
 
         }
 
@@ -76,6 +86,46 @@ namespace DVLDPresentationLayer.Tests
         {
 
             this.Close();
+
+        }
+
+        private void dgvAppointments_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            Utils.UI.ShowCMS(dgvAppointments, e, cmsAppointment);
+
+        }
+
+        private void editAppointmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void retakeTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddAppointment_Click(object sender, EventArgs e)
+        {
+
+            clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
+
+            if (Application == null)
+            {
+
+                MessageBox.Show("This Application is inavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            if (clsTestAppointment.HasActiveAppointmentInTestType(Application.ApplicantPersonID, 1))
+            {
+
+                MessageBox.Show("This person has an appointment to same test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
 
         }
 

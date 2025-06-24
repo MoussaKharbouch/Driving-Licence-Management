@@ -71,11 +71,11 @@
     <Compile Include="Controls\ctrlDrivingLicenseApplicationInfo.Designer.cs">
       <DependentUpon>ctrlDrivingLicenseApplicationInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ctrlTestDetails.cs">
+    <Compile Include="Controls\ctrlScheduleTest.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ctrlTestDetails.Designer.cs">
-      <DependentUpon>ctrlTestDetails.cs</DependentUpon>
+    <Compile Include="Controls\ctrlScheduleTest.Designer.cs">
+      <DependentUpon>ctrlScheduleTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="Controls\ctrlPersonCardWithFilter.cs">

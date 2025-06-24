@@ -1,6 +1,6 @@
 ﻿namespace DVLDPresentationLayer.Controls
 {
-    partial class ctrlTestDetails
+    partial class ctrlScheduleTest
     {
         /// <summary> 
         /// Required designer variable.
