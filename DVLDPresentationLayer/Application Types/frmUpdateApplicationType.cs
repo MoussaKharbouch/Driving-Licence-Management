@@ -36,7 +36,7 @@ namespace DVLDPresentationLayer.Application_Types
             if (ApplicationType == null)
             {
 
-                MessageBox.Show("This application type is inavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This application type is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }

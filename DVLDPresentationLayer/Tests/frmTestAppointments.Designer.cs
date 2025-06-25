@@ -39,7 +39,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editAppointmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.retakeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.takeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctrlDrivingLicenseDLApplicationInfo1 = new DVLDPresentationLayer.Controls.ctrlDrivingLicenseDLApplicationInfo();
             ((System.ComponentModel.ISupportInitialize)(this.pbTestType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
@@ -153,9 +153,9 @@
             // 
             this.cmsAppointment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editAppointmentToolStripMenuItem,
-            this.retakeTestToolStripMenuItem});
+            this.takeTestToolStripMenuItem});
             this.cmsAppointment.Name = "cmsAppointment";
-            this.cmsAppointment.Size = new System.Drawing.Size(169, 48);
+            this.cmsAppointment.Size = new System.Drawing.Size(169, 70);
             // 
             // editAppointmentToolStripMenuItem
             // 
@@ -165,13 +165,13 @@
             this.editAppointmentToolStripMenuItem.Text = "Edit Appointment";
             this.editAppointmentToolStripMenuItem.Click += new System.EventHandler(this.editAppointmentToolStripMenuItem_Click);
             // 
-            // retakeTestToolStripMenuItem
+            // takeTestToolStripMenuItem
             // 
-            this.retakeTestToolStripMenuItem.Image = global::DVLDPresentationLayer.Properties.Resources.Retake_Test_32;
-            this.retakeTestToolStripMenuItem.Name = "retakeTestToolStripMenuItem";
-            this.retakeTestToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.retakeTestToolStripMenuItem.Text = "Retake Test";
-            this.retakeTestToolStripMenuItem.Click += new System.EventHandler(this.retakeTestToolStripMenuItem_Click);
+            this.takeTestToolStripMenuItem.Image = global::DVLDPresentationLayer.Properties.Resources.Test_32;
+            this.takeTestToolStripMenuItem.Name = "takeTestToolStripMenuItem";
+            this.takeTestToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.takeTestToolStripMenuItem.Text = "Take Test";
+            this.takeTestToolStripMenuItem.Click += new System.EventHandler(this.takeTestToolStripMenuItem_Click);
             // 
             // ctrlDrivingLicenseDLApplicationInfo1
             // 
@@ -198,7 +198,7 @@
             this.Name = "frmTestAppointments";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Vision Test Appointments";
-            this.Load += new System.EventHandler(this.frmScheduleTest_Load);
+            this.Load += new System.EventHandler(this.frmTestAppointments_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbTestType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
             this.cmsAppointment.ResumeLayout(false);
@@ -220,7 +220,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ContextMenuStrip cmsAppointment;
         private System.Windows.Forms.ToolStripMenuItem editAppointmentToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem retakeTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem takeTestToolStripMenuItem;
 
     }
 }

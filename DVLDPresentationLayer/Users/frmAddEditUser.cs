@@ -57,7 +57,7 @@ namespace DVLDPresentationLayer.Users
             if (user == null)
             {
 
-                MessageBox.Show("This user is inavailable!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This user is unavailable!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }

@@ -324,6 +324,47 @@ namespace DVLDDataAccessLayer
 
 		}
 
+		public static DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID)
+		{
+
+			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+			string query = @"SELECT TestAppointmentID, AppointmentDate, TestAppointments.PaidFees, TestAppointments.IsLocked
+							 FROM TestAppointments
+							 JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
+							 JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
+							 WHERE ApplicantPersonID = @ApplicantPersonID
+							 AND TestTypeID = @TestTypeID";
+
+			SqlCommand command = new SqlCommand(query, connection);
+
+			command.Parameters.AddWithValue("@ApplicantPersonID", ApplicantPersonID);
+			command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+
+			DataTable TestAppointments = new DataTable();
+
+			try
+			{
+
+				connection.Open();
+
+				SqlDataReader reader = command.ExecuteReader();
+
+				if (reader.HasRows)
+					TestAppointments.Load(reader);
+
+				reader.Close();
+
+			}
+			finally
+			{
+				connection.Close();
+			}
+
+			return TestAppointments;
+
+		}
+
 	}
 
 }

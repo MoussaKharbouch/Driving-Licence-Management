@@ -14,17 +14,10 @@ namespace DVLDPresentationLayer.Tests
     public partial class frmTestAppointments : Form
     {
 
-        public enum enTestType{Vision, Written, Street}
+        public enum enTestType{Vision = 1, Written = 2, Street = 3}
         enTestType TestType;
 
         clsLocalDrivingLicenseApplication LDLApplication { get; set; }
-
-        public frmTestAppointments()
-        {
-
-            InitializeComponent();
-
-        }
 
         public frmTestAppointments(enTestType TestType, int LDLApplicationID)
         {
@@ -67,18 +60,26 @@ namespace DVLDPresentationLayer.Tests
         private void RefreshAppointments()
         {
 
-            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfo();
+            if (LDLApplication == null)
+            {
+
+                MessageBox.Show("This LDLApplication is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
+
+            if (Application == null)
+            {
+
+                MessageBox.Show("This Application is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Application.ApplicantPersonID, (int)TestType);
             lblRecords.Text = ((DataTable)dgvAppointments.DataSource).Rows.Count.ToString();
-
-        }
-
-        private void frmScheduleTest_Load(object sender, EventArgs e)
-        {
-
-            RefreshWindowInfo(TestType);
-            ctrlDrivingLicenseDLApplicationInfo1.Refresh(LDLApplication.LocalDrivingLicenseApplicationID);
-
-            RefreshAppointments();
 
         }
 
@@ -99,6 +100,24 @@ namespace DVLDPresentationLayer.Tests
         private void editAppointmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            if (dgvAppointments.SelectedRows.Count > 0)
+            {
+
+                int AppointmentID = Convert.ToInt32(dgvAppointments.SelectedRows[0].Cells["TestAppointmentID"].Value);
+
+                frmScheduleTest ScheduleTest = new frmScheduleTest(AppointmentID);
+                ScheduleTest.OnSaveEventHandler += RefreshAppointments;
+
+                ScheduleTest.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
         }
 
         private void retakeTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -114,18 +133,42 @@ namespace DVLDPresentationLayer.Tests
             if (Application == null)
             {
 
-                MessageBox.Show("This Application is inavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This Application is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }
 
-            if (clsTestAppointment.HasActiveAppointmentInTestType(Application.ApplicantPersonID, 1))
+            if (clsTestAppointment.HasActiveAppointmentInTestType(Application.ApplicantPersonID, (int)TestType))
             {
 
                 MessageBox.Show("This person has an appointment to same test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }
+            else
+            {
+
+                frmScheduleTest ScheduleTest = new frmScheduleTest((frmScheduleTest.enTestType)TestType, LDLApplication.LocalDrivingLicenseApplicationID);
+                ScheduleTest.OnSaveEventHandler += RefreshAppointments;
+
+                ScheduleTest.ShowDialog();
+
+            }
+
+        }
+
+        private void frmTestAppointments_Load(object sender, EventArgs e)
+        {
+
+            RefreshWindowInfo(TestType);
+            ctrlDrivingLicenseDLApplicationInfo1.Refresh(LDLApplication.LocalDrivingLicenseApplicationID);
+
+            RefreshAppointments();
+
+        }
+
+        private void takeTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
 

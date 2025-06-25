@@ -190,6 +190,13 @@ namespace DVLDBusinessLayer
 
         }
 
+        static public DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID)
+        {
+
+            return TestAppointmentsData.GetTestAppointmentsMainInfoForPersonTestType(ApplicantPersonID,TestTypeID);
+
+        }
+
     }
 
 }

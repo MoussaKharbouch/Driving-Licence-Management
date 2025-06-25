@@ -36,7 +36,7 @@ namespace DVLDPresentationLayer.Test_Types
             if (TestType == null)
             {
 
-                MessageBox.Show("This test type is inavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This test type is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }
