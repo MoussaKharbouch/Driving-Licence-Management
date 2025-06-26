@@ -160,7 +160,7 @@ namespace DVLDPresentationLayer.People
             else
             {
 
-                MessageBox.Show("This person is not availabel!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This person is not available!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             

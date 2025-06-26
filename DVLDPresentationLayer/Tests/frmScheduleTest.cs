@@ -52,27 +52,38 @@ namespace DVLDPresentationLayer.Tests
             Appointment = clsTestAppointment.FindTestAppointment(AppointmentID);
 
             if (Appointment != null)
+            {
+
                 TestType = (enTestType)Appointment.TestTypeID;
+
+                if (Appointment.IsLocked)
+                {
+
+                    Mode = enMode.RetakeTest;
+
+                    //Find Test By Appointment Here
+                    PrevTest = new clsTest();
+                    RetakeTest = new clsTest();
+
+                    if (PrevTest.TestResult == true)
+                    {
+
+                        MessageBox.Show("The test result is pass. You can't reatake passed test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                    }
+                    else
+                    {
+
+                        gbRetakeTestInfo.Enabled = true;
+
+                    }
+
+                }
+
+            }
 
             Mode = enMode.Edit;
-
-        }
-
-        public frmScheduleTest(int AppointmentID, int PrevTestID)
-        {
-
-            InitializeComponent();
-
-            Appointment = clsTestAppointment.FindTestAppointment(AppointmentID);
-            PrevTest = clsTest.FindTest(PrevTestID);
-            RetakeTest = new clsTest();
-
-            if (Appointment != null)
-                TestType = (enTestType)Appointment.TestTypeID;
-
-            gbRetakeTestInfo.Enabled = true;
-
-            Mode = enMode.RetakeTest;
 
         }
 

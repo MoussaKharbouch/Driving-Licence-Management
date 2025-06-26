@@ -120,11 +120,6 @@ namespace DVLDPresentationLayer.Tests
 
         }
 
-        private void retakeTestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAddAppointment_Click(object sender, EventArgs e)
         {
 
@@ -169,6 +164,22 @@ namespace DVLDPresentationLayer.Tests
 
         private void takeTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            if (dgvAppointments.SelectedRows.Count > 0)
+            {
+
+                int AppointmentID = Convert.ToInt32(dgvAppointments.SelectedRows[0].Cells["TestAppointmentID"].Value);
+
+                frmTakeTest TakeTest = new frmTakeTest(AppointmentID);
+                TakeTest.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
 
         }
 

@@ -71,11 +71,11 @@
     <Compile Include="Controls\ctrlDrivingLicenseApplicationInfo.Designer.cs">
       <DependentUpon>ctrlDrivingLicenseApplicationInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ctrlSchedueledTestInfo.cs">
+    <Compile Include="Controls\ctrlTestInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ctrlSchedueledTestInfo.Designer.cs">
-      <DependentUpon>ctrlSchedueledTestInfo.cs</DependentUpon>
+    <Compile Include="Controls\ctrlTestInfo.Designer.cs">
+      <DependentUpon>ctrlTestInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="Controls\ctrlPersonCardWithFilter.cs">
@@ -119,6 +119,12 @@
     </Compile>
     <Compile Include="Tests\frmScheduleTest.Designer.cs">
       <DependentUpon>frmScheduleTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\frmTakeTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tests\frmTakeTest.Designer.cs">
+      <DependentUpon>frmTakeTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Tests\frmTestAppointments.cs">
       <SubType>Form</SubType>
@@ -201,6 +207,9 @@
     <EmbeddedResource Include="Controls\ctrlDrivingLicenseApplicationInfo.resx">
       <DependentUpon>ctrlDrivingLicenseApplicationInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlTestInfo.resx">
+      <DependentUpon>ctrlTestInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -246,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tests\frmScheduleTest.resx">
       <DependentUpon>frmScheduleTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tests\frmTakeTest.resx">
+      <DependentUpon>frmTakeTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tests\frmTestAppointments.resx">
       <DependentUpon>frmTestAppointments.cs</DependentUpon>
