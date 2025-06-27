@@ -171,6 +171,8 @@ namespace DVLDPresentationLayer.Tests
                 int AppointmentID = Convert.ToInt32(dgvAppointments.SelectedRows[0].Cells["TestAppointmentID"].Value);
 
                 frmTakeTest TakeTest = new frmTakeTest(AppointmentID);
+                TakeTest.OnSaveEventHandler += RefreshAppointments;
+
                 TakeTest.ShowDialog();
 
             }

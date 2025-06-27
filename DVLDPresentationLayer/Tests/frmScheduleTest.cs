@@ -27,8 +27,7 @@ namespace DVLDPresentationLayer.Tests
         public enum enTestType { Vision = 1, Written = 2, Street = 3 }
         enTestType TestType;
 
-        public delegate void OnSave();
-        public event OnSave OnSaveEventHandler;
+        public event Action OnSaveEventHandler;
 
         public frmScheduleTest(enTestType TestType, int LDLApplicationID)
         {
@@ -234,7 +233,14 @@ namespace DVLDPresentationLayer.Tests
             {
 
                 if (!Appointment.Save())
+                    MessageBox.Show("Data saved successfully.", "Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+
+                    MessageBox.Show("Data didn't save successfully!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
+
+                }
 
             }
 

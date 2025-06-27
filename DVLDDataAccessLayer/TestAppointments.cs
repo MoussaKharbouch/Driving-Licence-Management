@@ -85,7 +85,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID)
+		public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, int DrivingClassID)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -324,7 +324,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID)
+		public static DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, int DrivingClassID)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);

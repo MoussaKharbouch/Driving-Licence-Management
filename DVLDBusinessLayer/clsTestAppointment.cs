@@ -104,8 +104,8 @@ namespace DVLDBusinessLayer
             if(Application == null)
                 return false;
 
-            if (HasActiveAppointmentInTestType(Application.ApplicantPersonID, TestTypeID))
-                return false;
+            //if (HasActiveAppointmentInTestType(Application.ApplicantPersonID, TestTypeID))
+                //return false;
 
             int TestAppointmentID = this.TestAppointmentID;
 
@@ -169,10 +169,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID)
+        public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, int DrivingLicenseClassID)
         {
 
-            return TestAppointmentsData.HasActiveAppointmentInTestType(ApplicantPersonID, TestTypeID);
+            return TestAppointmentsData.HasActiveAppointmentInTestType(ApplicantPersonID, TestTypeID, DrivingLicenseClassID);
 
         }
 
@@ -190,10 +190,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        static public DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID)
+        static public DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, int DrivingLicenseClassID)
         {
 
-            return TestAppointmentsData.GetTestAppointmentsMainInfoForPersonTestType(ApplicantPersonID,TestTypeID);
+            return TestAppointmentsData.GetTestAppointmentsMainInfoForPersonTestType(ApplicantPersonID, TestTypeID, DrivingLicenseClassID);
 
         }
 
