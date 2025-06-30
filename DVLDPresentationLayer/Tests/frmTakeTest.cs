@@ -107,7 +107,64 @@ namespace DVLDPresentationLayer.Tests
                 if (Appointment.IsLocked)
                 {
 
-                    MessageBox.Show("You cannot edit test result. This Test is already passed!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    clsTest Test = clsTest.FindTestByAppointmentID(Appointment.TestAppointmentID);
+
+                    if (Test == null)
+                    {
+
+                        MessageBox.Show("This appointment is locked. But cannot find test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                        return;
+
+                    }
+
+                    if (Test.TestResult)
+                    {
+
+                        MessageBox.Show("You cannot edit test result. This Test is already passed!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                        return;
+
+                    }
+
+                    clsLocalDrivingLicenseApplication LDLApp = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Appointment.LocalDrivingLicenseApplicationID);
+
+                    if (LDLApp == null)
+                    {
+
+                        MessageBox.Show("Driving license application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                        return;
+
+                    }
+
+                    clsApplication Application = clsApplication.FindApplication(LDLApp.ApplicationID);
+
+                    if (Application == null)
+                    {
+
+                        MessageBox.Show("Application data is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                        return;
+
+                    }
+
+                    if (clsTest.HasPassedTest(Application.ApplicantPersonID, Appointment.TestTypeID))
+                    {
+
+                        MessageBox.Show("This person has already passed this test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                        return;
+
+                    }
+
+
+                    MessageBox.Show("This test is failed. So retake test window will be shown.", "Failed test", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     frmScheduleTest RetakeTest = new frmScheduleTest(Appointment.TestAppointmentID);
 

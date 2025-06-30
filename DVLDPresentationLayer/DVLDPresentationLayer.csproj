@@ -102,6 +102,12 @@
     <Compile Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.Designer.cs">
       <DependentUpon>frmManageLocalDrivingLicenseApplications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Local Driving License Applications\frmShowLDLApplicationDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Local Driving License Applications\frmShowLDLApplicationDetails.Designer.cs">
+      <DependentUpon>frmShowLDLApplicationDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test Types\frmManageTestTypes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Local Driving License Applications\frmManageLocalDrivingLicenseApplications.resx">
       <DependentUpon>frmManageLocalDrivingLicenseApplications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local Driving License Applications\frmShowLDLApplicationDetails.resx">
+      <DependentUpon>frmShowLDLApplicationDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\frmAddEditPerson.resx">
       <DependentUpon>frmAddEditPerson.cs</DependentUpon>

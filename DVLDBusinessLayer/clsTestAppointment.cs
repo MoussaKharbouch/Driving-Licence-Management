@@ -104,8 +104,13 @@ namespace DVLDBusinessLayer
             if(Application == null)
                 return false;
 
-            //if (HasActiveAppointmentInTestType(Application.ApplicantPersonID, TestTypeID))
-                //return false;
+            clsLicenseClass LicenseClass = clsLicenseClass.FindLicenseClass(LocalDrivingLicenseApplication.LicenseClassID);
+
+            if (LicenseClass == null)
+                return false;
+
+            if (HasActiveAppointmentInTestType(Application.ApplicantPersonID, TestTypeID, LicenseClass.ClassName))
+                return false;
 
             int TestAppointmentID = this.TestAppointmentID;
 
@@ -169,10 +174,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, int DrivingLicenseClassID)
+        public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, string DrivingLicenseClassName)
         {
 
-            return TestAppointmentsData.HasActiveAppointmentInTestType(ApplicantPersonID, TestTypeID, DrivingLicenseClassID);
+            return TestAppointmentsData.HasActiveAppointmentInTestType(ApplicantPersonID, TestTypeID, DrivingLicenseClassName);
 
         }
 
@@ -190,10 +195,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        static public DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, int DrivingLicenseClassID)
+        static public DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, string DrivingLicenseClassName)
         {
 
-            return TestAppointmentsData.GetTestAppointmentsMainInfoForPersonTestType(ApplicantPersonID, TestTypeID, DrivingLicenseClassID);
+            return TestAppointmentsData.GetTestAppointmentsMainInfoForPersonTestType(ApplicantPersonID, TestTypeID, DrivingLicenseClassName);
 
         }
 

@@ -39,7 +39,7 @@ namespace DVLDDataAccessLayer
 					PaidFees = (decimal)reader["PaidFees"];
 					CreatedByUserID = (int)reader["CreatedByUserID"];
 					IsLocked = (bool)reader["IsLocked"];
-					RetakeTestApplicationID = (reader["RetakeTestApplicationID"] != DBNull.Value ? (int)reader["ReatakeTestApplicationID"] : -1);
+					RetakeTestApplicationID = (reader["RetakeTestApplicationID"] != DBNull.Value ? (int)reader["RetakeTestApplicationID"] : -1);
 
 					reader.Close();
 
@@ -85,7 +85,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, int DrivingClassID)
+		public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, string DrivingClassName)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -94,13 +94,17 @@ namespace DVLDDataAccessLayer
 							 ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
 							 Join Applications
 							 On LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
+							 Join LicenseClasses
+							 On LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
 							 WHERE Applications.ApplicantPersonID = @ApplicantPersonID
 							 AND TestAppointments.IsLocked = 0
-							 AND TestAppointments.TestTypeID = @TestTypeID";
+							 AND TestAppointments.TestTypeID = @TestTypeID
+							 And LicenseClasses.ClassName = @ClassName";
 
 			SqlCommand command = new SqlCommand(query, connection);
 			command.Parameters.AddWithValue("@ApplicantPersonID", ApplicantPersonID);
 			command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+			command.Parameters.AddWithValue("@ClassName", DrivingClassName);
 
 			bool isFound = false;
 
@@ -324,7 +328,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, int DrivingClassID)
+		public static DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, string DrivingClassName)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -333,13 +337,16 @@ namespace DVLDDataAccessLayer
 							 FROM TestAppointments
 							 JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
 							 JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
+							 Join LicenseClasses On LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
 							 WHERE ApplicantPersonID = @ApplicantPersonID
-							 AND TestTypeID = @TestTypeID";
+							 AND TestTypeID = @TestTypeID
+							 And LicenseClasses.ClassName = @ClassName";
 
 			SqlCommand command = new SqlCommand(query, connection);
 
 			command.Parameters.AddWithValue("@ApplicantPersonID", ApplicantPersonID);
 			command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+			command.Parameters.AddWithValue("@ClassName", DrivingClassName);
 
 			DataTable TestAppointments = new DataTable();
 

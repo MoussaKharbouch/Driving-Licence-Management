@@ -282,12 +282,23 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                 clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
                 clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
 
+                int PassedTests = (int)dgvLDLApplications.SelectedRows[0].Cells["Passed Tests"].Value;
+
                 if (Application.ApplicationStatus == clsApplication.enStatus.New)
                 {
 
                     tsCancel.Enabled = true;
-                    tsScheduleTest.Enabled = true;
 
+                    if (PassedTests < 3)
+                        tsScheduleTest.Enabled = true;
+                    else
+                    {
+
+                        tsScheduleTest.Enabled = false;
+                        tsIssueDrivingLicense.Enabled = true;
+                        tsShowLicense.Enabled = true;
+                        
+                    }
 
                 }
                 else
@@ -295,6 +306,8 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
                     tsCancel.Enabled = false;
                     tsScheduleTest.Enabled = false;
+                    tsIssueDrivingLicense.Enabled = false;
+                    tsShowLicense.Enabled = false;
 
                 }
 
@@ -320,7 +333,14 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                 TestsMenuStrips.Add(tsWrittenTest);
                 TestsMenuStrips.Add(tsStreetTest);
 
-                TestsMenuStrips[Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["Passed Tests"].Value)].Enabled = true;
+                TestsMenuStrips[0].Enabled = false;
+                TestsMenuStrips[1].Enabled = false;
+                TestsMenuStrips[2].Enabled = false;
+
+                int PassedTests = (int)dgvLDLApplications.SelectedRows[0].Cells["Passed Tests"].Value;
+
+                if(PassedTests < 3)
+                    TestsMenuStrips[Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["Passed Tests"].Value)].Enabled = true;
 
             }
             else
@@ -339,6 +359,8 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
             {
 
                 frmTestAppointments TestAppointments = new frmTestAppointments(frmTestAppointments.enTestType.Vision, Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                TestAppointments.OnSaveEventHandler += LoadItems;
+
                 TestAppointments.ShowDialog();
 
             }
@@ -358,6 +380,8 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
             {
 
                 frmTestAppointments TestAppointments = new frmTestAppointments(frmTestAppointments.enTestType.Written, Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                TestAppointments.OnSaveEventHandler += LoadItems;
+
                 TestAppointments.ShowDialog();
 
             }
@@ -377,7 +401,28 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
             {
 
                 frmTestAppointments TestAppointments = new frmTestAppointments(frmTestAppointments.enTestType.Street, Convert.ToInt32(dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value));
+                TestAppointments.OnSaveEventHandler += LoadItems;
+
                 TestAppointments.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsShowDetails_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                frmShowLDLApplicationDetails ShowLDLApplicationDetails = new frmShowLDLApplicationDetails((int)dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value);
+                ShowLDLApplicationDetails.ShowDialog();
 
             }
             else

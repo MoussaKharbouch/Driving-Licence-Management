@@ -30,37 +30,36 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbValue = new System.Windows.Forms.TextBox();
             this.cbFilters = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnAddLDLApplication = new System.Windows.Forms.Button();
             this.lblRecords = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvLDLApplications = new System.Windows.Forms.DataGridView();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.cmsLocalDrivingLicenseApplication = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsShowDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnAddLDLApplication = new System.Windows.Forms.Button();
+            this.tsShowDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsCancel = new System.Windows.Forms.ToolStripMenuItem();
             this.tsScheduleTest = new System.Windows.Forms.ToolStripMenuItem();
             this.tsVisionTest = new System.Windows.Forms.ToolStripMenuItem();
             this.tsWrittenTest = new System.Windows.Forms.ToolStripMenuItem();
             this.tsStreetTest = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsIssueDrivingLicense = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsShowLicense = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tsShowPersonLicenseHistory = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLDLApplications)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsLocalDrivingLicenseApplication.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -74,17 +73,6 @@
             this.label2.Size = new System.Drawing.Size(439, 24);
             this.label2.TabIndex = 22;
             this.label2.Text = "Manage Local Driving License Applications";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.Manage_Applications_64;
-            this.pictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.pictureBox1.Location = new System.Drawing.Point(351, 16);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(110, 107);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
             // 
             // tbValue
             // 
@@ -117,19 +105,6 @@
             this.label3.Size = new System.Drawing.Size(69, 17);
             this.label3.TabIndex = 27;
             this.label3.Text = "Filter By:";
-            // 
-            // btnAddLDLApplication
-            // 
-            this.btnAddLDLApplication.BackColor = System.Drawing.Color.White;
-            this.btnAddLDLApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddLDLApplication.Image = global::DVLDPresentationLayer.Properties.Resources.New_Application_64;
-            this.btnAddLDLApplication.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnAddLDLApplication.Location = new System.Drawing.Point(695, 160);
-            this.btnAddLDLApplication.Name = "btnAddLDLApplication";
-            this.btnAddLDLApplication.Size = new System.Drawing.Size(71, 69);
-            this.btnAddLDLApplication.TabIndex = 26;
-            this.btnAddLDLApplication.UseVisualStyleBackColor = false;
-            this.btnAddLDLApplication.Click += new System.EventHandler(this.AddLocalDrivingLicenseApplication_Click);
             // 
             // lblRecords
             // 
@@ -171,17 +146,6 @@
             this.dgvLDLApplications.TabIndex = 23;
             this.dgvLDLApplications.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvLDLApplications_CellMouseClick);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::DVLDPresentationLayer.Properties.Resources.Local_32;
-            this.pictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.pictureBox2.Location = new System.Drawing.Point(445, 55);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 29);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 31;
-            this.pictureBox2.TabStop = false;
-            // 
             // cbStatus
             // 
             this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -204,7 +168,6 @@
             this.cmsLocalDrivingLicenseApplication.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsShowDetails,
             this.toolStripSeparator2,
-            this.tsEdit,
             this.tsDelete,
             this.toolStripSeparator3,
             this.tsCancel,
@@ -214,10 +177,70 @@
             this.toolStripSeparator1,
             this.tsShowLicense,
             this.toolStripSeparator5,
-            this.toolStripMenuItem4});
+            this.tsShowPersonLicenseHistory});
             this.cmsLocalDrivingLicenseApplication.Name = "cmsPerson";
-            this.cmsLocalDrivingLicenseApplication.Size = new System.Drawing.Size(247, 232);
+            this.cmsLocalDrivingLicenseApplication.Size = new System.Drawing.Size(247, 188);
             this.cmsLocalDrivingLicenseApplication.Opening += new System.ComponentModel.CancelEventHandler(this.cmsLocalDrivingLicenseApplication_Opening);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(243, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(243, 6);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(243, 6);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(243, 6);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(243, 6);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::DVLDPresentationLayer.Properties.Resources.Local_32;
+            this.pictureBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.pictureBox2.Location = new System.Drawing.Point(445, 55);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 29);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 31;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLDPresentationLayer.Properties.Resources.Manage_Applications_64;
+            this.pictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.pictureBox1.Location = new System.Drawing.Point(351, 16);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(110, 107);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 30;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnAddLDLApplication
+            // 
+            this.btnAddLDLApplication.BackColor = System.Drawing.Color.White;
+            this.btnAddLDLApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddLDLApplication.Image = global::DVLDPresentationLayer.Properties.Resources.New_Application_64;
+            this.btnAddLDLApplication.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnAddLDLApplication.Location = new System.Drawing.Point(695, 160);
+            this.btnAddLDLApplication.Name = "btnAddLDLApplication";
+            this.btnAddLDLApplication.Size = new System.Drawing.Size(71, 69);
+            this.btnAddLDLApplication.TabIndex = 26;
+            this.btnAddLDLApplication.UseVisualStyleBackColor = false;
+            this.btnAddLDLApplication.Click += new System.EventHandler(this.AddLocalDrivingLicenseApplication_Click);
             // 
             // tsShowDetails
             // 
@@ -225,18 +248,7 @@
             this.tsShowDetails.Name = "tsShowDetails";
             this.tsShowDetails.Size = new System.Drawing.Size(246, 22);
             this.tsShowDetails.Text = "Show Application Details";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(243, 6);
-            // 
-            // tsEdit
-            // 
-            this.tsEdit.Image = global::DVLDPresentationLayer.Properties.Resources.edit_32;
-            this.tsEdit.Name = "tsEdit";
-            this.tsEdit.Size = new System.Drawing.Size(246, 22);
-            this.tsEdit.Text = "Edit Application";
+            this.tsShowDetails.Click += new System.EventHandler(this.tsShowDetails_Click);
             // 
             // tsDelete
             // 
@@ -245,11 +257,6 @@
             this.tsDelete.Size = new System.Drawing.Size(246, 22);
             this.tsDelete.Text = "Delete Application";
             this.tsDelete.Click += new System.EventHandler(this.DeleteLocalDrivingLicenseApplication);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(243, 6);
             // 
             // tsCancel
             // 
@@ -278,7 +285,7 @@
             this.tsVisionTest.Enabled = false;
             this.tsVisionTest.Image = global::DVLDPresentationLayer.Properties.Resources.Vision_512;
             this.tsVisionTest.Name = "tsVisionTest";
-            this.tsVisionTest.Size = new System.Drawing.Size(152, 22);
+            this.tsVisionTest.Size = new System.Drawing.Size(138, 22);
             this.tsVisionTest.Text = "Vision Test";
             this.tsVisionTest.Click += new System.EventHandler(this.tsVisionTest_Click);
             // 
@@ -287,7 +294,7 @@
             this.tsWrittenTest.Enabled = false;
             this.tsWrittenTest.Image = global::DVLDPresentationLayer.Properties.Resources.Written_Test_32;
             this.tsWrittenTest.Name = "tsWrittenTest";
-            this.tsWrittenTest.Size = new System.Drawing.Size(152, 22);
+            this.tsWrittenTest.Size = new System.Drawing.Size(138, 22);
             this.tsWrittenTest.Text = "Written Test";
             this.tsWrittenTest.Click += new System.EventHandler(this.tsWrittenTest_Click);
             // 
@@ -296,14 +303,9 @@
             this.tsStreetTest.Enabled = false;
             this.tsStreetTest.Image = global::DVLDPresentationLayer.Properties.Resources.Street_Test_32;
             this.tsStreetTest.Name = "tsStreetTest";
-            this.tsStreetTest.Size = new System.Drawing.Size(152, 22);
+            this.tsStreetTest.Size = new System.Drawing.Size(138, 22);
             this.tsStreetTest.Text = "Street Test";
             this.tsStreetTest.Click += new System.EventHandler(this.tsStreetTest_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(243, 6);
             // 
             // tsIssueDrivingLicense
             // 
@@ -313,11 +315,6 @@
             this.tsIssueDrivingLicense.Size = new System.Drawing.Size(246, 22);
             this.tsIssueDrivingLicense.Text = "Issue Driving License (First Time)";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(243, 6);
-            // 
             // tsShowLicense
             // 
             this.tsShowLicense.Enabled = false;
@@ -326,17 +323,12 @@
             this.tsShowLicense.Size = new System.Drawing.Size(246, 22);
             this.tsShowLicense.Text = "Show License";
             // 
-            // toolStripSeparator5
+            // tsShowPersonLicenseHistory
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(243, 6);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Image = global::DVLDPresentationLayer.Properties.Resources.PersonLicenseHistory_32;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(246, 22);
-            this.toolStripMenuItem4.Text = "Show Person License History";
+            this.tsShowPersonLicenseHistory.Image = global::DVLDPresentationLayer.Properties.Resources.PersonLicenseHistory_32;
+            this.tsShowPersonLicenseHistory.Name = "tsShowPersonLicenseHistory";
+            this.tsShowPersonLicenseHistory.Size = new System.Drawing.Size(246, 22);
+            this.tsShowPersonLicenseHistory.Text = "Show Person License History";
             // 
             // frmManageLocalDrivingLicenseApplications
             // 
@@ -359,10 +351,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manage Local Driving License Applications";
             this.Load += new System.EventHandler(this.frmManageLocalDrivingLicenseApplications_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLDLApplications)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.cmsLocalDrivingLicenseApplication.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,7 +376,6 @@
         private System.Windows.Forms.ContextMenuStrip cmsLocalDrivingLicenseApplication;
         private System.Windows.Forms.ToolStripMenuItem tsShowDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem tsEdit;
         private System.Windows.Forms.ToolStripMenuItem tsDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsCancel;
@@ -397,6 +388,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsIssueDrivingLicense;
         private System.Windows.Forms.ToolStripMenuItem tsShowLicense;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem tsShowPersonLicenseHistory;
     }
 }

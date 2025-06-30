@@ -49,6 +49,44 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static void FindTestByAppointmentID(int TestAppointmentID, ref int TestID, ref bool TestResult,
+                                                   ref string Notes, ref int CreatedByUserID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT * FROM Tests WHERE TestAppointmentID = @TestAppointmentID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+
+                    TestID = (int)reader["TestID"];
+                    TestResult = (bool)reader["TestResult"];
+                    Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : string.Empty;
+                    CreatedByUserID = (int)reader["CreatedByUserID"];
+
+                    reader.Close();
+
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
         public static bool DoesTestExist(int TestID)
         {
 
@@ -78,6 +116,89 @@ namespace DVLDDataAccessLayer
             }
 
             return isFound;
+
+        }
+
+        public static bool HasPassedTest(int PersonID, int TestTypeID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT 
+                             CASE 
+                             WHEN EXISTS (
+                                 SELECT 1
+                                 FROM Tests
+                                 JOIN TestAppointments ON Tests.TestAppointmentID = TestAppointments.TestAppointmentID
+                                 JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
+                                 JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
+                                 WHERE Applications.ApplicantPersonID = @PersonID
+                                   AND Tests.TestResult = 1
+                                   AND TestAppointments.TestTypeID = @TestTypeID
+                             )
+                             THEN 1
+                             ELSE 0
+                             END AS HasPassedTest;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+                isFound = Convert.ToInt32(result) == 1;
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
+        public static int GetPassedTests(int PersonID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT COUNT(*) AS PassedTestsCount
+                             FROM Tests
+                             JOIN TestAppointments ON Tests.TestAppointmentID = TestAppointments.TestAppointmentID
+                             JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
+                             JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
+                             WHERE Applications.ApplicantPersonID = @PersonID
+                             AND Tests.TestResult = 1;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+
+            int PassedTests = 0;
+
+            try
+            {
+
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null)
+                    int.TryParse(result.ToString(), out PassedTests);
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return PassedTests;
 
         }
 

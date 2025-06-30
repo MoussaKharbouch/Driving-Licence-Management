@@ -261,32 +261,35 @@ namespace DVLDDataAccessLayer
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-			string query = @"SELECT LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID as ""LDL AppID"", LicenseClasses.ClassName as ""Driving Class"", People.NationalNo,
-							 LTRIM(RTRIM(
-							 CONCAT(
-							 People.FirstName, ' ',
-							 People.SecondName, ' ',
-							 People.ThirdName, ' ',
-							 People.LastName
-							 )
-							 )) AS ""Full Name"", Applications.ApplicationDate, Count(Tests.TestID) as ""Passed Tests"", CASE WHEN Applications.ApplicationStatus = 1 THEN 'New'
-							 WHEN Applications.ApplicationStatus = 2 THEN 'Canceled' 
-							 WHEN Applications.ApplicationStatus = 3 THEN 'Completed' END AS Status
-							 FROM Applications INNER JOIN
-							 People ON Applications.ApplicantPersonID = People.PersonID INNER JOIN
-							 LocalDrivingLicenseApplications ON Applications.ApplicationID = LocalDrivingLicenseApplications.ApplicationID INNER JOIN
-							 LicenseClasses ON LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID left JOIN
-							 Tests on LicenseClasses.LicenseClassID = TestID
-							 GROUP BY 
-							 LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID,
-							 LicenseClasses.ClassName,
-							 People.NationalNo,
-							 People.FirstName,
-							 People.SecondName,
-							 People.ThirdName,
-							 People.LastName,
-							 Applications.ApplicationDate,
-							 Applications.ApplicationStatus";
+			string query = @"SELECT 
+                             LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID as ""LDL AppID"", 
+                             LicenseClasses.ClassName as ""Driving Class"", 
+                             People.NationalNo,
+                             LTRIM(RTRIM(CONCAT(People.FirstName, ' ', People.SecondName, ' ', People.ThirdName, ' ', People.LastName))) AS ""Full Name"", 
+                             Applications.ApplicationDate, 
+                             COUNT(CASE WHEN Tests.TestResult = 1 THEN 1 END) as ""Passed Tests"", 
+                             CASE 
+                             WHEN Applications.ApplicationStatus = 1 THEN 'New'
+                               WHEN Applications.ApplicationStatus = 2 THEN 'Canceled' 
+                               WHEN Applications.ApplicationStatus = 3 THEN 'Completed' 
+                             END AS Status
+                           FROM Applications 
+                           INNER JOIN People ON Applications.ApplicantPersonID = People.PersonID 
+                           INNER JOIN LocalDrivingLicenseApplications ON Applications.ApplicationID = LocalDrivingLicenseApplications.ApplicationID 
+                           INNER JOIN LicenseClasses ON LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID 
+                           LEFT JOIN TestAppointments ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
+                           LEFT JOIN Tests ON Tests.TestAppointmentID = TestAppointments.TestAppointmentID
+                           GROUP BY 
+                             LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID,
+                             LicenseClasses.ClassName,
+                             People.NationalNo,
+                             People.FirstName,
+                             People.SecondName,
+                             People.ThirdName,
+                             People.LastName,
+                             Applications.ApplicationDate,
+                             Applications.ApplicationStatus;
+                           ";
 
 			SqlCommand command = new SqlCommand(query, connection);
 

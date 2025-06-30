@@ -119,7 +119,15 @@ namespace DVLDBusinessLayer
             if (!DoesLocalDrivingLicenseApplicationExist(LocalDrivingLicenseApplicationID))
                 return false;
 
-            return LocalDrivingLicenseApplicationsData.DeleteLocalDrivingLicenseApplication(LocalDrivingLicenseApplicationID);
+            clsLocalDrivingLicenseApplication LDLApp = FindLocalDrivingLicenseApplication(LocalDrivingLicenseApplicationID);
+
+            if (LDLApp == null)
+                return false;
+
+            if (!clsApplication.DeleteApplication(LDLApp.ApplicationID))
+                return false;
+
+            return (LocalDrivingLicenseApplicationsData.DeleteLocalDrivingLicenseApplication(LocalDrivingLicenseApplicationID));
 
         }
 

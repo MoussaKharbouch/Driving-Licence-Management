@@ -155,7 +155,7 @@
             this.editAppointmentToolStripMenuItem,
             this.takeTestToolStripMenuItem});
             this.cmsAppointment.Name = "cmsAppointment";
-            this.cmsAppointment.Size = new System.Drawing.Size(169, 70);
+            this.cmsAppointment.Size = new System.Drawing.Size(169, 48);
             // 
             // editAppointmentToolStripMenuItem
             // 
@@ -198,6 +198,7 @@
             this.Name = "frmTestAppointments";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Vision Test Appointments";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestAppointments_FormClosing);
             this.Load += new System.EventHandler(this.frmTestAppointments_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbTestType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();

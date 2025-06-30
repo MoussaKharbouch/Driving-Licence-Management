@@ -74,7 +74,6 @@ namespace DVLDPresentationLayer.Controls
             if (Appointment.TestAppointmentID != -1)
                 lblLDLAppID.Text = Appointment.TestAppointmentID.ToString();
 
-            lblTrial.Text = "0";
             lblDate.Text = Appointment.AppointmentDate.ToShortDateString();
             lblFees.Text = ((int)Appointment.PaidFees).ToString();
 
@@ -94,8 +93,13 @@ namespace DVLDPresentationLayer.Controls
 
             clsPerson Person = clsPerson.FindPerson(Application.ApplicantPersonID);
 
-            if (Person != null)
+            if (Person != null && LicenseClass != null)
+            {
+
                 lblName.Text = Person.FullName();
+                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Person.PersonID, (int)TestType, LicenseClass.ClassName).Rows.Count.ToString() + "/3";
+
+            }
 
         }
 

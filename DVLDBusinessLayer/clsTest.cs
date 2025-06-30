@@ -70,6 +70,24 @@ namespace DVLDBusinessLayer
 
         }
 
+        public static clsTest FindTestByAppointmentID(int TestAppointmentID)
+        {
+
+            int TestID = -1;
+            bool TestResult = false;
+            string Notes = string.Empty;
+            int CreatedByUserID = -1;
+
+            TestsData.FindTestByAppointmentID(TestAppointmentID, ref TestID, ref TestResult,
+                                              ref Notes, ref CreatedByUserID);
+
+            if (TestID == -1)
+                return null;
+
+            return new clsTest(TestID, TestAppointmentID, TestResult, Notes, CreatedByUserID);
+
+        }
+
         private bool Add()
         {
 
@@ -133,10 +151,24 @@ namespace DVLDBusinessLayer
 
         }
 
+        public static bool HasPassedTest(int PersonID, int TestTypeID)
+        {
+
+            return TestsData.HasPassedTest(PersonID, TestTypeID);
+
+        }
+
         public static DataTable GetTests()
         {
 
             return TestsData.GetTests();
+
+        }
+
+        public static int GetPassedTests(int PersonID)
+        {
+
+            return TestsData.GetPassedTests(PersonID);
 
         }
 

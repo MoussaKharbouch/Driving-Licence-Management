@@ -19,6 +19,8 @@ namespace DVLDPresentationLayer.Tests
 
         clsLocalDrivingLicenseApplication LDLApplication { get; set; }
 
+        public event Action OnSaveEventHandler;
+
         public frmTestAppointments(enTestType TestType, int LDLApplicationID)
         {
 
@@ -78,7 +80,17 @@ namespace DVLDPresentationLayer.Tests
 
             }
 
-            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Application.ApplicantPersonID, (int)TestType);
+            clsLicenseClass LicenseClass = clsLicenseClass.FindLicenseClass(LDLApplication.LicenseClassID);
+
+            if (LicenseClass == null)
+            {
+
+                MessageBox.Show("This License Class is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Application.ApplicantPersonID, (int)TestType, LicenseClass.ClassName);
             lblRecords.Text = ((DataTable)dgvAppointments.DataSource).Rows.Count.ToString();
 
         }
@@ -133,11 +145,44 @@ namespace DVLDPresentationLayer.Tests
 
             }
 
-            if (clsTestAppointment.HasActiveAppointmentInTestType(Application.ApplicantPersonID, (int)TestType))
+            clsLicenseClass LicenseClass = clsLicenseClass.FindLicenseClass(LDLApplication.LicenseClassID);
+
+            if (LicenseClass == null)
             {
 
-                MessageBox.Show("This person has an appointment to same test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This License Class is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+
+            }
+
+            DataTable dtAppointments = ((DataTable)dgvAppointments.DataSource);
+
+            if (clsTestAppointment.HasActiveAppointmentInTestType(Application.ApplicantPersonID, (int)TestType, LicenseClass.ClassName))
+            {
+
+                MessageBox.Show("This person has an active appointment to same test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+            else if (dtAppointments.Rows.Count > 0)
+            {
+
+                if (clsTest.HasPassedTest(Application.ApplicantPersonID, (int)TestType))
+                {
+
+                    MessageBox.Show("This person has already passed this test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+
+                }
+
+                dtAppointments.DefaultView.Sort = "AppointmentDate DESC";
+
+                int recentAppointmentID = (int)dtAppointments.DefaultView[0]["TestAppointmentID"];
+
+                frmScheduleTest ScheduleTest = new frmScheduleTest(recentAppointmentID);
+                ScheduleTest.OnSaveEventHandler += RefreshAppointments;
+
+                ScheduleTest.ShowDialog();
 
             }
             else
@@ -182,6 +227,14 @@ namespace DVLDPresentationLayer.Tests
                 MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+
+        }
+
+        private void frmTestAppointments_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (OnSaveEventHandler != null)
+                OnSaveEventHandler();
 
         }
 

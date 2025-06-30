@@ -20,7 +20,6 @@ namespace DVLDPresentationLayer.Tests
 
         public clsTestAppointment Appointment { get; private set; }
         public clsTest PrevTest { get; private set; }
-        public clsTest RetakeTest { get; private set; }
 
         private int LDLApplicationID;
 
@@ -61,28 +60,44 @@ namespace DVLDPresentationLayer.Tests
                     Mode = enMode.RetakeTest;
 
                     //Find Test By Appointment Here
-                    PrevTest = new clsTest();
-                    RetakeTest = new clsTest();
+                    PrevTest = clsTest.FindTestByAppointmentID(Appointment.TestAppointmentID);
+
+                    if (PrevTest == null)
+                    {
+
+                        MessageBox.Show("Cannot find original test linked to this appointment!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+
+                        return;
+
+                    }
 
                     if (PrevTest.TestResult == true)
                     {
 
-                        MessageBox.Show("The test result is pass. You can't reatake passed test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The test result is pass. You can't retake passed test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.Close();
+
+                        return;
 
                     }
                     else
                     {
 
                         gbRetakeTestInfo.Enabled = true;
+                        ShowRetakeTestInfo();
 
                     }
 
                 }
+                else
+                {
+
+                    Mode = enMode.Edit;
+
+                }
 
             }
-
-            Mode = enMode.Edit;
 
         }
 
@@ -121,7 +136,12 @@ namespace DVLDPresentationLayer.Tests
                 lblLDLAppID.Text = Appointment.TestAppointmentID.ToString();
 
             lblTrial.Text = "0";
-            dtpTestDate.Value = Appointment.AppointmentDate;
+
+            if (Appointment.AppointmentDate < dtpTestDate.MinDate)
+                dtpTestDate.Value = dtpTestDate.MinDate;
+            else if (Appointment.AppointmentDate > dtpTestDate.MaxDate)
+                dtpTestDate.Value = dtpTestDate.MaxDate;
+
             lblFees.Text = ((int)Appointment.PaidFees).ToString();
 
             clsLocalDrivingLicenseApplication LocalDrivingLicenseApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Appointment.LocalDrivingLicenseApplicationID);
@@ -140,18 +160,25 @@ namespace DVLDPresentationLayer.Tests
 
             clsPerson Person = clsPerson.FindPerson(Application.ApplicantPersonID);
 
-            if (Person != null)
+            if (Person != null && LicenseClass != null)
+            {
+
                 lblName.Text = Person.FullName();
+                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Person.PersonID, (int)TestType, LicenseClass.ClassName).Rows.Count.ToString() + "/3";
+
+            }
 
         }
 
-        private void FillAppointment()
+        private void FillAppointment(clsTestAppointment Appointment)
         {
 
             Appointment.AppointmentDate = dtpTestDate.Value;
 
-            if (Mode == enMode.Add)
+            if (Mode == enMode.Add || Mode == enMode.RetakeTest)
             {
+
+                LDLApplicationID = (Mode == enMode.RetakeTest) ? Appointment.LocalDrivingLicenseApplicationID : LDLApplicationID;
 
                 clsLocalDrivingLicenseApplication LocalDrivingLicenseApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(LDLApplicationID);               
 
@@ -182,7 +209,50 @@ namespace DVLDPresentationLayer.Tests
                 Appointment.TestTypeID = (int)this.TestType;
                 Appointment.PaidFees = TestType.TestTypeFees;
 
+                return;
+
             }
+
+        }
+
+        private void FillRetakeTestApplication(clsApplication RetakeTestApplication)
+        {
+
+            clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Appointment.LocalDrivingLicenseApplicationID);
+
+            if (LDLApplication == null)
+            {
+
+                MessageBox.Show("Local Driving License Application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
+
+            if (Application == null)
+            {
+
+                MessageBox.Show("Application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            RetakeTestApplication.ApplicantPersonID = Application.ApplicantPersonID;
+            RetakeTestApplication.ApplicationDate = DateTime.Now;
+            RetakeTestApplication.ApplicationTypeID = 7;
+            RetakeTestApplication.ApplicationStatus = clsApplication.enStatus.New;
+            RetakeTestApplication.LastStatusDate = DateTime.Now;
+
+            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType(7);
+
+            if (ApplicationType != null)
+                RetakeTestApplication.PaidFees = ApplicationType.ApplicationFees;
+
+            if (Global.user != null)
+                RetakeTestApplication.CreatedByUserID = Global.user.UserID;
+            else
+                MessageBox.Show("No user is logged in. You cannot do this action!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
 
@@ -191,13 +261,10 @@ namespace DVLDPresentationLayer.Tests
 
             RefreshWindowInfo(TestType);
 
-            if (Mode == enMode.Add)
-            {
-
+            if (Mode != enMode.Edit)
                 dtpTestDate.MinDate = DateTime.Now;
-                FillAppointment();
-
-            }
+            if (Mode == enMode.Add)
+                FillAppointment(Appointment);
                 
             ShowAppointmentData(Appointment);
 
@@ -209,38 +276,75 @@ namespace DVLDPresentationLayer.Tests
             this.Close();
 
         }
-
-        private void FillRetakeTest(clsTest RetakeTest)
+        
+        private void ShowRetakeTestInfo()
         {
 
+            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType(7);
+
+            if (ApplicationType == null)
+            {
+
+                MessageBox.Show("Application Type is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            lblRetakeTestAppFees.Text = ApplicationType.ApplicationFees.ToString();
+            lblTotalFees.Text = (Appointment.PaidFees + ApplicationType.ApplicationFees).ToString();
 
         }
 
-        private void RetakeTestMethod(clsTestAppointment Appointment, clsTest PrevTest, clsTest RetakeTest)
+        private bool RetakeTestMethod()
         {
 
-            
+            clsLocalDrivingLicenseApplication originalLDLApp = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Appointment.LocalDrivingLicenseApplicationID);
+
+            if (originalLDLApp == null)
+            {
+                MessageBox.Show("Local Driving License Application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            clsApplication RetakeTestApplication = new clsApplication();
+            FillRetakeTestApplication(RetakeTestApplication);
+
+            bool IsRetakeTestApplicationSaved = RetakeTestApplication.Save();
+
+            clsTestAppointment NewAppointment = new clsTestAppointment();
+            NewAppointment.RetakeTestApplicationID = RetakeTestApplication.ApplicationID;
+            NewAppointment.LocalDrivingLicenseApplicationID = originalLDLApp.LocalDrivingLicenseApplicationID;
+            FillAppointment(NewAppointment);
+
+            bool IsNewAppointmentSaved = NewAppointment.Save();
+
+            return (IsNewAppointmentSaved && IsRetakeTestApplicationSaved);
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            FillAppointment();
+            FillAppointment(Appointment);
+            bool succeeded = false;
 
             if (Mode == enMode.RetakeTest)
-                RetakeTestMethod(Appointment, PrevTest, RetakeTest);
+                succeeded = RetakeTestMethod();
             else
             {
 
-                if (!Appointment.Save())
-                    MessageBox.Show("Data saved successfully.", "Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                {
+                FillAppointment(Appointment);
+                succeeded = Appointment.Save();
 
-                    MessageBox.Show("Data didn't save successfully!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+            }
 
-                }
+            if (succeeded)
+                MessageBox.Show("Data has been saved successfully.", "Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+
+                MessageBox.Show("Data has not been saved successfully!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
 
             }
 
