@@ -51,7 +51,7 @@ namespace DVLDPresentationLayer.Controls
                     break;
 
                 case enTestType.Street:
-                    pbTestType.Image = Properties.Resources.Street_Test_32;
+                    pbTestType.Image = Properties.Resources.driving_test_512;
                     break;
 
             }
@@ -97,7 +97,7 @@ namespace DVLDPresentationLayer.Controls
             {
 
                 lblName.Text = Person.FullName();
-                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Person.PersonID, (int)TestType, LicenseClass.ClassName).Rows.Count.ToString() + "/3";
+                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID, (int)TestType).Rows.Count.ToString() + "/3";
 
             }
 

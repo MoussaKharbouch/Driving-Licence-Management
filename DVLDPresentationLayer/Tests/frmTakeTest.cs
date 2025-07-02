@@ -153,7 +153,7 @@ namespace DVLDPresentationLayer.Tests
 
                     }
 
-                    if (clsTest.HasPassedTest(Application.ApplicantPersonID, Appointment.TestTypeID))
+                    if (clsTest.HasPassedTest(LDLApp.LocalDrivingLicenseApplicationID, Appointment.TestTypeID))
                     {
 
                         MessageBox.Show("This person has already passed this test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);

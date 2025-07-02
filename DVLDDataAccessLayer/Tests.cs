@@ -119,7 +119,7 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static bool HasPassedTest(int PersonID, int TestTypeID)
+        public static bool HasPassedTest(int LDLApplicationID, int TestTypeID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -132,7 +132,7 @@ namespace DVLDDataAccessLayer
                                  JOIN TestAppointments ON Tests.TestAppointmentID = TestAppointments.TestAppointmentID
                                  JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
                                  JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
-                                 WHERE Applications.ApplicantPersonID = @PersonID
+                                 WHERE LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID = @LDLApplicationID
                                    AND Tests.TestResult = 1
                                    AND TestAppointments.TestTypeID = @TestTypeID
                              )
@@ -141,7 +141,7 @@ namespace DVLDDataAccessLayer
                              END AS HasPassedTest;";
 
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@LDLApplicationID", LDLApplicationID);
             command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
 
             bool isFound = false;

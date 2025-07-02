@@ -120,7 +120,7 @@ namespace DVLDPresentationLayer.Tests
                     break;
 
                 case enTestType.Street:
-                    pbTestType.Image = Properties.Resources.Street_Test_32;
+                    pbTestType.Image = Properties.Resources.driving_test_512;
                     lblTitle.Text = "Street Test Appointments";
                     lblErrorMessage.Text = "Cannot schedule. Street test must be passed first.";
                     break;
@@ -164,7 +164,7 @@ namespace DVLDPresentationLayer.Tests
             {
 
                 lblName.Text = Person.FullName();
-                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Person.PersonID, (int)TestType, LicenseClass.ClassName).Rows.Count.ToString() + "/3";
+                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID, (int)TestType).Rows.Count.ToString() + "/3";
 
             }
 
@@ -263,12 +263,13 @@ namespace DVLDPresentationLayer.Tests
 
             if (Mode != enMode.Edit)
                 dtpTestDate.MinDate = DateTime.Now;
-            if (Mode == enMode.Add)
-                FillAppointment(Appointment);
-                
+
+            FillAppointment(Appointment);
+
             ShowAppointmentData(Appointment);
 
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {

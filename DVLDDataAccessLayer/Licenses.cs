@@ -96,6 +96,40 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool HasLicenseInSameLicenseClass(int DriverID, int LicenseClassID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT 1 as Found FROM Licenses
+                             WHERE DriverID = @DriverID AND LicenseClass = @LicenseClass";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@DriverID", DriverID);
+            command.Parameters.AddWithValue("@LicenseClass", LicenseClassID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
         public static bool AddLicense(ref int LicenseID, int ApplicationID, int DriverID,
                                       int LicenseClass, DateTime IssueDate, DateTime ExpirationDate,
                                       string Notes, decimal PaidFees, bool IsActive,

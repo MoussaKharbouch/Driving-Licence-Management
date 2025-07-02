@@ -154,10 +154,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static bool HasPassedTest(int PersonID, int TestTypeID)
+        public static bool HasPassedTest(int LDLApplicationID, int TestTypeID)
         {
 
-            return TestsData.HasPassedTest(PersonID, TestTypeID);
+            return TestsData.HasPassedTest(LDLApplicationID, TestTypeID);
 
         }
 

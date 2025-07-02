@@ -50,7 +50,7 @@ namespace DVLDPresentationLayer.Tests
                     break;
 
                 case enTestType.Street:
-                    pbTestType.Image = Properties.Resources.Street_Test_32;
+                    pbTestType.Image = Properties.Resources.driving_test_512;
                     lblTitle.Text = "Street Test Appointments";
                     this.Text = "Street Test Appointments";
                     break;
@@ -70,27 +70,7 @@ namespace DVLDPresentationLayer.Tests
 
             }
 
-            clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
-
-            if (Application == null)
-            {
-
-                MessageBox.Show("This Application is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-
-            }
-
-            clsLicenseClass LicenseClass = clsLicenseClass.FindLicenseClass(LDLApplication.LicenseClassID);
-
-            if (LicenseClass == null)
-            {
-
-                MessageBox.Show("This License Class is unavailable", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-
-            }
-
-            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Application.ApplicantPersonID, (int)TestType, LicenseClass.ClassName);
+            dgvAppointments.DataSource = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(LDLApplication.LocalDrivingLicenseApplicationID, (int)TestType);
             lblRecords.Text = ((DataTable)dgvAppointments.DataSource).Rows.Count.ToString();
 
         }
@@ -157,7 +137,7 @@ namespace DVLDPresentationLayer.Tests
 
             DataTable dtAppointments = ((DataTable)dgvAppointments.DataSource);
 
-            if (clsTestAppointment.HasActiveAppointmentInTestType(Application.ApplicantPersonID, (int)TestType, LicenseClass.ClassName))
+            if (clsTestAppointment.HasActiveAppointmentInTestType(LDLApplication.LocalDrivingLicenseApplicationID, (int)TestType))
             {
 
                 MessageBox.Show("This person has an active appointment to same test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -167,7 +147,7 @@ namespace DVLDPresentationLayer.Tests
             else if (dtAppointments.Rows.Count > 0)
             {
 
-                if (clsTest.HasPassedTest(Application.ApplicantPersonID, (int)TestType))
+                if (clsTest.HasPassedTest(LDLApplication.LocalDrivingLicenseApplicationID, (int)TestType))
                 {
 
                     MessageBox.Show("This person has already passed this test!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);

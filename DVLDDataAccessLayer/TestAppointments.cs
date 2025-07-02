@@ -85,7 +85,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static bool HasActiveAppointmentInTestType(int ApplicantPersonID, int TestTypeID, string DrivingClassName)
+        public static bool HasActiveAppointmentInTestType(int LDLApplicationID, int TestTypeID)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -96,15 +96,13 @@ namespace DVLDDataAccessLayer
 							 On LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
 							 Join LicenseClasses
 							 On LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
-							 WHERE Applications.ApplicantPersonID = @ApplicantPersonID
+							 WHERE LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID = @LDLApplicationID
 							 AND TestAppointments.IsLocked = 0
-							 AND TestAppointments.TestTypeID = @TestTypeID
-							 And LicenseClasses.ClassName = @ClassName";
+							 AND TestAppointments.TestTypeID = @TestTypeID";
 
 			SqlCommand command = new SqlCommand(query, connection);
-			command.Parameters.AddWithValue("@ApplicantPersonID", ApplicantPersonID);
+            command.Parameters.AddWithValue("@LDLApplicationID", LDLApplicationID);
 			command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
-			command.Parameters.AddWithValue("@ClassName", DrivingClassName);
 
 			bool isFound = false;
 
@@ -328,25 +326,19 @@ namespace DVLDDataAccessLayer
 
 		}
 
-		public static DataTable GetTestAppointmentsMainInfoForPersonTestType(int ApplicantPersonID, int TestTypeID, string DrivingClassName)
+		public static DataTable GetTestAppointmentsMainInfoForPerson(int LDLApplicationID, int TestTypeID)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
 			string query = @"SELECT TestAppointmentID, AppointmentDate, TestAppointments.PaidFees, TestAppointments.IsLocked
 							 FROM TestAppointments
-							 JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
-							 JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
-							 Join LicenseClasses On LocalDrivingLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
-							 WHERE ApplicantPersonID = @ApplicantPersonID
-							 AND TestTypeID = @TestTypeID
-							 And LicenseClasses.ClassName = @ClassName";
+							 WHERE LocalDrivingLicenseApplicationID = @LDLApplicationID AND TestTypeID = @TestTypeID";
 
 			SqlCommand command = new SqlCommand(query, connection);
 
-			command.Parameters.AddWithValue("@ApplicantPersonID", ApplicantPersonID);
+			command.Parameters.AddWithValue("@LDLApplicationID", LDLApplicationID);
 			command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
-			command.Parameters.AddWithValue("@ClassName", DrivingClassName);
 
 			DataTable TestAppointments = new DataTable();
 
