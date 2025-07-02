@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Applications.cs" />
     <Compile Include="ApplicationTypes.cs" />
+    <Compile Include="Drivers.cs" />
+    <Compile Include="Licenses.cs" />
     <Compile Include="TestAppointments.cs" />
     <Compile Include="Countries.cs" />
     <Compile Include="DataAccessSettings.cs" />

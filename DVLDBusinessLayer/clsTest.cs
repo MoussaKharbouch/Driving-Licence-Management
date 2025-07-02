@@ -118,7 +118,10 @@ namespace DVLDBusinessLayer
 
                 case enMode.Add:
                     succeeded = Add();
-                    Mode = enMode.Update;
+
+                    if (succeeded)
+                        Mode = enMode.Update;
+
                     break;
 
                 case enMode.Update:
