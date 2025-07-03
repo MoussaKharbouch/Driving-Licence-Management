@@ -96,7 +96,7 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static bool HasLicenseInSameLicenseClass(int DriverID, int LicenseClassID)
+        public static bool HasLicenseInSameClass(int DriverID, int LicenseClassID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);

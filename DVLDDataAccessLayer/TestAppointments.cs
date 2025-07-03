@@ -85,7 +85,7 @@ namespace DVLDDataAccessLayer
 
 		}
 
-        public static bool HasActiveAppointmentInTestType(int LDLApplicationID, int TestTypeID)
+		public static bool HasActiveAppointmentInTestType(int LDLApplicationID, int TestTypeID)
 		{
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -101,7 +101,7 @@ namespace DVLDDataAccessLayer
 							 AND TestAppointments.TestTypeID = @TestTypeID";
 
 			SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@LDLApplicationID", LDLApplicationID);
+			command.Parameters.AddWithValue("@LDLApplicationID", LDLApplicationID);
 			command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
 
 			bool isFound = false;

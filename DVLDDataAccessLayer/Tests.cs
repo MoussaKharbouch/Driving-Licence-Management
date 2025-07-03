@@ -164,7 +164,7 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static int GetPassedTests(int PersonID)
+        public static int GetPassedTests(int LDLApplicationID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -174,11 +174,11 @@ namespace DVLDDataAccessLayer
                              JOIN TestAppointments ON Tests.TestAppointmentID = TestAppointments.TestAppointmentID
                              JOIN LocalDrivingLicenseApplications ON TestAppointments.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
                              JOIN Applications ON LocalDrivingLicenseApplications.ApplicationID = Applications.ApplicationID
-                             WHERE Applications.ApplicantPersonID = @PersonID
-                             AND Tests.TestResult = 1;";
+                             WHERE Tests.TestResult = 1
+                             AND LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID = @LDLApplicationID";
 
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@LDLApplicationID", LDLApplicationID);
 
             int PassedTests = 0;
 

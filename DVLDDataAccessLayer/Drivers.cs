@@ -54,6 +54,48 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool FindDriverByPersonID(int PersonID, ref int DriverID, ref int CreatedByUserID, ref DateTime CreatedDate)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT * FROM Drivers WHERE PersonID = @PersonID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+
+                    PersonID = int.Parse(reader["PersonID"].ToString());
+                    CreatedByUserID = int.Parse(reader["CreatedByUserID"].ToString());
+                    CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString());
+
+                    isFound = true;
+
+                    reader.Close();
+
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
         public static bool DoesDriverExist(int DriverID)
         {
 

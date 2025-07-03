@@ -62,7 +62,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.ctrlDrivingLicenseDLApplicationInfo1);
             this.Name = "frmShowLDLApplicationDetails";
-            this.Text = "frmShowLDLApplicationDetails";
+            this.Text = "Show Local Driving License Application Info";
             this.ResumeLayout(false);
 
         }

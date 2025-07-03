@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
 using DVLDPresentationLayer.Tests;
+using DVLDPresentationLayer.Licenses;
 
 namespace DVLDPresentationLayer.Local_Driving_License_Applications
 {
@@ -55,21 +56,17 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
             LoadItems();
 
-            if (dgvLDLApplications.Columns.Count > 0)
-            {
 
-                cbFilters.Items.Add("None");
+            cbFilters.Items.Add("None");
 
-                cbFilters.Items.Add("LDL AppID");
-                cbFilters.Items.Add("National No");
-                cbFilters.Items.Add("Full Name");
-                cbFilters.Items.Add("Status");
+            cbFilters.Items.Add("LDL AppID");
+            cbFilters.Items.Add("National No");
+            cbFilters.Items.Add("Full Name");
+            cbFilters.Items.Add("Status");
 
-                cbStatus.SelectedIndex = 0;
+            cbStatus.SelectedIndex = 0;
 
-                cbFilters.SelectedIndex = 0;
-
-            }
+            cbFilters.SelectedIndex = 0;
 
         }
 
@@ -294,9 +291,32 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                     else
                     {
 
+                        if (PassedTests >= 1)
+                            tsDelete.Enabled = false;
+
                         tsScheduleTest.Enabled = false;
+
+                        clsDriver Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
+
+                        if(Driver != null)
+                        {
+
+                            if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LDLApplication.LicenseClassID))
+                            {
+
+                                tsShowLicense.Enabled = true;
+
+                            }
+                            else
+                            {
+
+                                tsIssueDrivingLicense.Enabled = true;
+
+                            }
+                        
+                        }
+
                         tsIssueDrivingLicense.Enabled = true;
-                        tsShowLicense.Enabled = true;
                         
                     }
 
@@ -423,6 +443,27 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
                 frmShowLDLApplicationDetails ShowLDLApplicationDetails = new frmShowLDLApplicationDetails((int)dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value);
                 ShowLDLApplicationDetails.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsIssueDrivingLicense_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                frmIssueDrivingLicense IssueDrivingLicense = new frmIssueDrivingLicense((int)dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value);
+                IssueDrivingLicense.OnSaveEventHandler += LoadItems;
+
+                IssueDrivingLicense.ShowDialog();
 
             }
             else

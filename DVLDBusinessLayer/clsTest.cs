@@ -168,10 +168,10 @@ namespace DVLDBusinessLayer
 
         }
 
-        public static int GetPassedTests(int PersonID)
+        public static int GetPassedTests(int LDLApplicationID)
         {
 
-            return TestsData.GetPassedTests(PersonID);
+            return TestsData.GetPassedTests(LDLApplicationID);
 
         }
 

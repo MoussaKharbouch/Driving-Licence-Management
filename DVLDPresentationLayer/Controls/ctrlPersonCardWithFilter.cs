@@ -111,6 +111,18 @@ namespace DVLDPresentationLayer.User_Controls
 
         }
 
+        public void filter(string FilterName, string Value)
+        {
+            
+            ApplyFilter(FilterName, Value)
+
+            cbFilters.SelectedItem = FilterName;
+            cbFilters.Enabled = false;
+
+            tbValue.Text = Value;
+            tbValue.Enabled = false;
+
+        }
         private void btnAddPerson_Click(object sender, EventArgs e)
         {
 

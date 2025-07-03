@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lnkShowLicenseInfo = new System.Windows.Forms.LinkLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblLicenseClass = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,7 +48,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.linkLabel1);
+            this.groupBox1.Controls.Add(this.lnkShowLicenseInfo);
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.lblLicenseClass);
             this.groupBox1.Controls.Add(this.label5);
@@ -65,17 +65,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Driving License Application Info";
             // 
-            // linkLabel1
+            // lnkShowLicenseInfo
             // 
-            this.linkLabel1.Image = global::DVLDPresentationLayer.Properties.Resources.License_Type_32;
-            this.linkLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel1.Location = new System.Drawing.Point(475, 48);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(133, 38);
-            this.linkLabel1.TabIndex = 75;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Show License Info:";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lnkShowLicenseInfo.Image = global::DVLDPresentationLayer.Properties.Resources.License_Type_32;
+            this.lnkShowLicenseInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lnkShowLicenseInfo.Location = new System.Drawing.Point(475, 48);
+            this.lnkShowLicenseInfo.Name = "lnkShowLicenseInfo";
+            this.lnkShowLicenseInfo.Size = new System.Drawing.Size(133, 38);
+            this.lnkShowLicenseInfo.TabIndex = 75;
+            this.lnkShowLicenseInfo.TabStop = true;
+            this.lnkShowLicenseInfo.Text = "Show License Info:";
+            this.lnkShowLicenseInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lnkShowLicenseInfo.Visible = false;
             // 
             // pictureBox2
             // 
@@ -195,7 +196,7 @@
 
         private ctrlApplicationBasicInfo ctrlApplicationBasicInfo1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel lnkShowLicenseInfo;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblLicenseClass;
         private System.Windows.Forms.Label label5;

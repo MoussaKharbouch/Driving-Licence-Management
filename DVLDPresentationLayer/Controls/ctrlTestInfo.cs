@@ -97,7 +97,7 @@ namespace DVLDPresentationLayer.Controls
             {
 
                 lblName.Text = Person.FullName();
-                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID, (int)TestType).Rows.Count.ToString() + "/3";
+                lblTrial.Text = clsTest.GetPassedTests(LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID) + "/3";
 
             }
 

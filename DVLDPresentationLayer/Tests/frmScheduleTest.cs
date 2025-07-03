@@ -135,7 +135,7 @@ namespace DVLDPresentationLayer.Tests
             if (Appointment.TestAppointmentID != -1)
                 lblLDLAppID.Text = Appointment.TestAppointmentID.ToString();
 
-            lblTrial.Text = "0";
+            lblTrial.Text = clsTest.GetPassedTests(LDLApplicationID) + "/3";
 
             if (Appointment.AppointmentDate < dtpTestDate.MinDate)
                 dtpTestDate.Value = dtpTestDate.MinDate;
@@ -270,7 +270,6 @@ namespace DVLDPresentationLayer.Tests
 
         }
 
-
         private void btnClose_Click(object sender, EventArgs e)
         {
 
@@ -303,10 +302,13 @@ namespace DVLDPresentationLayer.Tests
 
             if (originalLDLApp == null)
             {
+
                 MessageBox.Show("Local Driving License Application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+
             }
 
+            
             clsApplication RetakeTestApplication = new clsApplication();
             FillRetakeTestApplication(RetakeTestApplication);
 

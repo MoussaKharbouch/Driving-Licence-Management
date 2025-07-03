@@ -126,10 +126,20 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
         private bool ValidateInformation()
         {
 
-            if (ctrlPersonCardWithFilter1.PersonID == -1)
+            Application = clsApplication.FindApplication(LocalDrivingLicenseApplication.ApplicationID);
+            if (Application == null)
             {
 
-                MessageBox.Show("No person is selected!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Application is not found!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+
+            }
+
+            clsDriver Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
+            if (Driver == null)
+            {
+
+                MessageBox.Show("Driver is not found!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
 
             }
@@ -149,7 +159,28 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
             }
             else
+            {
+
                 MessageBox.Show("Invalid License Class!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+
+            }
+
+            if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LicenseClass.LicenseClassID))
+            {
+
+                MessageBox.Show("This person has already a license in same class!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+
+            }
+
+            if (ctrlPersonCardWithFilter1.PersonID == -1)
+            {
+
+                MessageBox.Show("No person is selected!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+
+            }
 
             return true;
 

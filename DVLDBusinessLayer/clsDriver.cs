@@ -72,14 +72,28 @@ namespace DVLDBusinessLayer
         public static clsDriver FindDriver(int DriverID)
         {
 
-            int _PersonID = -1;
+            int PersonID = -1;
             int CreatedByUserID = -1;
             DateTime CreatedDate = DateTime.Now;
 
-            if (!DriversData.FindDriver(DriverID, ref _PersonID, ref CreatedByUserID, ref CreatedDate))
+            if (!DriversData.FindDriver(DriverID, ref PersonID, ref CreatedByUserID, ref CreatedDate))
                 return null;
 
-            return new clsDriver(DriverID, _PersonID, CreatedByUserID, CreatedDate);
+            return new clsDriver(DriverID, PersonID, CreatedByUserID, CreatedDate);
+
+        }
+
+        public static clsDriver FindDriverByPersonID(int PersonID)
+        {
+
+            int DriverID = -1;
+            int CreatedByUserID = -1;
+            DateTime CreatedDate = DateTime.Now;
+
+            if (!DriversData.FindDriver(PersonID, ref DriverID, ref CreatedByUserID, ref CreatedDate))
+                return null;
+
+            return new clsDriver(DriverID, PersonID, CreatedByUserID, CreatedDate);
 
         }
 

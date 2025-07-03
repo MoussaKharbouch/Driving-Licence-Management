@@ -242,6 +242,13 @@ namespace DVLDBusinessLayer
 
         }
 
+        public static bool HasLicenseInSameClass(int DriverID, int LicenseClassID)
+        {
+
+            return LicensesData.HasLicenseInSameClass(DriverID, LicenseClassID);
+
+        }
+
         public static DataTable GetLicenses()
         {
 

@@ -50,22 +50,13 @@ namespace DVLDPresentationLayer.Controls
 
             lblDLAppID.Text = DLApplication.LocalDrivingLicenseApplicationID.ToString();
 
-            DataTable DLFullInfo = clsLocalDrivingLicenseApplication.GetFullInfo();
+            clsLicenseClass LicenseClass = clsLicenseClass.FindLicenseClass(DLApplication.LicenseClassID);
 
-            if (DLFullInfo != null)
-            {
+            if (LicenseClass == null)
+                return;
 
-                Utils.Filtering.FilterDataTable("LDL AppID", DLApplication.LocalDrivingLicenseApplicationID.ToString(), DLFullInfo);
-
-                if (DLFullInfo.Rows.Count == 1)
-                {
-
-                    lblPassedTests.Text = DLFullInfo.DefaultView[0]["Passed Tests"].ToString() + "/3";
-                    lblLicenseClass.Text = DLFullInfo.DefaultView[0]["Driving Class"].ToString();
-
-                }
-
-            }
+            lblPassedTests.Text = clsTest.GetPassedTests(DLApplication.LocalDrivingLicenseApplicationID).ToString() + "/3";
+            lblLicenseClass.Text = LicenseClass.ClassName.ToString();
 
         }
 
@@ -103,15 +94,14 @@ namespace DVLDPresentationLayer.Controls
                 LoadDLApplication(LocalDrivingLicenseApplicationID);
                 RefreshInformation();
 
+                clsApplication Application = clsApplication.FindApplication(DLApplication.ApplicationID);
+                if (Application == null)
+                    return;
+
+                if (Application.ApplicationStatus == clsApplication.enStatus.Completed)
+                    lnkShowLicenseInfo.Visible = true;
+
             }
-
-        }
-
-        private void ctrlDLApplicationBasicInfo_Load(object sender, EventArgs e)
-        {
-
-            if (DLApplication != null)
-                Refresh(DLApplication.LocalDrivingLicenseApplicationID);
 
         }
 
