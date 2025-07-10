@@ -139,6 +139,7 @@
             this.btnDrivers.Text = "Drivers";
             this.btnDrivers.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDrivers.UseVisualStyleBackColor = false;
+            this.btnDrivers.Click += new System.EventHandler(this.btnDrivers_Click);
             // 
             // btnPeople
             // 
@@ -274,7 +275,7 @@
             this.tsManageApplicationTypes,
             this.tsManageTestTypes});
             this.cmsApplications.Name = "cmsAccountSettings";
-            this.cmsApplications.Size = new System.Drawing.Size(265, 394);
+            this.cmsApplications.Size = new System.Drawing.Size(265, 372);
             // 
             // tsDrivingLicenceServices
             // 

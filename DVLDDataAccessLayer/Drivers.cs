@@ -59,7 +59,10 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Drivers WHERE PersonID = @PersonID";
+            string query = @"SELECT TOP 1 * FROM Drivers 
+                             WHERE PersonID = @PersonID 
+                             ORDER BY DriverID DESC";
+
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
@@ -76,7 +79,7 @@ namespace DVLDDataAccessLayer
                 if (reader.Read())
                 {
 
-                    PersonID = int.Parse(reader["PersonID"].ToString());
+                    DriverID = int.Parse(reader["DriverID"].ToString());
                     CreatedByUserID = int.Parse(reader["CreatedByUserID"].ToString());
                     CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString());
 
@@ -244,6 +247,59 @@ namespace DVLDDataAccessLayer
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
             string query = "SELECT * FROM Drivers";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            DataTable Drivers = new DataTable();
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                    Drivers.Load(reader);
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return Drivers;
+
+        }
+
+        public static DataTable GetDriversMainInfo()
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT Drivers.DriverID AS [Driver ID], 
+                             Drivers.PersonID AS [Person ID], 
+                             People.NationalNo AS [National No.], 
+                             LTRIM(RTRIM(
+                                 People.FirstName + 
+                                 ISNULL(' ' + People.SecondName, '') + 
+                                 ISNULL(' ' + People.ThirdName, '') + 
+                                 ISNULL(' ' + People.LastName, '')
+                             )) AS [Full Name],
+                             Drivers.CreatedDate AS [Date],
+                             (
+                                 SELECT COUNT(LicenseID)
+                                 FROM Licenses
+                                 WHERE Licenses.IsActive = 1 AND Licenses.DriverID = Drivers.DriverID
+                             ) AS [Active Licenses]
+                         FROM        
+                         Drivers
+                         INNER JOIN Licenses ON Drivers.DriverID = Licenses.DriverID
+                         INNER JOIN People ON Drivers.PersonID = People.PersonID";
+
+
 
             SqlCommand command = new SqlCommand(query, connection);
 

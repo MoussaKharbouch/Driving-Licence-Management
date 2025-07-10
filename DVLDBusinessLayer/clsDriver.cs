@@ -90,7 +90,7 @@ namespace DVLDBusinessLayer
             int CreatedByUserID = -1;
             DateTime CreatedDate = DateTime.Now;
 
-            if (!DriversData.FindDriver(PersonID, ref DriverID, ref CreatedByUserID, ref CreatedDate))
+            if (!DriversData.FindDriverByPersonID(PersonID, ref DriverID, ref CreatedByUserID, ref CreatedDate))
                 return null;
 
             return new clsDriver(DriverID, PersonID, CreatedByUserID, CreatedDate);
@@ -167,6 +167,13 @@ namespace DVLDBusinessLayer
         {
 
             return DriversData.GetDrivers();
+
+        }
+
+        public static DataTable GetDriversMainInfo()
+        {
+
+            return DriversData.GetDriversMainInfo();
 
         }
 

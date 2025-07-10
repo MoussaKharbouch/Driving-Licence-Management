@@ -112,7 +112,7 @@ namespace DVLDPresentationLayer.Licenses
 
             License.PaidFees = LicenseClass.ClassFees;
             License.IsActive = true;
-            License.IssueReason = 1;
+            License.IssueReason = (clsLicense.enIssueReason)1;
 
             if (Global.user != null)
                 License.CreatedByUserID = Global.user.UserID;
@@ -131,25 +131,35 @@ namespace DVLDPresentationLayer.Licenses
         private bool IssueLicense()
         {
 
-            if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LicenseClass.LicenseClassID))
+            Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
+
+            if (Driver == null)
             {
 
-                MessageBox.Show("This person has already a license in same class!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                Driver = new clsDriver();
 
+                if (!FillDriver(Driver))
+                    return false;
+
+                if (!Driver.Save())
+                    return false;
             }
 
-            if (!FillDriver(Driver))
+            if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LicenseClass.LicenseClassID))
+            {
+                MessageBox.Show("This person already has a license in the same class!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
 
             if (!FillDrivingLicense(Driver, License))
                 return false;
 
             Application.ApplicationStatus = clsApplication.enStatus.Completed;
 
-            return (Driver.Save() && License.Save() && Application.Save());
+            return (License.Save() && Application.Save());
 
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -162,7 +172,12 @@ namespace DVLDPresentationLayer.Licenses
         {
 
             if (IssueLicense())
+            {
+
                 MessageBox.Show("Data has been saved successfully.", "Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            
+            }
             else
             {
 

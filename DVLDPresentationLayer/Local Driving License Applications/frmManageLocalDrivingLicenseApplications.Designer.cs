@@ -283,6 +283,7 @@
             this.tsShowLicense.Name = "tsShowLicense";
             this.tsShowLicense.Size = new System.Drawing.Size(246, 22);
             this.tsShowLicense.Text = "Show License";
+            this.tsShowLicense.Click += new System.EventHandler(this.tsShowLicense_Click);
             // 
             // toolStripSeparator5
             // 
@@ -295,6 +296,7 @@
             this.tsShowPersonLicenseHistory.Name = "tsShowPersonLicenseHistory";
             this.tsShowPersonLicenseHistory.Size = new System.Drawing.Size(246, 22);
             this.tsShowPersonLicenseHistory.Text = "Show Person License History";
+            this.tsShowPersonLicenseHistory.Click += new System.EventHandler(this.tsShowPersonLicenseHistory_Click);
             // 
             // pictureBox2
             // 

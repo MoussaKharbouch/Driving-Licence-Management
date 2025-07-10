@@ -77,6 +77,7 @@
             this.lnkShowLicenseInfo.Text = "Show License Info:";
             this.lnkShowLicenseInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lnkShowLicenseInfo.Visible = false;
+            this.lnkShowLicenseInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkShowLicenseInfo_LinkClicked);
             // 
             // pictureBox2
             // 

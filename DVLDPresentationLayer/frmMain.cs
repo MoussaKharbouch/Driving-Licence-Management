@@ -13,6 +13,7 @@ using DVLDPresentationLayer.Users;
 using DVLDPresentationLayer.Application_Types;
 using DVLDPresentationLayer.Test_Types;
 using DVLDPresentationLayer.Local_Driving_License_Applications;
+using DVLDPresentationLayer.Drivers;
 
 namespace DVLDPresentationLayer
 {
@@ -134,6 +135,14 @@ namespace DVLDPresentationLayer
 
             frmNewLDLApplication NewLDLApplication = new frmNewLDLApplication();
             NewLDLApplication.ShowDialog();
+
+        }
+
+        private void btnDrivers_Click(object sender, EventArgs e)
+        {
+
+            frmManageDrivers ManageDrivers = new frmManageDrivers();
+            ManageDrivers.ShowDialog();
 
         }
 

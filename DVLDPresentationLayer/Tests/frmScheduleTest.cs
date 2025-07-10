@@ -164,7 +164,7 @@ namespace DVLDPresentationLayer.Tests
             {
 
                 lblName.Text = Person.FullName();
-                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID, (int)TestType).Rows.Count.ToString() + "/3";
+                lblTrial.Text = clsTestAppointment.GetTestAppointmentsMainInfoForPersonTestType(Appointment.LocalDrivingLicenseApplicationID, (int)TestType).Rows.Count.ToString();
 
             }
 
@@ -263,6 +263,8 @@ namespace DVLDPresentationLayer.Tests
 
             if (Mode != enMode.Edit)
                 dtpTestDate.MinDate = DateTime.Now;
+            else
+                dtpTestDate.Value = Appointment.AppointmentDate;
 
             FillAppointment(Appointment);
 
@@ -303,12 +305,11 @@ namespace DVLDPresentationLayer.Tests
             if (originalLDLApp == null)
             {
 
-                MessageBox.Show("Local Driving License Application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Local driving license application is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
 
             }
 
-            
             clsApplication RetakeTestApplication = new clsApplication();
             FillRetakeTestApplication(RetakeTestApplication);
 

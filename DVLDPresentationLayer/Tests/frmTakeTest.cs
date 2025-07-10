@@ -52,6 +52,28 @@ namespace DVLDPresentationLayer.Tests
 
             }
 
+            clsLocalDrivingLicenseApplication originalLDLApp = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Appointment.LocalDrivingLicenseApplicationID);
+            clsApplication Application = new clsApplication();
+
+            if (originalLDLApp != null)
+            {
+
+                Application = clsApplication.FindApplication(originalLDLApp.ApplicationID);
+
+                if (Application != null)
+                {
+
+                    if(Application.ApplicationTypeID == 7)
+                    {
+
+                        Application.ApplicationStatus = clsApplication.enStatus.Completed;
+
+                    }
+
+                }
+
+            }
+
             Appointment.IsLocked = true;
             Test.TestAppointmentID = Appointment.TestAppointmentID;
             Test.Notes = tbNotes.Text;
@@ -67,7 +89,7 @@ namespace DVLDPresentationLayer.Tests
 
             }
 
-            return (Appointment.Save() && Test.Save());
+            return (Appointment.Save() && Test.Save() && Application.Save());
 
         }
 
@@ -128,6 +150,21 @@ namespace DVLDPresentationLayer.Tests
                         return;
 
                     }
+                    else
+                    {
+
+                        MessageBox.Show("This test is failed. So retake test window will be shown.", "Failed test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        frmScheduleTest RetakeTest = new frmScheduleTest(Appointment.TestAppointmentID);
+
+                        if (OnSaveEventHandler != null)
+                            RetakeTest.OnSaveEventHandler += OnSaveEventHandler;
+
+                        RetakeTest.ShowDialog();
+
+                        this.Close();
+
+                    }
 
                     clsLocalDrivingLicenseApplication LDLApp = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication(Appointment.LocalDrivingLicenseApplicationID);
 
@@ -163,20 +200,6 @@ namespace DVLDPresentationLayer.Tests
 
                     }
 
-
-                    MessageBox.Show("This test is failed. So retake test window will be shown.", "Failed test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    frmScheduleTest RetakeTest = new frmScheduleTest(Appointment.TestAppointmentID);
-
-                    if (OnSaveEventHandler != null)
-                        RetakeTest.OnSaveEventHandler += OnSaveEventHandler;
-
-                    RetakeTest.ShowDialog();
-
-                    this.Close();
-
-                    return;
-
                 }
 
             }
@@ -186,9 +209,8 @@ namespace DVLDPresentationLayer.Tests
                 MessageBox.Show("Appointment is unavailable!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
 
-                return;
-
             }
+
         }
 
     }

@@ -126,24 +126,6 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
         private bool ValidateInformation()
         {
 
-            Application = clsApplication.FindApplication(LocalDrivingLicenseApplication.ApplicationID);
-            if (Application == null)
-            {
-
-                MessageBox.Show("Application is not found!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-
-            }
-
-            clsDriver Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
-            if (Driver == null)
-            {
-
-                MessageBox.Show("Driver is not found!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-
-            }
-
             clsLicenseClass LicenseClass = clsLicenseClass.FindLicenseClass(cbLicenseClass.SelectedItem.ToString());
 
             if (LicenseClass != null)
@@ -166,19 +148,18 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
             }
 
-            if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LicenseClass.LicenseClassID))
+            clsDriver Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
+
+            if (Driver != null)
             {
 
-                MessageBox.Show("This person has already a license in same class!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LicenseClass.LicenseClassID))
+                {
 
-            }
+                    MessageBox.Show("This person has already a license in same class!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
 
-            if (ctrlPersonCardWithFilter1.PersonID == -1)
-            {
-
-                MessageBox.Show("No person is selected!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                }
 
             }
 
@@ -189,9 +170,6 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
         private bool SaveItem(clsLocalDrivingLicenseApplication LDLApplication)
         {
 
-            if (!ValidateInformation())
-                return false;
-
             if (ctrlPersonCardWithFilter1.PersonID == -1)
             {
 
@@ -201,6 +179,10 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
             }
 
             FillApplication();
+
+            if (!ValidateInformation())
+                return false;
+
             Application.Save();
 
             FillLDLApplication();

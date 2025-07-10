@@ -29,8 +29,14 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
         {
 
             DataTable dtItems = (DataTable)dgvLDLApplications.DataSource;
+            bool succeeded = false;
 
-            if (!Utils.Filtering.FilterDataTable(filterName, value, dtItems))
+            if (dtItems.Columns.Count == 0)
+                return;
+
+            succeeded = Utils.Filtering.FilterDataTable(filterName, value, dtItems);
+
+            if (!succeeded)
                 MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 lblRecords.Text = dtItems.DefaultView.Count.ToString();
@@ -42,10 +48,7 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
             DataTable dtLocalDrivingLicenseApplications = clsLocalDrivingLicenseApplication.GetFullInfo();
 
-            if (dtLocalDrivingLicenseApplications.Rows.Count > 0)
-                dgvLDLApplications.DataSource = dtLocalDrivingLicenseApplications;
-            else
-                dgvLDLApplications.DataSource = null;
+            dgvLDLApplications.DataSource = dtLocalDrivingLicenseApplications;
 
             lblRecords.Text = dtLocalDrivingLicenseApplications.Rows.Count.ToString();
 
@@ -55,7 +58,6 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
         {
 
             LoadItems();
-
 
             cbFilters.Items.Add("None");
 
@@ -281,7 +283,31 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
 
                 int PassedTests = (int)dgvLDLApplications.SelectedRows[0].Cells["Passed Tests"].Value;
 
-                if (Application.ApplicationStatus == clsApplication.enStatus.New)
+                clsDriver Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
+
+                if (Application.ApplicationStatus == clsApplication.enStatus.Completed)
+                {
+
+                    if (Driver != null)
+                    {
+
+                        if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LDLApplication.LicenseClassID))
+                        {
+
+                            tsShowLicense.Enabled = true;
+
+                        }
+
+                    }
+                    else
+                        tsShowLicense.Enabled = false;
+
+                    tsCancel.Enabled = false;
+                    tsScheduleTest.Enabled = false;
+                    tsIssueDrivingLicense.Enabled = false;
+
+                }
+                else if (Application.ApplicationStatus == clsApplication.enStatus.New)
                 {
 
                     tsCancel.Enabled = true;
@@ -294,29 +320,10 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                         if (PassedTests >= 1)
                             tsDelete.Enabled = false;
 
+                        if(PassedTests == 3)
+                            tsIssueDrivingLicense.Enabled = true;
+
                         tsScheduleTest.Enabled = false;
-
-                        clsDriver Driver = clsDriver.FindDriverByPersonID(Application.ApplicantPersonID);
-
-                        if(Driver != null)
-                        {
-
-                            if (clsLicense.HasLicenseInSameClass(Driver.DriverID, LDLApplication.LicenseClassID))
-                            {
-
-                                tsShowLicense.Enabled = true;
-
-                            }
-                            else
-                            {
-
-                                tsIssueDrivingLicense.Enabled = true;
-
-                            }
-                        
-                        }
-
-                        tsIssueDrivingLicense.Enabled = true;
                         
                     }
 
@@ -464,6 +471,99 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                 IssueDrivingLicense.OnSaveEventHandler += LoadItems;
 
                 IssueDrivingLicense.ShowDialog();
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsShowLicense_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication((int)dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value);
+                if (LDLApplication == null)
+                    return;
+
+                clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
+                if (Application == null)
+                    return;
+
+                int PersonID = Application.ApplicantPersonID;
+                clsDriver Driver = clsDriver.FindDriverByPersonID(PersonID);
+
+                if (PersonID != -1)
+                {
+
+                    clsLicense License = clsLicense.FindLicenseByApplicationID(Application.ApplicationID);
+
+                    if (License != null)
+                    {
+
+                        frmShowDriverLicenseInfo ShowDriverLicenseInfo = new frmShowDriverLicenseInfo(License.LicenseID);
+                        ShowDriverLicenseInfo.ShowDialog();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("No license found for this driver.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Driver not found for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+            }
+            else
+            {
+
+                MessageBox.Show("No row is selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        private void tsShowPersonLicenseHistory_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLDLApplications.SelectedRows.Count > 0)
+            {
+
+                clsLocalDrivingLicenseApplication LDLApplication = clsLocalDrivingLicenseApplication.FindLocalDrivingLicenseApplication((int)dgvLDLApplications.SelectedRows[0].Cells["LDL AppID"].Value);
+                if (LDLApplication == null)
+                    return;
+
+                clsApplication Application = clsApplication.FindApplication(LDLApplication.ApplicationID);
+                if (Application == null)
+                    return;
+
+                int PersonID = Application.ApplicantPersonID;
+                clsDriver Driver = clsDriver.FindDriverByPersonID(PersonID);
+
+                if (PersonID != -1)
+                {
+
+                    frmDriverLicensesHistory DriverLicensesHistory = new frmDriverLicensesHistory(Driver.DriverID);
+                    DriverLicensesHistory.ShowDialog();
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Driver not found for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
 
             }
             else

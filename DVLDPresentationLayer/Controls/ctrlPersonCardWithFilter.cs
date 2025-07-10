@@ -61,11 +61,18 @@ namespace DVLDPresentationLayer.User_Controls
 
         }
 
-        private void ctrlPersonCardWithFilter_Load(object sender, EventArgs e)
+        public void Initialize()
         {
 
             dtItems = clsPerson.GetPeopleMainInfo();
             LoadFilters();
+
+        }
+
+        private void ctrlPersonCardWithFilter_Load(object sender, EventArgs e)
+        {
+
+            Initialize();
 
         }
 
@@ -111,10 +118,10 @@ namespace DVLDPresentationLayer.User_Controls
 
         }
 
-        public void filter(string FilterName, string Value)
+        public void Filter(string FilterName, string Value)
         {
-            
-            ApplyFilter(FilterName, Value)
+
+            ApplyFilter(FilterName, Value);
 
             cbFilters.SelectedItem = FilterName;
             cbFilters.Enabled = false;
@@ -122,7 +129,10 @@ namespace DVLDPresentationLayer.User_Controls
             tbValue.Text = Value;
             tbValue.Enabled = false;
 
+            RefreshPerson(PersonID);
+
         }
+
         private void btnAddPerson_Click(object sender, EventArgs e)
         {
 

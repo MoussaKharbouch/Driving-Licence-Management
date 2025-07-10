@@ -90,7 +90,7 @@ namespace DVLDDataAccessLayer
                              WHERE Applications.ApplicantPersonID = @ApplicantPersonID
                              AND LocalDrivingLicenseApplications.LicenseClassID = @LicenseClassID
                              AND Applications.ApplicationTypeID = @ApplicationTypeID
-                             AND Applications.ApplicationStatus != 2";
+                             AND Applications.ApplicationStatus = 1";
 
             SqlCommand command = new SqlCommand(query, connection);
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
+using DVLDPresentationLayer.Licenses;
 
 namespace DVLDPresentationLayer.Controls
 {
@@ -110,6 +111,51 @@ namespace DVLDPresentationLayer.Controls
 
             if (DLApplication != null)
                 RefreshInformation();
+
+        }
+
+        private void lnkShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            clsApplication Application = clsApplication.FindApplication(DLApplication.ApplicationID);
+            if (Application == null)
+                return;
+
+            int PersonID = Application.ApplicantPersonID;
+            clsDriver Driver = clsDriver.FindDriverByPersonID(PersonID);
+
+            if (Driver == null)
+            {
+
+                MessageBox.Show("Driver not found for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            if (PersonID != -1)
+            {
+
+                clsLicense License = clsLicense.FindLicenseByApplicationID(Application.ApplicationID);
+
+                if (License != null)
+                {
+
+                    frmShowDriverLicenseInfo ShowDriverLicenseInfo = new frmShowDriverLicenseInfo(License.LicenseID);
+                    ShowDriverLicenseInfo.ShowDialog();
+
+                }
+                else
+                {
+                    MessageBox.Show("No license found for this driver.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            else
+            {
+
+                MessageBox.Show("Driver not found for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
 
         }
 
