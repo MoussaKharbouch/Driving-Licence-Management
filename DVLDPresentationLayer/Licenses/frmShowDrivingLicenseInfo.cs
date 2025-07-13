@@ -11,10 +11,10 @@ using System.Windows.Forms;
 namespace DVLDPresentationLayer.Licenses
 {
 
-    public partial class frmShowDriverLicenseInfo : Form
+    public partial class frmShowDrivingLicenseInfo : Form
     {
 
-        public frmShowDriverLicenseInfo(int DrivingLicenseID)
+        public frmShowDrivingLicenseInfo(int DrivingLicenseID)
         {
 
             InitializeComponent();

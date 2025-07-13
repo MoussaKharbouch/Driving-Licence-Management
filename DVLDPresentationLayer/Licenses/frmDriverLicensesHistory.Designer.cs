@@ -64,7 +64,6 @@
         #endregion
 
         private User_Controls.ctrlPersonCardWithFilter ctrlPersonCardWithFilter1;
-        private Controls.ctrlDriverLicenseHistory ctrlDriverDriverHistory1;
         private Controls.ctrlDriverLicenseHistory ctrlDriverLicenseHistory1;
     }
 }

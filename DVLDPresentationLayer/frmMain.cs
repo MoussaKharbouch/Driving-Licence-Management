@@ -14,6 +14,7 @@ using DVLDPresentationLayer.Application_Types;
 using DVLDPresentationLayer.Test_Types;
 using DVLDPresentationLayer.Local_Driving_License_Applications;
 using DVLDPresentationLayer.Drivers;
+using DVLDPresentationLayer.Licenses.Internatioanl_Licenses;
 
 namespace DVLDPresentationLayer
 {
@@ -143,6 +144,21 @@ namespace DVLDPresentationLayer
 
             frmManageDrivers ManageDrivers = new frmManageDrivers();
             ManageDrivers.ShowDialog();
+
+        }
+
+        private void internationalLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmNewInternationalLicense NewInternationalLicense = new frmNewInternationalLicense();
+            NewInternationalLicense.ShowDialog();
+
+        }
+
+        private void internationalLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            (new frmManageInternationalLicenses()).ShowDialog();
 
         }
 

@@ -42,6 +42,7 @@
     <Compile Include="Applications.cs" />
     <Compile Include="ApplicationTypes.cs" />
     <Compile Include="Drivers.cs" />
+    <Compile Include="InternationalLicenses.cs" />
     <Compile Include="Licenses.cs" />
     <Compile Include="TestAppointments.cs" />
     <Compile Include="Countries.cs" />

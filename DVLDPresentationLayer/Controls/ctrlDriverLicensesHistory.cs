@@ -45,6 +45,10 @@ namespace DVLDPresentationLayer.Controls
                 return;
 
             dgvLocalLicensesHistory.DataSource = clsLicense.GetDriverLocalLicensesHistory(Driver.DriverID);
+            lblLocalLicensesHistoryRecord.Text = ((DataTable)dgvLocalLicensesHistory.DataSource).Rows.Count.ToString();
+
+            dgvInternationalLicensesHistory.DataSource = clsInternationalLicense.GetDriverInternationalLicensesHistory(Driver.DriverID);
+            lblInternationalLicensesRecords.Text = ((DataTable)dgvInternationalLicensesHistory.DataSource).Rows.Count.ToString();
 
         }
 

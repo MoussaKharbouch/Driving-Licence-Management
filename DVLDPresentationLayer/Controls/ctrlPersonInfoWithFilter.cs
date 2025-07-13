@@ -48,7 +48,7 @@ namespace DVLDPresentationLayer.User_Controls
 
         }
 
-        //Check filter and apply it on people's data (it can be None, or IsActive...)
+        
         public void ApplyFilter(string filterName, string value)
         {
 

@@ -275,7 +275,7 @@
             this.tsManageApplicationTypes,
             this.tsManageTestTypes});
             this.cmsApplications.Name = "cmsAccountSettings";
-            this.cmsApplications.Size = new System.Drawing.Size(265, 372);
+            this.cmsApplications.Size = new System.Drawing.Size(265, 394);
             // 
             // tsDrivingLicenceServices
             // 
@@ -316,6 +316,7 @@
             this.internationalLicenseToolStripMenuItem.Name = "internationalLicenseToolStripMenuItem";
             this.internationalLicenseToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.internationalLicenseToolStripMenuItem.Text = "International License";
+            this.internationalLicenseToolStripMenuItem.Click += new System.EventHandler(this.internationalLicenseToolStripMenuItem_Click);
             // 
             // renewDrivingLicenseToolStripMenuItem
             // 
@@ -379,6 +380,7 @@
             this.internationalLicenseApplicationsToolStripMenuItem.Name = "internationalLicenseApplicationsToolStripMenuItem";
             this.internationalLicenseApplicationsToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.internationalLicenseApplicationsToolStripMenuItem.Text = "International License Applications";
+            this.internationalLicenseApplicationsToolStripMenuItem.Click += new System.EventHandler(this.internationalLicenseApplicationsToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 

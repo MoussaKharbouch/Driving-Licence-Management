@@ -1,6 +1,6 @@
 ﻿namespace DVLDPresentationLayer.Licenses
 {
-    partial class frmShowDriverLicenseInfo
+    partial class frmShowDrivingLicenseInfo
     {
         /// <summary>
         /// Required designer variable.

@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace DVLDDataAccessLayer
 {
 
-    public static class LicensesData
+    public static class InternationalLicensesData
     {
 
         public static bool FindLicense(int LicenseID, ref int ApplicationID, ref int DriverID,
-                                       ref int LicenseClass, ref DateTime IssueDate, ref DateTime ExpirationDate,
-                                       ref string Notes, ref decimal PaidFees, ref bool IsActive,
-                                       ref short IssueReason, ref int CreatedByUserID)
+                                       ref int IssuedUsingLocalLicenseID, ref DateTime IssueDate, ref DateTime ExpirationDate,
+                                       ref bool IsActive, ref int CreatedByUserID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Licenses WHERE LicenseID = @LicenseID";
+            string query = "SELECT * FROM InternationalLicenses WHERE LicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
@@ -39,13 +34,10 @@ namespace DVLDDataAccessLayer
 
                     ApplicationID = int.Parse(reader["ApplicationID"].ToString());
                     DriverID = int.Parse(reader["DriverID"].ToString());
-                    LicenseClass = int.Parse(reader["LicenseClass"].ToString());
+                    IssuedUsingLocalLicenseID = int.Parse(reader["IssuedUsingLocalLicenseID"].ToString());
                     IssueDate = DateTime.Parse(reader["IssueDate"].ToString());
                     ExpirationDate = DateTime.Parse(reader["ExpirationDate"].ToString());
-                    Notes = (reader["Notes"] != DBNull.Value ? reader["Notes"].ToString() : string.Empty);
-                    PaidFees = decimal.Parse(reader["PaidFees"].ToString());
                     IsActive = bool.Parse(reader["IsActive"].ToString());
-                    IssueReason = short.Parse(reader["IssueReason"].ToString());
                     CreatedByUserID = int.Parse(reader["CreatedByUserID"].ToString());
 
                     isFound = true;
@@ -65,14 +57,13 @@ namespace DVLDDataAccessLayer
         }
 
         public static bool FindLicenseByApplicationID(int ApplicationID, ref int LicenseID, ref int DriverID,
-                                                      ref int LicenseClass, ref DateTime IssueDate, ref DateTime ExpirationDate,
-                                                      ref string Notes, ref decimal PaidFees, ref bool IsActive,
-                                                      ref short IssueReason, ref int CreatedByUserID)
+                                                      ref int IssuedUsingLocalLicenseID, ref DateTime IssueDate, ref DateTime ExpirationDate,
+                                                      ref bool IsActive, ref int CreatedByUserID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Licenses WHERE ApplicationID = @ApplicationID";
+            string query = "SELECT * FROM InternationalLicenses WHERE ApplicationID = @ApplicationID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
@@ -90,13 +81,10 @@ namespace DVLDDataAccessLayer
 
                     LicenseID = int.Parse(reader["LicenseID"].ToString());
                     DriverID = int.Parse(reader["DriverID"].ToString());
-                    LicenseClass = int.Parse(reader["LicenseClass"].ToString());
+                    IssuedUsingLocalLicenseID = int.Parse(reader["IssuedUsingLocalLicenseID"].ToString());
                     IssueDate = DateTime.Parse(reader["IssueDate"].ToString());
                     ExpirationDate = DateTime.Parse(reader["ExpirationDate"].ToString());
-                    Notes = (reader["Notes"] != DBNull.Value ? reader["Notes"].ToString() : string.Empty);
-                    PaidFees = decimal.Parse(reader["PaidFees"].ToString());
                     IsActive = bool.Parse(reader["IsActive"].ToString());
-                    IssueReason = short.Parse(reader["IssueReason"].ToString());
                     CreatedByUserID = int.Parse(reader["CreatedByUserID"].ToString());
 
                     isFound = true;
@@ -116,50 +104,15 @@ namespace DVLDDataAccessLayer
 
         }
 
-
         public static bool DoesLicenseExist(int LicenseID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT 1 AS FOUND FROM Licenses WHERE LicenseID = @LicenseID";
+            string query = "SELECT 1 AS FOUND FROM InternationalLicenses WHERE LicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
-
-            bool isFound = false;
-
-            try
-            {
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                isFound = reader.HasRows;
-
-                reader.Close();
-
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return isFound;
-
-        }
-
-        public static bool HasLicenseInSameClass(int DriverID, int LicenseClassID)
-        {
-
-            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-
-            string query = @"SELECT 1 as Found FROM Licenses
-                             WHERE DriverID = @DriverID AND LicenseClass = @LicenseClass";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@DriverID", DriverID);
-            command.Parameters.AddWithValue("@LicenseClass", LicenseClassID);
 
             bool isFound = false;
 
@@ -184,36 +137,29 @@ namespace DVLDDataAccessLayer
         }
 
         public static bool AddLicense(ref int LicenseID, int ApplicationID, int DriverID,
-                                      int LicenseClass, DateTime IssueDate, DateTime ExpirationDate,
-                                      string Notes, decimal PaidFees, bool IsActive,
-                                      short IssueReason, int CreatedByUserID)
+                                      int IssuedUsingLocalLicenseID, DateTime IssueDate, DateTime ExpirationDate,
+                                      bool IsActive, int CreatedByUserID)
         {
 
             LicenseID = -1;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = @"INSERT INTO [dbo].[Licenses]
+            string query = @"INSERT INTO [dbo].[InternationalLicenses]
                             ([ApplicationID]
                             ,[DriverID]
-                            ,[LicenseClass]
+                            ,[IssuedUsingLocalLicenseID]
                             ,[IssueDate]
                             ,[ExpirationDate]
-                            ,[Notes]
-                            ,[PaidFees]
                             ,[IsActive]
-                            ,[IssueReason]
                             ,[CreatedByUserID])
                             VALUES
                             (@ApplicationID
                             ,@DriverID
-                            ,@LicenseClass
+                            ,@IssuedUsingLocalLicenseID
                             ,@IssueDate
                             ,@ExpirationDate
-                            ,@Notes
-                            ,@PaidFees
                             ,@IsActive
-                            ,@IssueReason
                             ,@CreatedByUserID);
                             SELECT SCOPE_IDENTITY()";
 
@@ -221,13 +167,10 @@ namespace DVLDDataAccessLayer
 
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@DriverID", DriverID);
-            command.Parameters.AddWithValue("@LicenseClass", LicenseClass);
+            command.Parameters.AddWithValue("@IssuedUsingLocalLicenseID", IssuedUsingLocalLicenseID);
             command.Parameters.AddWithValue("@IssueDate", IssueDate);
             command.Parameters.AddWithValue("@ExpirationDate", ExpirationDate);
-            command.Parameters.AddWithValue("@Notes", (Notes != string.Empty ? (object)Notes : DBNull.Value));
-            command.Parameters.AddWithValue("@PaidFees", PaidFees);
             command.Parameters.AddWithValue("@IsActive", IsActive);
-            command.Parameters.AddWithValue("@IssueReason", IssueReason);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
             try
@@ -251,25 +194,21 @@ namespace DVLDDataAccessLayer
         }
 
         public static bool UpdateLicense(int LicenseID, int ApplicationID, int DriverID,
-                                         int LicenseClass, DateTime IssueDate, DateTime ExpirationDate,
-                                         string Notes, decimal PaidFees, bool IsActive,
-                                         short IssueReason, int CreatedByUserID)
+                                         int IssuedUsingLocalLicenseID, DateTime IssueDate, DateTime ExpirationDate,
+                                         bool IsActive, int CreatedByUserID)
         {
 
             int rowsAffected = 0;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = @"UPDATE [dbo].[Licenses]
+            string query = @"UPDATE [dbo].[InternationalLicenses]
                              SET [ApplicationID] = @ApplicationID
                                 ,[DriverID] = @DriverID
-                                ,[LicenseClass] = @LicenseClass
+                                ,[IssuedUsingLocalLicenseID] = @IssuedUsingLocalLicenseID
                                 ,[IssueDate] = @IssueDate
                                 ,[ExpirationDate] = @ExpirationDate
-                                ,[Notes] = @Notes
-                                ,[PaidFees] = @PaidFees
                                 ,[IsActive] = @IsActive
-                                ,[IssueReason] = @IssueReason
                                 ,[CreatedByUserID] = @CreatedByUserID
                              WHERE LicenseID = @LicenseID";
 
@@ -278,13 +217,10 @@ namespace DVLDDataAccessLayer
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
             command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@DriverID", DriverID);
-            command.Parameters.AddWithValue("@LicenseClass", LicenseClass);
+            command.Parameters.AddWithValue("@IssuedUsingLocalLicenseID", IssuedUsingLocalLicenseID);
             command.Parameters.AddWithValue("@IssueDate", IssueDate);
             command.Parameters.AddWithValue("@ExpirationDate", ExpirationDate);
-            command.Parameters.AddWithValue("@Notes", (Notes != string.Empty ? (object)Notes : DBNull.Value));
-            command.Parameters.AddWithValue("@PaidFees", PaidFees);
             command.Parameters.AddWithValue("@IsActive", IsActive);
-            command.Parameters.AddWithValue("@IssueReason", IssueReason);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
             try
@@ -311,7 +247,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = @"DELETE FROM [dbo].[Licenses]
+            string query = @"DELETE FROM [dbo].[InternationalLicenses]
                              WHERE LicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -339,7 +275,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Licenses";
+            string query = "SELECT * FROM InternationalLicenses";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -367,16 +303,56 @@ namespace DVLDDataAccessLayer
 
         }
 
-        public static DataTable GetDriverLocalLicensesHistory(int DriverID)
+        public static DataTable GetDriverInternationalLicensesHistory(int DriverID)
         {
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Licenses WHERE DriverID = @DriverID";
+            string query = "SELECT * FROM InternationalLicenses WHERE DriverID = @DriverID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.AddWithValue("@DriverID", DriverID);
+
+            DataTable Licenses = new DataTable();
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                    Licenses.Load(reader);
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return Licenses;
+
+        }
+
+        public static DataTable GetLicensesMainInfo()
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT InternationalLicenseID
+                                    ,ApplicationID
+                                    ,DriverID
+                                    ,IssuedUsingLocalLicenseID
+                                    ,IssueDate
+                                    ,ExpirationDate
+                                    ,CASE WHEN IsActive = 1 THEN 'True' ELSE 'False' END AS IsActive
+                             FROM InternationalLicenses";
+
+            SqlCommand command = new SqlCommand(query, connection);
 
             DataTable Licenses = new DataTable();
 

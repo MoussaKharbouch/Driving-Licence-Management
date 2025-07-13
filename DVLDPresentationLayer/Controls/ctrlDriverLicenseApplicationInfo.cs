@@ -140,7 +140,7 @@ namespace DVLDPresentationLayer.Controls
                 if (License != null)
                 {
 
-                    frmShowDriverLicenseInfo ShowDriverLicenseInfo = new frmShowDriverLicenseInfo(License.LicenseID);
+                    frmShowDrivingLicenseInfo ShowDriverLicenseInfo = new frmShowDrivingLicenseInfo(License.LicenseID);
                     ShowDriverLicenseInfo.ShowDialog();
 
                 }

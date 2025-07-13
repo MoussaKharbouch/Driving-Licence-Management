@@ -507,7 +507,7 @@ namespace DVLDPresentationLayer.Local_Driving_License_Applications
                     if (License != null)
                     {
 
-                        frmShowDriverLicenseInfo ShowDriverLicenseInfo = new frmShowDriverLicenseInfo(License.LicenseID);
+                        frmShowDrivingLicenseInfo ShowDriverLicenseInfo = new frmShowDrivingLicenseInfo(License.LicenseID);
                         ShowDriverLicenseInfo.ShowDialog();
 
                     }
