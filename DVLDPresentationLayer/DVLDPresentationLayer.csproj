@@ -162,6 +162,12 @@
     <Compile Include="Licenses\Local Driving License Applications\frmShowLDLApplicationDetails.Designer.cs">
       <DependentUpon>frmShowLDLApplicationDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Licenses\Renew Licenses\frmRenewLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Licenses\Renew Licenses\frmRenewLicense.Designer.cs">
+      <DependentUpon>frmRenewLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test Types\frmManageTestTypes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -311,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Licenses\Local Driving License Applications\frmShowLDLApplicationDetails.resx">
       <DependentUpon>frmShowLDLApplicationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Licenses\Renew Licenses\frmRenewLicense.resx">
+      <DependentUpon>frmRenewLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\frmAddEditPerson.resx">
       <DependentUpon>frmAddEditPerson.cs</DependentUpon>

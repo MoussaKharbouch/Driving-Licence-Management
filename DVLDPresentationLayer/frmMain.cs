@@ -15,6 +15,7 @@ using DVLDPresentationLayer.Test_Types;
 using DVLDPresentationLayer.Local_Driving_License_Applications;
 using DVLDPresentationLayer.Drivers;
 using DVLDPresentationLayer.Licenses.Internatioanl_Licenses;
+using DVLDPresentationLayer.Licenses.Renew_Licenses;
 
 namespace DVLDPresentationLayer
 {
@@ -159,6 +160,13 @@ namespace DVLDPresentationLayer
         {
 
             (new frmManageInternationalLicenses()).ShowDialog();
+
+        }
+
+        private void renewDrivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            (new frmRenewLicense()).ShowDialog();
 
         }
 

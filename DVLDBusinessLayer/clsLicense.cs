@@ -158,17 +158,20 @@ namespace DVLDBusinessLayer
         }
 
         public clsLicense(int LicenseID, int ApplicationID, int DriverID, int LicenseClassID,
-                          DateTime IssueDate, string Notes,
+                          DateTime IssueDate, DateTime ExpirationDate, string Notes,
                           decimal PaidFees, bool IsActive, enIssueReason IssueReason, int CreatedByUserID)
         {
 
             this.LicenseID = LicenseID;
-
             this.ApplicationID = ApplicationID;
             this.DriverID = DriverID;
-            this.LicenseClassID = LicenseClassID;
+
+            _LicenseClassID = LicenseClassID;
+            LicenseClass = clsLicenseClass.FindLicenseClass(LicenseClassID);
 
             this.IssueDate = IssueDate;
+            this.ExpirationDate = ExpirationDate;
+
             this.Notes = Notes;
             this.PaidFees = PaidFees;
             this.IsActive = IsActive;
@@ -199,7 +202,7 @@ namespace DVLDBusinessLayer
                 return null;
 
             return new clsLicense(LicenseID, ApplicationID, DriverID, LicenseClassID,
-                                  IssueDate, Notes, PaidFees,
+                                  IssueDate, ExpirationDate, Notes, PaidFees,
                                   IsActive, (enIssueReason)IssueReason, CreatedByUserID);
 
         }
@@ -224,8 +227,9 @@ namespace DVLDBusinessLayer
                 return null;
 
             return new clsLicense(LicenseID, ApplicationID, DriverID, LicenseClassID,
-                                  IssueDate, Notes, PaidFees, IsActive,
-                                  (enIssueReason)IssueReason, CreatedByUserID);
+                                  IssueDate, ExpirationDate, Notes, PaidFees,
+                                  IsActive, (enIssueReason)IssueReason, CreatedByUserID);
+
 
         }
 

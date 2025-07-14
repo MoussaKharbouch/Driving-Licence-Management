@@ -19,6 +19,7 @@ namespace DVLDPresentationLayer.Licenses.Internatioanl_Licenses
         public event OnSave OnSaveEventHandler;
 
         public clsInternationalLicense InternationalLicense { get; private set; }
+        public clsApplication Application { get; private set; }
 
         public frmNewInternationalLicense()
         {
@@ -50,17 +51,64 @@ namespace DVLDPresentationLayer.Licenses.Internatioanl_Licenses
         private bool ValidateInformation(clsLicense License)
         {
 
-            return (License.LicenseClassID == 3 && License.IsActive == true && DateTime.Now < License.ExpirationDate && License != null);
+            if (License == null)
+                return false;
+
+            return (License.LicenseClassID == 3 && License.IsActive && DateTime.Now < License.ExpirationDate);
+
 
         }
 
-        private bool FillInternationalLicense(clsInternationalLicense InternationalLicense, clsLicense License)
+        private bool FillApplication(ref clsApplication Application, clsLicense License)
         {
 
-            InternationalLicense.ApplicationID = License.ApplicationID;
-
-            if(Global.user == null)
+            if(License == null)
                 return false;
+
+            if (Global.user == null)
+                return false;
+
+            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType(6);
+
+            if(ApplicationType == null)
+                return false;
+
+            if (Application == null)
+                Application = new clsApplication();
+
+            Application.ApplicantPersonID = License.Driver.PersonID;
+            Application.ApplicationDate = DateTime.Now;
+            Application.ApplicationStatus = clsApplication.enStatus.Completed;
+            Application.ApplicationTypeID = 6;
+            Application.LastStatusDate = DateTime.Now;
+            Application.PaidFees = ApplicationType.ApplicationFees;
+
+            return true;
+
+        }
+
+        private bool FillInternationalLicense(ref clsInternationalLicense InternationalLicense, clsLicense License)
+        {
+
+            if (License == null)
+                return false;
+
+            if (Global.user == null)
+                return false;
+
+            if (InternationalLicense == null)
+                InternationalLicense = new clsInternationalLicense();
+
+            clsApplication Application = new clsApplication();
+
+            FillApplication(ref Application, License);
+
+            this.Application = Application;
+
+            if (!Application.Save())
+                return false;
+
+            InternationalLicense.ApplicationID = Application.ApplicationID;
 
             InternationalLicense.CreatedByUserID = Global.user.UserID;
             InternationalLicense.IssueDate = DateTime.Now;
@@ -106,7 +154,17 @@ namespace DVLDPresentationLayer.Licenses.Internatioanl_Licenses
 
             }
 
-            FillInternationalLicense(InternationalLicense, ctrlDrivingLicenseInfoWithFilter1.License);
+            clsInternationalLicense InternationalLicense = new clsInternationalLicense();
+
+            if (!FillInternationalLicense(ref InternationalLicense, ctrlDrivingLicenseInfoWithFilter1.License))
+            {
+
+                MessageBox.Show("Failed to prepare international license data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            this.InternationalLicense = InternationalLicense;
 
             if (InternationalLicense.Save())
             {
