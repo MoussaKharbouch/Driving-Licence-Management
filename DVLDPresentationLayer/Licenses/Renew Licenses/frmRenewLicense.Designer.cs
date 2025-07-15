@@ -31,6 +31,10 @@
             this.lblMode = new System.Windows.Forms.Label();
             this.ctrlDrivingLicenseInfoWithFilter1 = new DVLDPresentationLayer.Controls.ctrlDrivingLicenseInfoWithFilter();
             this.gpApplicationInfo = new System.Windows.Forms.GroupBox();
+            this.lnklblShowNewLicensesInfo = new System.Windows.Forms.LinkLabel();
+            this.lnklblShowLicensesHistory = new System.Windows.Forms.LinkLabel();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnIssue = new System.Windows.Forms.Button();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbNotes = new System.Windows.Forms.TextBox();
@@ -64,10 +68,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lblApplicationID = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.btnIssue = new System.Windows.Forms.Button();
-            this.lnklblShowNewLicensesInfo = new System.Windows.Forms.LinkLabel();
-            this.lnklblShowLicensesHistory = new System.Windows.Forms.LinkLabel();
             this.gpApplicationInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
@@ -87,7 +87,7 @@
             this.lblMode.AutoSize = true;
             this.lblMode.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold);
             this.lblMode.ForeColor = System.Drawing.Color.Red;
-            this.lblMode.Location = new System.Drawing.Point(336, 9);
+            this.lblMode.Location = new System.Drawing.Point(335, -2);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(216, 33);
             this.lblMode.TabIndex = 175;
@@ -145,6 +145,61 @@
             this.gpApplicationInfo.TabIndex = 196;
             this.gpApplicationInfo.TabStop = false;
             this.gpApplicationInfo.Text = "Application New License Info";
+            // 
+            // lnklblShowNewLicensesInfo
+            // 
+            this.lnklblShowNewLicensesInfo.AutoSize = true;
+            this.lnklblShowNewLicensesInfo.Enabled = false;
+            this.lnklblShowNewLicensesInfo.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.lnklblShowNewLicensesInfo.Location = new System.Drawing.Point(152, 233);
+            this.lnklblShowNewLicensesInfo.Name = "lnklblShowNewLicensesInfo";
+            this.lnklblShowNewLicensesInfo.Size = new System.Drawing.Size(154, 17);
+            this.lnklblShowNewLicensesInfo.TabIndex = 208;
+            this.lnklblShowNewLicensesInfo.TabStop = true;
+            this.lnklblShowNewLicensesInfo.Text = "Show New Licenses Info";
+            this.lnklblShowNewLicensesInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblShowLicensesInfo_LinkClicked);
+            // 
+            // lnklblShowLicensesHistory
+            // 
+            this.lnklblShowLicensesHistory.AutoSize = true;
+            this.lnklblShowLicensesHistory.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.lnklblShowLicensesHistory.Location = new System.Drawing.Point(3, 232);
+            this.lnklblShowLicensesHistory.Name = "lnklblShowLicensesHistory";
+            this.lnklblShowLicensesHistory.Size = new System.Drawing.Size(143, 17);
+            this.lnklblShowLicensesHistory.TabIndex = 207;
+            this.lnklblShowLicensesHistory.TabStop = true;
+            this.lnklblShowLicensesHistory.Text = "Show Licenses History";
+            this.lnklblShowLicensesHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblShowLicensesHistory_LinkClicked);
+            // 
+            // btnClose
+            // 
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnClose.Image = global::DVLDPresentationLayer.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(673, 218);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(86, 29);
+            this.btnClose.TabIndex = 206;
+            this.btnClose.Text = "Close";
+            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnIssue
+            // 
+            this.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIssue.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnIssue.Image = global::DVLDPresentationLayer.Properties.Resources.International_32;
+            this.btnIssue.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnIssue.Location = new System.Drawing.Point(765, 218);
+            this.btnIssue.Name = "btnIssue";
+            this.btnIssue.Size = new System.Drawing.Size(88, 29);
+            this.btnIssue.TabIndex = 205;
+            this.btnIssue.Text = "Issue";
+            this.btnIssue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnIssue.UseVisualStyleBackColor = true;
+            this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
             // 
             // pictureBox11
             // 
@@ -484,61 +539,6 @@
             this.label4.Size = new System.Drawing.Size(107, 15);
             this.label4.TabIndex = 172;
             this.label4.Text = "R.L.Application ID:";
-            // 
-            // btnClose
-            // 
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.btnClose.Image = global::DVLDPresentationLayer.Properties.Resources.Close_32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(673, 218);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(86, 29);
-            this.btnClose.TabIndex = 206;
-            this.btnClose.Text = "Close";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnIssue
-            // 
-            this.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIssue.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.btnIssue.Image = global::DVLDPresentationLayer.Properties.Resources.International_32;
-            this.btnIssue.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIssue.Location = new System.Drawing.Point(765, 218);
-            this.btnIssue.Name = "btnIssue";
-            this.btnIssue.Size = new System.Drawing.Size(88, 29);
-            this.btnIssue.TabIndex = 205;
-            this.btnIssue.Text = "Issue";
-            this.btnIssue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnIssue.UseVisualStyleBackColor = true;
-            this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
-            // 
-            // lnklblShowNewLicensesInfo
-            // 
-            this.lnklblShowNewLicensesInfo.AutoSize = true;
-            this.lnklblShowNewLicensesInfo.Enabled = false;
-            this.lnklblShowNewLicensesInfo.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.lnklblShowNewLicensesInfo.Location = new System.Drawing.Point(152, 233);
-            this.lnklblShowNewLicensesInfo.Name = "lnklblShowNewLicensesInfo";
-            this.lnklblShowNewLicensesInfo.Size = new System.Drawing.Size(154, 17);
-            this.lnklblShowNewLicensesInfo.TabIndex = 208;
-            this.lnklblShowNewLicensesInfo.TabStop = true;
-            this.lnklblShowNewLicensesInfo.Text = "Show New Licenses Info";
-            this.lnklblShowNewLicensesInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblShowLicensesInfo_LinkClicked);
-            // 
-            // lnklblShowLicensesHistory
-            // 
-            this.lnklblShowLicensesHistory.AutoSize = true;
-            this.lnklblShowLicensesHistory.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.lnklblShowLicensesHistory.Location = new System.Drawing.Point(3, 232);
-            this.lnklblShowLicensesHistory.Name = "lnklblShowLicensesHistory";
-            this.lnklblShowLicensesHistory.Size = new System.Drawing.Size(143, 17);
-            this.lnklblShowLicensesHistory.TabIndex = 207;
-            this.lnklblShowLicensesHistory.TabStop = true;
-            this.lnklblShowLicensesHistory.Text = "Show Licenses History";
-            this.lnklblShowLicensesHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblShowLicensesHistory_LinkClicked);
             // 
             // frmRenewLicense
             // 

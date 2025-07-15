@@ -16,6 +16,7 @@ using DVLDPresentationLayer.Local_Driving_License_Applications;
 using DVLDPresentationLayer.Drivers;
 using DVLDPresentationLayer.Licenses.Internatioanl_Licenses;
 using DVLDPresentationLayer.Licenses.Renew_Licenses;
+using DVLDPresentationLayer.Licenses.Replace_Licenses;
 
 namespace DVLDPresentationLayer
 {
@@ -167,6 +168,13 @@ namespace DVLDPresentationLayer
         {
 
             (new frmRenewLicense()).ShowDialog();
+
+        }
+
+        private void replacementForLostOrDamagedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            (new frmReplaceLicense()).ShowDialog();
 
         }
 

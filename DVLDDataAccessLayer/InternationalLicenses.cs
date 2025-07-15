@@ -15,7 +15,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM InternationalLicenses WHERE LicenseID = @LicenseID";
+            string query = "SELECT * FROM InternationalLicenses WHERE InternationalLicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
@@ -109,7 +109,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT 1 AS FOUND FROM InternationalLicenses WHERE LicenseID = @LicenseID";
+            string query = "SELECT 1 AS FOUND FROM InternationalLicenses WHERE InternationalLicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
@@ -210,7 +210,7 @@ namespace DVLDDataAccessLayer
                                 ,[ExpirationDate] = @ExpirationDate
                                 ,[IsActive] = @IsActive
                                 ,[CreatedByUserID] = @CreatedByUserID
-                             WHERE LicenseID = @LicenseID";
+                             WHERE InternationalLicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -248,7 +248,7 @@ namespace DVLDDataAccessLayer
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
             string query = @"DELETE FROM [dbo].[InternationalLicenses]
-                             WHERE LicenseID = @LicenseID";
+                             WHERE InternationalLicenseID = @LicenseID";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@LicenseID", LicenseID);

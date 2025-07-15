@@ -9,25 +9,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLDBusinessLayer;
 
-namespace DVLDPresentationLayer.Licenses.Renew_Licenses
+namespace DVLDPresentationLayer.Licenses.Replace_Licenses
 {
 
-    public partial class frmRenewLicense : Form
+    public partial class frmReplaceLicense : Form
     {
 
-        public clsLicense RenewedLicense { get; private set; }
+        public clsLicense ReplacedLicense { get; private set; }
         public clsApplication Application { get; private set; }
 
-        public frmRenewLicense()
+        public enum enReplacementReason { Lost = 3, Damaged = 4 }
+        enReplacementReason ReplacementReason;
+
+        public frmReplaceLicense()
         {
 
             InitializeComponent();
 
-            RenewedLicense = new clsLicense();
+            ReplacedLicense = new clsLicense();
 
             ctrlDrivingLicenseInfoWithFilter1.OnFilterEventHandler += ShowInformation;
             ctrlDrivingLicenseInfoWithFilter1.OnFilterEventHandler += CheckIsExpired;
             ctrlDrivingLicenseInfoWithFilter1.OnFilterEventHandler += () => { lnklblShowLicensesHistory.Enabled = true; };
+
+            ReplacementReason = rbLostLicense.Checked ? enReplacementReason.Lost : enReplacementReason.Damaged;
 
         }
 
@@ -37,10 +42,10 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
             if (ctrlDrivingLicenseInfoWithFilter1.License == null)
                 return;
 
-            if (DateTime.Now < ctrlDrivingLicenseInfoWithFilter1.License.ExpirationDate)
+            if (DateTime.Now > ctrlDrivingLicenseInfoWithFilter1.License.ExpirationDate)
             {
 
-                MessageBox.Show("This license has not been expired.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This license has already been expired.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 btnIssue.Enabled = false;
                 return;
 
@@ -58,17 +63,14 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
         private void ShowInformation()
         {
 
-            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType(2);
+            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType((int) ReplacementReason);
 
             if (ctrlDrivingLicenseInfoWithFilter1.License == null || ctrlDrivingLicenseInfoWithFilter1.License.LicenseClass == null || ApplicationType == null)
                 return;
 
             lblApplicationDate.Text = DateTime.Now.ToShortDateString();
-            lblIssueDate.Text = DateTime.Now.ToShortDateString();
-            lblLicenseFees.Text = ctrlDrivingLicenseInfoWithFilter1.License.LicenseClass.ClassFees.ToString();
+            lblOldLicenseID.Text = ctrlDrivingLicenseInfoWithFilter1.License.LicenseID.ToString();
             lblApplicationFees.Text = ApplicationType.ApplicationFees.ToString();
-            lblExpirationDate.Text = DateTime.Now.AddYears(1).ToShortDateString();
-            lblTotalFees.Text = (ApplicationType.ApplicationFees + ctrlDrivingLicenseInfoWithFilter1.License.LicenseClass.ClassFees).ToString();
 
             if (Global.user != null)
                 lblCreatedByUser.Text = Global.user.Username;
@@ -81,7 +83,7 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
             if (License == null)
                 return false;
 
-            return (License.IsActive && DateTime.Now > License.ExpirationDate);
+            return (License.IsActive && DateTime.Now < License.ExpirationDate);
 
         }
 
@@ -113,7 +115,7 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
             Application.ApplicantPersonID = License.Driver.PersonID;
             Application.ApplicationDate = DateTime.Now;
             Application.ApplicationStatus = clsApplication.enStatus.Completed;
-            Application.ApplicationTypeID = 2;
+            Application.ApplicationTypeID = (int)ReplacementReason;
             Application.LastStatusDate = DateTime.Now;
             Application.PaidFees = ApplicationType.ApplicationFees;
             Application.CreatedByUserID = Global.user.UserID;
@@ -145,9 +147,9 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
                 return false;
             
             License.ApplicationID = Application.ApplicationID;
-            License.IssueReason = clsLicense.enIssueReason.Renew;
+            License.IssueReason = ReplacementReason == enReplacementReason.Lost ? clsLicense.enIssueReason.LostReplacement : clsLicense.enIssueReason.DamagedReplacement;
             License.LicenseClassID = ctrlDrivingLicenseInfoWithFilter1.License.LicenseClassID;
-            License.Notes = tbNotes.Text;
+            License.Notes = string.Empty;
             License.PaidFees = ctrlDrivingLicenseInfoWithFilter1.License.LicenseClass.ClassFees;
             License.CreatedByUserID = Global.user.UserID;
             License.IssueDate = DateTime.Now;
@@ -169,7 +171,7 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
         private void lnklblShowLicensesInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
-            frmShowDrivingLicenseInfo ShowDriverLicenseInfo = new frmShowDrivingLicenseInfo(RenewedLicense.LicenseID);
+            frmShowDrivingLicenseInfo ShowDriverLicenseInfo = new frmShowDrivingLicenseInfo(ReplacedLicense.LicenseID);
             ShowDriverLicenseInfo.ShowDialog();
 
         }
@@ -184,7 +186,7 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
         private void btnIssue_Click(object sender, EventArgs e)
         {
 
-            if (DateTime.Now < ctrlDrivingLicenseInfoWithFilter1.License.ExpirationDate)
+            if (DateTime.Now > ctrlDrivingLicenseInfoWithFilter1.License.ExpirationDate)
                 return;
 
             if (!ValidateInformation(ctrlDrivingLicenseInfoWithFilter1.License))
@@ -195,9 +197,9 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
 
             }
 
-            clsLicense RenewedLicense = new clsLicense();
+            clsLicense ReplacedLicense = new clsLicense();
 
-            if (!FillLicense(ref RenewedLicense))
+            if (!FillLicense(ref ReplacedLicense))
             {
 
                 MessageBox.Show("Failed to prepare license data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -207,9 +209,9 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
 
             ctrlDrivingLicenseInfoWithFilter1.License.IsActive = false;
 
-            this.RenewedLicense = RenewedLicense;
+            this.ReplacedLicense = ReplacedLicense;
 
-            if (RenewedLicense.Save() && ctrlDrivingLicenseInfoWithFilter1.License.Save())
+            if (ReplacedLicense.Save() && ctrlDrivingLicenseInfoWithFilter1.License.Save())
             {
 
                 MessageBox.Show("Data has been saved successfully.", "Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -224,13 +226,33 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
             }
 
             lblApplicationID.Text = Application.ApplicationID.ToString();
-            lblRenewedLicenseID.Text = RenewedLicense.LicenseID.ToString();
+            lblReplacedLicenseID.Text = ReplacedLicense.LicenseID.ToString();
             lblOldLicenseID.Text = ctrlDrivingLicenseInfoWithFilter1.License.LicenseID.ToString();
 
             lnklblShowNewLicensesInfo.Enabled = true;
 
             ctrlDrivingLicenseInfoWithFilter1.Enabled = false;
             btnIssue.Enabled = false;
+
+        }
+
+        private void rbDamagedLicense_CheckedChanged(object sender, EventArgs e)
+        {
+
+            ReplacementReason = enReplacementReason.Damaged;
+
+            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType((int)ReplacementReason);
+            lblApplicationFees.Text = ApplicationType.ApplicationFees.ToString();
+
+        }
+
+        private void rbLostLicense_CheckedChanged(object sender, EventArgs e)
+        {
+
+            ReplacementReason = enReplacementReason.Lost;
+
+            clsApplicationType ApplicationType = clsApplicationType.FindApplicationType((int)ReplacementReason);
+            lblApplicationFees.Text = ApplicationType.ApplicationFees.ToString();
 
         }
 

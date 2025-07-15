@@ -51,7 +51,7 @@
             this.pnlFilter.Controls.Add(this.tbValue);
             this.pnlFilter.Location = new System.Drawing.Point(12, 24);
             this.pnlFilter.Name = "pnlFilter";
-            this.pnlFilter.Size = new System.Drawing.Size(859, 57);
+            this.pnlFilter.Size = new System.Drawing.Size(422, 57);
             this.pnlFilter.TabIndex = 6;
             // 
             // btnSearch
@@ -60,7 +60,7 @@
             this.btnSearch.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Image = global::DVLDPresentationLayer.Properties.Resources.LocalDriving_License;
-            this.btnSearch.Location = new System.Drawing.Point(809, 0);
+            this.btnSearch.Location = new System.Drawing.Point(372, 0);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(48, 55);
             this.btnSearch.TabIndex = 27;
