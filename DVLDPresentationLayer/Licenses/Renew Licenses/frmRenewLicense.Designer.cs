@@ -34,7 +34,7 @@
             this.lnklblShowNewLicensesInfo = new System.Windows.Forms.LinkLabel();
             this.lnklblShowLicensesHistory = new System.Windows.Forms.LinkLabel();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnIssue = new System.Windows.Forms.Button();
+            this.btnRenew = new System.Windows.Forms.Button();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbNotes = new System.Windows.Forms.TextBox();
@@ -105,7 +105,7 @@
             this.gpApplicationInfo.Controls.Add(this.lnklblShowNewLicensesInfo);
             this.gpApplicationInfo.Controls.Add(this.lnklblShowLicensesHistory);
             this.gpApplicationInfo.Controls.Add(this.btnClose);
-            this.gpApplicationInfo.Controls.Add(this.btnIssue);
+            this.gpApplicationInfo.Controls.Add(this.btnRenew);
             this.gpApplicationInfo.Controls.Add(this.pictureBox11);
             this.gpApplicationInfo.Controls.Add(this.label3);
             this.gpApplicationInfo.Controls.Add(this.tbNotes);
@@ -186,20 +186,20 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnIssue
+            // btnRenew
             // 
-            this.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIssue.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.btnIssue.Image = global::DVLDPresentationLayer.Properties.Resources.International_32;
-            this.btnIssue.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIssue.Location = new System.Drawing.Point(765, 218);
-            this.btnIssue.Name = "btnIssue";
-            this.btnIssue.Size = new System.Drawing.Size(88, 29);
-            this.btnIssue.TabIndex = 205;
-            this.btnIssue.Text = "Issue";
-            this.btnIssue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnIssue.UseVisualStyleBackColor = true;
-            this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
+            this.btnRenew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRenew.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnRenew.Image = global::DVLDPresentationLayer.Properties.Resources.Renew_Driving_License_32;
+            this.btnRenew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRenew.Location = new System.Drawing.Point(765, 218);
+            this.btnRenew.Name = "btnRenew";
+            this.btnRenew.Size = new System.Drawing.Size(88, 29);
+            this.btnRenew.TabIndex = 205;
+            this.btnRenew.Text = "Renew";
+            this.btnRenew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRenew.UseVisualStyleBackColor = true;
+            this.btnRenew.Click += new System.EventHandler(this.btnIssue_Click);
             // 
             // pictureBox11
             // 
@@ -578,7 +578,7 @@
         private System.Windows.Forms.LinkLabel lnklblShowNewLicensesInfo;
         private System.Windows.Forms.LinkLabel lnklblShowLicensesHistory;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnIssue;
+        private System.Windows.Forms.Button btnRenew;
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbNotes;

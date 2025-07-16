@@ -106,7 +106,7 @@ namespace DVLDPresentationLayer.Controls
             lblDateOfBirth.Text = DrivingLicense.Driver.Person.DateOfBirth.ToShortDateString();
             lblDriverID.Text = DrivingLicense.DriverID.ToString();
             lblExpirationDate.Text = DrivingLicense.ExpirationDate.ToShortDateString();
-            lblIsDetained.Text = "No";
+            lblIsDetained.Text = clsDetainedLicense.IsDetained(DrivingLicense.LicenseID) ? "Yes" : "No";
 
         }
 

@@ -41,14 +41,14 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
             {
 
                 MessageBox.Show("This license has not been expired.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnIssue.Enabled = false;
+                btnRenew.Enabled = false;
                 return;
 
             }
             else
             {
 
-                btnIssue.Enabled = true;
+                btnRenew.Enabled = true;
                 return;
 
             }
@@ -230,7 +230,7 @@ namespace DVLDPresentationLayer.Licenses.Renew_Licenses
             lnklblShowNewLicensesInfo.Enabled = true;
 
             ctrlDrivingLicenseInfoWithFilter1.Enabled = false;
-            btnIssue.Enabled = false;
+            btnRenew.Enabled = false;
 
         }
 

@@ -31,7 +31,7 @@
             this.ctrlDrivingLicenseInfo1 = new DVLDPresentationLayer.Controls.ctrlDrivingLicenseInfo();
             this.pnlFilter = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblFilterName = new System.Windows.Forms.Label();
             this.tbValue = new System.Windows.Forms.TextBox();
             this.pnlFilter.SuspendLayout();
             this.SuspendLayout();
@@ -47,7 +47,7 @@
             // 
             this.pnlFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlFilter.Controls.Add(this.btnSearch);
-            this.pnlFilter.Controls.Add(this.label3);
+            this.pnlFilter.Controls.Add(this.lblFilterName);
             this.pnlFilter.Controls.Add(this.tbValue);
             this.pnlFilter.Location = new System.Drawing.Point(12, 24);
             this.pnlFilter.Name = "pnlFilter";
@@ -67,17 +67,17 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label3
+            // lblFilterName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(5, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 17);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "License ID:";
+            this.lblFilterName.AutoSize = true;
+            this.lblFilterName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.lblFilterName.ForeColor = System.Drawing.Color.Black;
+            this.lblFilterName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblFilterName.Location = new System.Drawing.Point(5, 20);
+            this.lblFilterName.Name = "lblFilterName";
+            this.lblFilterName.Size = new System.Drawing.Size(84, 17);
+            this.lblFilterName.TabIndex = 24;
+            this.lblFilterName.Text = "License ID:";
             // 
             // tbValue
             // 
@@ -107,7 +107,7 @@
         private ctrlDrivingLicenseInfo ctrlDrivingLicenseInfo1;
         private System.Windows.Forms.Panel pnlFilter;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblFilterName;
         private System.Windows.Forms.TextBox tbValue;
     }
 }

@@ -46,14 +46,14 @@ namespace DVLDPresentationLayer.Licenses.Replace_Licenses
             {
 
                 MessageBox.Show("This license has already been expired.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnIssue.Enabled = false;
+                btnReplace.Enabled = false;
                 return;
 
             }
             else
             {
 
-                btnIssue.Enabled = true;
+                btnReplace.Enabled = true;
                 return;
 
             }
@@ -232,7 +232,7 @@ namespace DVLDPresentationLayer.Licenses.Replace_Licenses
             lnklblShowNewLicensesInfo.Enabled = true;
 
             ctrlDrivingLicenseInfoWithFilter1.Enabled = false;
-            btnIssue.Enabled = false;
+            btnReplace.Enabled = false;
 
         }
 

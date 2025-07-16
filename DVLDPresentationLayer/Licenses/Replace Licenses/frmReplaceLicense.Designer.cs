@@ -35,7 +35,7 @@
             this.lnklblShowNewLicensesInfo = new System.Windows.Forms.LinkLabel();
             this.lnklblShowLicensesHistory = new System.Windows.Forms.LinkLabel();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnIssue = new System.Windows.Forms.Button();
+            this.btnReplace = new System.Windows.Forms.Button();
             this.gpApplicationInfo = new System.Windows.Forms.GroupBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.lblOldLicenseID = new System.Windows.Forms.Label();
@@ -141,7 +141,7 @@
             this.btnClose.Font = new System.Drawing.Font("Tahoma", 10F);
             this.btnClose.Image = global::DVLDPresentationLayer.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(705, 666);
+            this.btnClose.Location = new System.Drawing.Point(692, 666);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(86, 29);
             this.btnClose.TabIndex = 210;
@@ -150,20 +150,20 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnIssue
+            // btnReplace
             // 
-            this.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIssue.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.btnIssue.Image = global::DVLDPresentationLayer.Properties.Resources.International_32;
-            this.btnIssue.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIssue.Location = new System.Drawing.Point(797, 666);
-            this.btnIssue.Name = "btnIssue";
-            this.btnIssue.Size = new System.Drawing.Size(88, 29);
-            this.btnIssue.TabIndex = 209;
-            this.btnIssue.Text = "Issue";
-            this.btnIssue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnIssue.UseVisualStyleBackColor = true;
-            this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
+            this.btnReplace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReplace.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnReplace.Image = global::DVLDPresentationLayer.Properties.Resources.IssueDrivingLicense_32;
+            this.btnReplace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReplace.Location = new System.Drawing.Point(784, 666);
+            this.btnReplace.Name = "btnReplace";
+            this.btnReplace.Size = new System.Drawing.Size(101, 29);
+            this.btnReplace.TabIndex = 209;
+            this.btnReplace.Text = "Replace";
+            this.btnReplace.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnReplace.UseVisualStyleBackColor = true;
+            this.btnReplace.Click += new System.EventHandler(this.btnIssue_Click);
             // 
             // gpApplicationInfo
             // 
@@ -394,7 +394,7 @@
             this.Controls.Add(this.lnklblShowNewLicensesInfo);
             this.Controls.Add(this.lnklblShowLicensesHistory);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnIssue);
+            this.Controls.Add(this.btnReplace);
             this.Controls.Add(this.rbLostLicense);
             this.Controls.Add(this.rbDamagedLicense);
             this.Controls.Add(this.label11);
@@ -427,7 +427,7 @@
         private System.Windows.Forms.LinkLabel lnklblShowNewLicensesInfo;
         private System.Windows.Forms.LinkLabel lnklblShowLicensesHistory;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnIssue;
+        private System.Windows.Forms.Button btnReplace;
         private System.Windows.Forms.GroupBox gpApplicationInfo;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Label lblOldLicenseID;

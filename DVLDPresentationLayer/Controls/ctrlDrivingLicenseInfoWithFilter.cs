@@ -42,16 +42,16 @@ namespace DVLDPresentationLayer.Controls
 
         }
 
-        public void ApplyFilter(string value)
+        public void ApplyFilter(string FilterName, string Value)
         {
 
             if (dtItems == null)
                 dtItems = clsLicense.GetLicenses();
 
-            if (!Utils.Filtering.FilterDataTable("LicenseID", value, dtItems))
+            if (!Utils.Filtering.FilterDataTable(FilterName, Value, dtItems))
                 MessageBox.Show("Invalid filter!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (dtItems.DefaultView.Count == 1)
-                License.LicenseID = Convert.ToInt32(dtItems.DefaultView[0]["LicenseID"]);
+                License.LicenseID = Convert.ToInt32(dtItems.DefaultView[0][FilterName]);
             else if (dtItems.DefaultView.Count != 1)
                 MessageBox.Show("No matching License found.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -64,10 +64,22 @@ namespace DVLDPresentationLayer.Controls
 
         }
 
+        public void Filter(string FilterName, string Value)
+        {
+
+            ApplyFilter(FilterName, Value);
+
+            tbValue.Text = Value;
+            tbValue.Enabled = false;
+
+            ctrlDrivingLicenseInfo1.Refresh((int)dtItems.DefaultView[0][FilterName]);
+
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
 
-            ApplyFilter(tbValue.Text);
+            ApplyFilter("LicenseID", tbValue.Text);
 
             if (dtItems.DefaultView.Count == 1)
             {
