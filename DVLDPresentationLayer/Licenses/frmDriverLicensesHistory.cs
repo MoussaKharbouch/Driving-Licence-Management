@@ -17,6 +17,9 @@ namespace DVLDPresentationLayer.Licenses
 
         public clsDriver Driver { get; private set; }
 
+        public delegate void OnSave();
+        public event OnSave OnSaveEventHandler;
+
         public frmDriverLicensesHistory(int DriverID)
         {
 
@@ -28,6 +31,14 @@ namespace DVLDPresentationLayer.Licenses
 
             ctrlPersonCardWithFilter1.Filter("PersonID", Driver.PersonID.ToString());
             ctrlDriverLicenseHistory1.Refresh(Driver.DriverID);
+
+        }
+
+        private void frmDriverLicensesHistory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (OnSaveEventHandler != null)
+                OnSaveEventHandler();
 
         }
 

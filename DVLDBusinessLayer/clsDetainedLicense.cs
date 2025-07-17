@@ -1,6 +1,4 @@
-﻿// Business Layer - clsDetainedLicense.cs
-
-using System;
+﻿using System;
 using System.Data;
 using DVLDDataAccessLayer;
 
@@ -157,6 +155,31 @@ namespace DVLDBusinessLayer
 
         }
 
+        public static clsDetainedLicense FindByLicenseID(int LicenseID)
+        {
+
+            int DetainID = -1;
+            DateTime DetainDate = DateTime.Now;
+            decimal FineFees = 0;
+            int CreatedByUserID = -1;
+            bool IsReleased = false;
+            DateTime ReleaseDate = DateTime.MinValue;
+            int ReleasedByUserID = -1;
+            int ReleaseApplicationID = -1;
+
+            if (!DetainedLicensesData.FindDetainedLicenseByLicenseID(LicenseID, ref DetainID, ref DetainDate,
+                                                                     ref FineFees, ref CreatedByUserID,
+                                                                     ref IsReleased, ref ReleaseDate,
+                                                                     ref ReleasedByUserID, ref ReleaseApplicationID))
+                return null;
+
+            return new clsDetainedLicense(DetainID, LicenseID, DetainDate, FineFees,
+                                          CreatedByUserID, IsReleased, ReleaseDate,
+                                          ReleasedByUserID, ReleaseApplicationID);
+
+        }
+
+
         private bool Add()
         {
 
@@ -231,6 +254,14 @@ namespace DVLDBusinessLayer
             return DetainedLicensesData.GetAllDetainedLicenses();
 
         }
+
+        public static DataTable GetDetainedLicensesMainInfo()
+        {
+
+            return DetainedLicensesData.GetDetainedLicensesMainInfo();
+
+        }
+
 
     }
 

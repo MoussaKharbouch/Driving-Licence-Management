@@ -57,6 +57,7 @@
             this.Name = "frmDriverLicensesHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Driver Licenses History";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmDriverLicensesHistory_FormClosing);
             this.ResumeLayout(false);
 
         }

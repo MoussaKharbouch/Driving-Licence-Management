@@ -58,6 +58,55 @@ namespace DVLDDataAccessLayer
 
         }
 
+        public static bool FindDetainedLicenseByLicenseID(int LicenseID, ref int DetainID, ref DateTime DetainDate,
+                                                          ref decimal FineFees, ref int CreatedByUserID,
+                                                          ref bool IsReleased, ref DateTime ReleaseDate,
+                                                          ref int ReleasedByUserID, ref int ReleaseApplicationID)
+        {
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT TOP 1 * FROM DetainedLicenses WHERE LicenseID = @LicenseID AND IsReleased = 0";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@LicenseID", LicenseID);
+
+            bool isFound = false;
+
+            try
+            {
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+
+                    DetainID = int.Parse(reader["DetainID"].ToString());
+                    DetainDate = DateTime.Parse(reader["DetainDate"].ToString());
+                    FineFees = decimal.Parse(reader["FineFees"].ToString());
+                    CreatedByUserID = int.Parse(reader["CreatedByUserID"].ToString());
+                    IsReleased = bool.Parse(reader["IsReleased"].ToString());
+                    ReleaseDate = (reader["ReleaseDate"] != DBNull.Value ? DateTime.Parse(reader["ReleaseDate"].ToString()) : DateTime.MinValue);
+                    ReleasedByUserID = (reader["ReleasedByUserID"] != DBNull.Value ? int.Parse(reader["ReleasedByUserID"].ToString()) : -1);
+                    ReleaseApplicationID = (reader["ReleaseApplicationID"] != DBNull.Value ? int.Parse(reader["ReleaseApplicationID"].ToString()) : -1);
+
+                    isFound = true;
+                }
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+        }
+
         public static bool AddDetainedLicense(ref int DetainID, int LicenseID, DateTime DetainDate,
                                               decimal FineFees, int CreatedByUserID,
                                               bool IsReleased, DateTime ReleaseDate,
@@ -162,7 +211,7 @@ namespace DVLDDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT 1 FROM DetainedLicenses WHERE LicenseID = @LicenseID AND IsReleased = false";
+            string query = "SELECT 1 FROM DetainedLicenses WHERE LicenseID = @LicenseID AND IsReleased = 0";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
@@ -260,7 +309,7 @@ namespace DVLDDataAccessLayer
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            DataTable dt = new DataTable();
+            DataTable DetainedLicenses = new DataTable();
 
             try
             {
@@ -270,7 +319,7 @@ namespace DVLDDataAccessLayer
                 SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)
-                    dt.Load(reader);
+                    DetainedLicenses.Load(reader);
 
                 reader.Close();
 
@@ -280,7 +329,56 @@ namespace DVLDDataAccessLayer
                 connection.Close();
             }
 
-            return dt;
+            return DetainedLicenses;
+
+        }
+
+        public static DataTable GetDetainedLicensesMainInfo()
+        {
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT DetainedLicenses.DetainID as [Detain ID], 
+                             DetainedLicenses.LicenseID as [License ID], 
+                             CASE 
+                                 WHEN DetainedLicenses.IsReleased = 1 THEN 'Yes' 
+                                 ELSE 'No' 
+                             END as [Is Released], 
+                             DetainedLicenses.FineFees, 
+                             DetainedLicenses.ReleaseDate, 
+                             People.NationalNo as [National No], 
+                             LTRIM(RTRIM(
+                                 People.FirstName + 
+                                 ISNULL(' ' + People.SecondName, '') + 
+                                 ISNULL(' ' + People.ThirdName, '') + 
+                                 ISNULL(' ' + People.LastName, '')
+                             )) AS [Full Name], 
+                             DetainedLicenses.ReleaseApplicationID
+                             FROM DetainedLicenses
+                             JOIN Licenses ON DetainedLicenses.LicenseID = Licenses.LicenseID
+                             JOIN Drivers ON Licenses.DriverID = Drivers.DriverID
+                             JOIN People ON Drivers.PersonID = People.PersonID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            DataTable DetainedLicenses = new DataTable();
+
+            try
+            {
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                    DetainedLicenses.Load(reader);
+
+                reader.Close();
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return DetainedLicenses;
 
         }
 

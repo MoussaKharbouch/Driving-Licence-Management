@@ -143,7 +143,7 @@
             this.lblIsDetained.AutoSize = true;
             this.lblIsDetained.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIsDetained.ForeColor = System.Drawing.Color.Black;
-            this.lblIsDetained.Location = new System.Drawing.Point(523, 218);
+            this.lblIsDetained.Location = new System.Drawing.Point(521, 212);
             this.lblIsDetained.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblIsDetained.Name = "lblIsDetained";
             this.lblIsDetained.Size = new System.Drawing.Size(36, 20);
@@ -177,7 +177,7 @@
             this.lblIsActive.AutoSize = true;
             this.lblIsActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIsActive.ForeColor = System.Drawing.Color.Black;
-            this.lblIsActive.Location = new System.Drawing.Point(523, 75);
+            this.lblIsActive.Location = new System.Drawing.Point(521, 69);
             this.lblIsActive.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblIsActive.Name = "lblIsActive";
             this.lblIsActive.Size = new System.Drawing.Size(36, 20);
@@ -222,7 +222,7 @@
             this.lblExpirationDate.AutoSize = true;
             this.lblExpirationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExpirationDate.ForeColor = System.Drawing.Color.Black;
-            this.lblExpirationDate.Location = new System.Drawing.Point(523, 182);
+            this.lblExpirationDate.Location = new System.Drawing.Point(521, 176);
             this.lblExpirationDate.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblExpirationDate.Name = "lblExpirationDate";
             this.lblExpirationDate.Size = new System.Drawing.Size(36, 20);
@@ -234,7 +234,7 @@
             this.lblDriverID.AutoSize = true;
             this.lblDriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDriverID.ForeColor = System.Drawing.Color.Black;
-            this.lblDriverID.Location = new System.Drawing.Point(523, 146);
+            this.lblDriverID.Location = new System.Drawing.Point(521, 140);
             this.lblDriverID.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDriverID.Name = "lblDriverID";
             this.lblDriverID.Size = new System.Drawing.Size(36, 20);
@@ -246,7 +246,7 @@
             this.lblDateOfBirth.AutoSize = true;
             this.lblDateOfBirth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDateOfBirth.ForeColor = System.Drawing.Color.Black;
-            this.lblDateOfBirth.Location = new System.Drawing.Point(523, 110);
+            this.lblDateOfBirth.Location = new System.Drawing.Point(521, 104);
             this.lblDateOfBirth.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
             this.lblDateOfBirth.Size = new System.Drawing.Size(36, 20);
@@ -472,12 +472,12 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(31, 106);
+            this.label22.Location = new System.Drawing.Point(35, 106);
             this.label22.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(93, 20);
+            this.label22.Size = new System.Drawing.Size(89, 20);
             this.label22.TabIndex = 113;
-            this.label22.Text = "License ID :";
+            this.label22.Text = "License ID:";
             // 
             // label5
             // 

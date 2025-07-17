@@ -17,6 +17,8 @@ using DVLDPresentationLayer.Drivers;
 using DVLDPresentationLayer.Licenses.Internatioanl_Licenses;
 using DVLDPresentationLayer.Licenses.Renew_Licenses;
 using DVLDPresentationLayer.Licenses.Replace_Licenses;
+using DVLDPresentationLayer.Licenses.Detain_Licenses;
+using DVLDPresentationLayer.Licenses.Release_Detained_Licenses;
 
 namespace DVLDPresentationLayer
 {
@@ -175,6 +177,38 @@ namespace DVLDPresentationLayer
         {
 
             (new frmReplaceLicense()).ShowDialog();
+
+        }
+
+        private void detainLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmDetainLicense DetainLicense = new frmDetainLicense();
+            DetainLicense.ShowDialog();
+
+        }
+
+        private void releaseDetainedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmReleaseDetainedLicense ReleaseDetainedLicense = new frmReleaseDetainedLicense();
+            ReleaseDetainedLicense.ShowDialog();
+
+        }
+
+        private void manageDetainedLicensesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmManageDetainedLicenses ManageDetainedLicenses = new frmManageDetainedLicenses();
+            ManageDetainedLicenses.ShowDialog();
+
+        }
+
+        private void releaseDeatinedDeivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmReleaseDetainedLicense ReleaseDetainedLicense = new frmReleaseDetainedLicense();
+            ReleaseDetainedLicense.ShowDialog();
 
         }
 

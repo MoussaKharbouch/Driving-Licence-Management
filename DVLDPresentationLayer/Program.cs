@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using DVLDBusinessLayer;
 using DVLDPresentationLayer.Application_Types;
 using DVLDPresentationLayer.Local_Driving_License_Applications;
+using DVLDPresentationLayer.Licenses.Detain_Licenses;
+using DVLDPresentationLayer.Licenses.Release_Detained_Licenses;
 
 namespace DVLDPresentationLayer
 {
@@ -48,7 +50,8 @@ namespace DVLDPresentationLayer
                 } while ((Main.DialogResult == DialogResult.Retry));
 
             //If i want run any from to test features
-            //Application.Run(new frmMain(null));
+            //Global.user = clsUser.FindUser(2);
+            //Application.Run(new frmManageDetainedLicenses());
 
         }
 
