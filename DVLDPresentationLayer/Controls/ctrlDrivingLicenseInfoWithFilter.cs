@@ -72,7 +72,17 @@ namespace DVLDPresentationLayer.Controls
             tbValue.Text = Value;
             tbValue.Enabled = false;
 
-            ctrlDrivingLicenseInfo1.Refresh((int)dtItems.DefaultView[0][FilterName]);
+            if (dtItems.DefaultView.Count == 1)
+            {
+
+                ctrlDrivingLicenseInfo1.Refresh((int)dtItems.DefaultView[0]["LicenseID"]);
+
+                License = clsLicense.FindLicense((int)dtItems.DefaultView[0]["LicenseID"]);
+
+                if (OnFilterEventHandler != null)
+                    OnFilterEventHandler();
+
+            }
 
         }
 

@@ -212,6 +212,13 @@ namespace DVLDPresentationLayer
 
         }
 
+        private void retakeTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            (new frmManageLocalDrivingLicenseApplications()).ShowDialog();
+
+        }
+
     }
 
 }

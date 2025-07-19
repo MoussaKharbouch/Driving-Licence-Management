@@ -60,12 +60,12 @@
             this.internationalLicenseApplicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsDetainLicenses = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsManageApplicationTypes = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsManageTestTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.detainLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseDetainedLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageDetainedLicensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsManageApplicationTypes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsManageTestTypes = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -355,6 +355,7 @@
             this.retakeTestToolStripMenuItem.Name = "retakeTestToolStripMenuItem";
             this.retakeTestToolStripMenuItem.Size = new System.Drawing.Size(316, 38);
             this.retakeTestToolStripMenuItem.Text = "Retake Test";
+            this.retakeTestToolStripMenuItem.Click += new System.EventHandler(this.retakeTestToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -405,29 +406,6 @@
             this.tsDetainLicenses.Size = new System.Drawing.Size(264, 70);
             this.tsDetainLicenses.Text = "Detain Licenses";
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(261, 6);
-            // 
-            // tsManageApplicationTypes
-            // 
-            this.tsManageApplicationTypes.Image = global::DVLDPresentationLayer.Properties.Resources.Application_Types_64;
-            this.tsManageApplicationTypes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsManageApplicationTypes.Name = "tsManageApplicationTypes";
-            this.tsManageApplicationTypes.Size = new System.Drawing.Size(264, 70);
-            this.tsManageApplicationTypes.Text = "Manage Application Types";
-            this.tsManageApplicationTypes.Click += new System.EventHandler(this.tsManageApplicationTypes_Click);
-            // 
-            // tsManageTestTypes
-            // 
-            this.tsManageTestTypes.Image = global::DVLDPresentationLayer.Properties.Resources.Test_Type_64;
-            this.tsManageTestTypes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsManageTestTypes.Name = "tsManageTestTypes";
-            this.tsManageTestTypes.Size = new System.Drawing.Size(264, 70);
-            this.tsManageTestTypes.Text = "Manage Test Types";
-            this.tsManageTestTypes.Click += new System.EventHandler(this.tsManageTestTypes_Click);
-            // 
             // detainLicenseToolStripMenuItem
             // 
             this.detainLicenseToolStripMenuItem.Image = global::DVLDPresentationLayer.Properties.Resources.Detain_32;
@@ -451,6 +429,29 @@
             this.manageDetainedLicensesToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.manageDetainedLicensesToolStripMenuItem.Text = "Manage detained licenses";
             this.manageDetainedLicensesToolStripMenuItem.Click += new System.EventHandler(this.manageDetainedLicensesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(261, 6);
+            // 
+            // tsManageApplicationTypes
+            // 
+            this.tsManageApplicationTypes.Image = global::DVLDPresentationLayer.Properties.Resources.Application_Types_64;
+            this.tsManageApplicationTypes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsManageApplicationTypes.Name = "tsManageApplicationTypes";
+            this.tsManageApplicationTypes.Size = new System.Drawing.Size(264, 70);
+            this.tsManageApplicationTypes.Text = "Manage Application Types";
+            this.tsManageApplicationTypes.Click += new System.EventHandler(this.tsManageApplicationTypes_Click);
+            // 
+            // tsManageTestTypes
+            // 
+            this.tsManageTestTypes.Image = global::DVLDPresentationLayer.Properties.Resources.Test_Type_64;
+            this.tsManageTestTypes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsManageTestTypes.Name = "tsManageTestTypes";
+            this.tsManageTestTypes.Size = new System.Drawing.Size(264, 70);
+            this.tsManageTestTypes.Text = "Manage Test Types";
+            this.tsManageTestTypes.Click += new System.EventHandler(this.tsManageTestTypes_Click);
             // 
             // frmMain
             // 

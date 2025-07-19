@@ -32,14 +32,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnLogin = new System.Windows.Forms.Button();
-            this.xbRememberMe = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -70,7 +69,6 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.btnLogin);
-            this.panel2.Controls.Add(this.xbRememberMe);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.tbPassword);
             this.panel2.Controls.Add(this.label2);
@@ -82,78 +80,66 @@
             this.panel2.Size = new System.Drawing.Size(200, 382);
             this.panel2.TabIndex = 1;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.Color.DarkGreen;
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(61, 279);
+            this.btnLogin.Location = new System.Drawing.Point(63, 251);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 12;
+            this.btnLogin.TabIndex = 18;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // xbRememberMe
-            // 
-            this.xbRememberMe.AutoSize = true;
-            this.xbRememberMe.Location = new System.Drawing.Point(51, 233);
-            this.xbRememberMe.Name = "xbRememberMe";
-            this.xbRememberMe.Size = new System.Drawing.Size(94, 17);
-            this.xbRememberMe.TabIndex = 11;
-            this.xbRememberMe.Text = "Remember Me";
-            this.xbRememberMe.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 185);
+            this.label3.Location = new System.Drawing.Point(20, 205);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
-            this.label3.TabIndex = 10;
+            this.label3.TabIndex = 17;
             this.label3.Text = "Password:";
             // 
             // tbPassword
             // 
-            this.tbPassword.Location = new System.Drawing.Point(81, 182);
+            this.tbPassword.Location = new System.Drawing.Point(81, 202);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(100, 20);
-            this.tbPassword.TabIndex = 9;
-            this.tbPassword.Validating += new System.ComponentModel.CancelEventHandler(this.CheckField);
+            this.tbPassword.TabIndex = 16;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 143);
+            this.label2.Location = new System.Drawing.Point(22, 163);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 8;
+            this.label2.TabIndex = 15;
             this.label2.Text = "Usename:";
             // 
             // tbUsername
             // 
-            this.tbUsername.Location = new System.Drawing.Point(81, 140);
+            this.tbUsername.Location = new System.Drawing.Point(81, 160);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(100, 20);
-            this.tbUsername.TabIndex = 7;
-            this.tbUsername.Validating += new System.ComponentModel.CancelEventHandler(this.CheckField);
+            this.tbUsername.TabIndex = 14;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Engravers MT", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label1.Location = new System.Drawing.Point(34, 67);
+            this.label1.Location = new System.Drawing.Point(33, 109);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(134, 31);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 13;
             this.label1.Text = "Login";
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
             // 
             // frmLogin
             // 
@@ -181,13 +167,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.CheckBox xbRememberMe;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

@@ -152,6 +152,8 @@ namespace DVLDPresentationLayer.Licenses.Detain_Licenses
                 return;
 
             frmDriverLicensesHistory DriverLicensesHistory = new frmDriverLicensesHistory(License.DriverID);
+            DriverLicensesHistory.OnSaveEventHandler += LoadItems;
+
             DriverLicensesHistory.ShowDialog();
 
         }
