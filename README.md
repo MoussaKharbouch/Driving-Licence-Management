@@ -34,9 +34,3 @@ This project demonstrates real-world **software engineering principles** applied
 - Secure and structured data management  
 
 It reflects practical experience in designing enterprise-level desktop applications with a strong emphasis on backend design and clean coding practices.
-
----
-
-## 🔗 Repository
-
-[GitHub – DVLD System](https://github.com/MoussaKharbouch/Driving-Licence-Management)
